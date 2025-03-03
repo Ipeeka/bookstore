@@ -1,0 +1,25 @@
+import { Module } from '@nestjs/common';
+import { MongooseModule } from '@nestjs/mongoose';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+import { AuthModule } from './Modules/Auth/auth.module';
+import { ConfigModule } from '@nestjs/config';
+import { UserModule } from './Modules/User/user.module';
+import { BooksModule } from './Modules/Books/Services/books.service.interface';
+import { BookDetailsModule } from './Modules/BooksDetails/book-detail.module';
+
+
+
+@Module({
+  imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
+    MongooseModule.forRoot(process.env.DATABASE_URL as string),
+    AuthModule,
+    BooksModule,
+    UserModule,
+    BookDetailsModule
+  ],
+  controllers: [AppController],
+  providers: [AppService],
+})
+export class AppModule {}
