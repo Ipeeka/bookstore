@@ -4,11 +4,9 @@ import {
   inject,
   OnInit,
 } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import {  MatTableModule } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
-import { EditProfileComponent } from '../edit-profile/edit-profile.component';
-import { MatIcon, MatIconModule } from '@angular/material/icon';
+import {  MatIconModule } from '@angular/material/icon';
 import { EditUserComponent } from '../edit-user/edit-user.component';
 import { Subscription } from 'rxjs';
 import { MatCardModule } from '@angular/material/card';
@@ -19,7 +17,6 @@ import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
-import { MatTooltip } from '@angular/material/tooltip';
 import { UserService } from '../../../shared/services/user.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';

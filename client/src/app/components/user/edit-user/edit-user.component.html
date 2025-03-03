@@ -16,19 +16,19 @@
     <input matInput formControlName="email" required />
   </mat-form-field>
 
-  
-  
   <div class="button-container">
     <div>
       <button mat-raised-button (click)="close()">Cancel</button>
-     </div>
+    </div>
     <div>
-      <button mat-raised-button color="primary" type="submit" [disabled]="!userForm.valid">
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="!userForm.valid"
+      >
         Save
       </button>
     </div>
-  
-    
   </div>
-  
 </form>

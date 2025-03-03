@@ -3,7 +3,6 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environments';
 
-
 @Injectable({
   providedIn: 'root',
 })
@@ -15,9 +14,9 @@ export class BookService {
   getBooks(filters: {
     genre?: string;
     available?: boolean;
-    price?: number
+    price?: number;
   }): Observable<any[]> {
-    debugger
+    debugger;
     let params = new HttpParams();
     if (filters.genre) {
       params = params.set('genre', filters.genre);
@@ -25,18 +24,17 @@ export class BookService {
     if (filters.available !== undefined) {
       params = params.set('availability', filters.available.toString());
     }
-    
+
     if (filters.price !== undefined) {
-      debugger
+      debugger;
       params = params.set('price', filters.price);
     }
-
 
     return this.http.get<any[]>(this.apiUrl, { params });
   }
 
   addBook(book: any): Observable<any> {
-    debugger
+    debugger;
     return this.http.post<any>(`${this.apiUrl}/add`, book);
   }
   getAllBooks(filter?: {
@@ -66,26 +64,31 @@ export class BookService {
     return this.http.get<any>(`${this.apiUrl}/search`, { params });
   }
 
-  updateBookLikeDisLike(query: any){
+  updateBookLikeDisLike(query: any) {
     const params = new HttpParams().set('query', query);
     return this.http.put<any>(`${this.apiUrls}`, { params });
   }
 
-  getBookDetails(){
+  getBookDetails() {
     return this.http.get<any[]>(this.apiUrls);
   }
 
   addBookDetails(bookDetail: any): Observable<any> {
-    debugger
+    debugger;
     return this.http.post<any>(`${this.apiUrls}`, bookDetail);
   }
 
-  toggleBookmark(id: string, currentBookmarkedStatus: boolean): Observable<any> {
+  toggleBookmark(
+    id: string,
+    currentBookmarkedStatus: boolean
+  ): Observable<any> {
     const newBookmarkedStatus = !currentBookmarkedStatus;
-    
-    return this.http.put<any>(`${this.apiUrl}/${id}/bookmark`, { toggleBookmarked: newBookmarkedStatus });
+
+    return this.http.put<any>(`${this.apiUrl}/${id}/bookmark`, {
+      toggleBookmarked: newBookmarkedStatus,
+    });
   }
-  
+
   getBookmarkedBooks(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/bookmarked`);
   }
