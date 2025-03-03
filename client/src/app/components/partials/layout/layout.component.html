@@ -1,0 +1,93 @@
+<div class="main">
+  <div class="header">
+    <app-header></app-header>
+  </div>
+
+  <div class="main-wrapper d-flex">
+    <div class="sidebar">
+      <div class="list-group">
+        <ng-container *ngFor="let item of menuItems">
+          <a
+            *ngIf="!item.children"
+            [routerLink]="item.RouterLink"
+            routerLinkActive="active"
+            class="side-nav-button"
+          >
+            <i class="{{ item.icon }}"></i> {{ item.name }}
+          </a>
+
+          <div *ngIf="item.children" class="tree-item">
+            <button
+              class="side-nav-button"
+              mat-button
+              (click)="toggleTree(item)"
+            >
+              <i class="{{ item.icon }}"></i> {{ item.name }}
+            </button>
+            <div *ngIf="item.isExpanded" class="nested-tree">
+              <a
+                *ngFor="let subItem of item.children"
+                [routerLink]="subItem.RouterLink"
+                routerLinkActive="active"
+                class="list-group-item side-nav-button"
+              >
+                <i class="{{ subItem.icon }}"></i> {{ subItem.name }}
+              </a>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="layout">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+
+  <div class="floating-btn" cdkDrag>
+    <button mat-fab color="primary" (click)="onFloatingMenuClick()">
+      <i class="fas fa-headset" pBadge value="2"></i>
+    </button>
+
+    <div
+      *ngIf="isMenuOpen"
+      class="floating-chat"
+      [class.expanded]="isMenuExpanded"
+    >
+      <div class="chat-header">
+        <span>Chat</span>
+        <i
+          class="pi pi-chevron-up"
+          (click)="onToggleExpandCollapse()"
+          style="cursor: pointer"
+        ></i>
+        <i
+          class="pi pi-bars"
+          (mousedown)="onResizeChatBox($event)"
+          style="cursor: ew-resize; margin-left: auto"
+        ></i>
+      </div>
+      <div class="chat-body">
+        <div class="messages">
+          <div class="message">
+            <span>User1:</span> Hello, how can I help you?
+          </div>
+          <div class="message">
+            <span>User2:</span> I need some help with my account.
+          </div>
+        </div>
+        <div class="chat-input">
+          <input
+            type="text"
+            pInputText
+            [(ngModel)]="value"
+            placeholder="Type a message..."
+          />
+          <button mat-button (click)="onMenuItemClick('send')">
+            <i class="pi pi-send"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

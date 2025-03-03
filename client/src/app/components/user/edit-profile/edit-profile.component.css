@@ -1,0 +1,112 @@
+.container {
+  width: 100%;
+
+  margin: 10px;
+  padding: 15px;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 0px;
+}
+
+.col-md-4 {
+  max-width: 25%;
+  padding: 15px;
+}
+
+.profile-img {
+  max-width: 100%;
+}
+
+.profile-img img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #ddd;
+}
+
+.col-md-7 {
+  max-width: 75%;
+  padding: 15px;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.card-title {
+  margin-bottom: 15px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: row;
+}
+
+.input-group input {
+  flex: 1;
+}
+
+input.form-control {
+  width: 100%;
+}
+
+@media (max-width: 1024px) and (min-width: 768px) {
+  .container {
+    max-width: 90%;
+    padding: 20px;
+  }
+
+  .col-md-4 {
+    max-width: 30%;
+    padding: 10px;
+  }
+
+  .col-md-7 {
+    max-width: 65%;
+    padding: 10px;
+  }
+
+  .profile-img img {
+    width: 110px;
+    height: 110px;
+  }
+
+  .card-body {
+    padding: 15px;
+  }
+
+  .row {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .form-group {
+    margin-bottom: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  .col-md-4,
+  .col-md-7 {
+    max-width: 100%;
+    padding: 10px;
+  }
+
+  .profile-img img {
+    width: 100px;
+    height: 100px;
+  }
+
+  .row {
+    flex-direction: column;
+    align-items: center;
+  }
+}

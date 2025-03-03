@@ -1,0 +1,102 @@
+<p-toast></p-toast>
+
+<div class="auth-screen d-flex justify-content-center align-items-center">
+  <div class="auth-container d-flex justify-content-between">
+    <div class="auth-left d-flex justify-content-center align-items-center">
+      <img src="/assets/auth.jpg" alt="Login" class="img-fluid rounded" />
+    </div>
+
+    <div class="auth-right d-flex justify-content-center align-items-center">
+      <div class="auth-forms">
+        <h3 class="auth-card-title text-center">Login</h3>
+        <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+          <div class="form-field">
+            <p-floatLabel class="w-100">
+              <input
+                pInputText
+                id="email"
+                formControlName="email"
+                autocomplete="off"
+                placeholder="Enter your email"
+                class="form-control"
+                [style]="{ width: '100%' }"
+              />
+              <label for="email">Email</label>
+              <p
+                *ngIf="
+                  loginForm.get('email')?.hasError('required') &&
+                  loginForm.get('email')?.touched
+                "
+                class="error-message"
+              >
+                Email is required.
+              </p>
+              <p
+                *ngIf="
+                  loginForm.get('email')?.hasError('email') &&
+                  loginForm.get('email')?.touched
+                "
+                class="error-message"
+              >
+                Please enter a valid email address.
+              </p>
+            </p-floatLabel>
+          </div>
+
+          <div class="form-field">
+            <p-floatLabel class="w-100">
+              <p-password
+                formControlName="password"
+                toggleMask="true"
+                [feedback]="false"
+                [showClear]="false"
+                placeholder="Enter your password"
+                required
+                class="form-control"
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+              ></p-password>
+              <label for="password">Password</label>
+              <p
+                *ngIf="
+                  loginForm.get('password')?.hasError('required') &&
+                  loginForm.get('password')?.touched
+                "
+                class="error-message"
+              >
+                Password is required.
+              </p>
+            </p-floatLabel>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <button
+              type="button"
+              class="forgot-password-btn"
+              routerLink="forgot-password"
+            >
+              Forgot Password?
+            </button>
+
+            <div class="submit-button-container">
+              <button
+                pButton
+                class="btn btn-primary"
+                type="submit"
+                [disabled]="!loginForm.valid"
+                label="Login"
+              ></button>
+            </div>
+          </div>
+        </form>
+
+        <div class="form-footer mt-3">
+          <p>
+            Don’t have an account?
+            <button class="sign-up-btn" routerLink="register">Sign up</button>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

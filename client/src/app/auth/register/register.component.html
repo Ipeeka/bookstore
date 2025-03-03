@@ -1,0 +1,177 @@
+<p-toast />
+<div class="auth-screen onload">
+  <div class="auth-container" id="authRegister">
+    <div class="auth-left d-flex justify-content-center align-items-center">
+      <div class="auth-graphic">
+        <img alt="Register" class="img-fluid" src="/assets/login.jpg" />
+      </div>
+    </div>
+
+    <div class="auth-right d-flex justify-content-center align-items-center">
+      <p-card class="auth-forms">
+        <h3 class="auth-card-title text-center">Register</h3>
+
+        <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+          <div class="form-field inp">
+            <p-floatLabel class="full-width">
+              <input
+                pInputText
+                id="email"
+                formControlName="email"
+                autocomplete="off"
+                [style]="{ width: '100%' }"
+              />
+              <label for="email">Email</label>
+              <p
+                *ngIf="
+                  registerForm.get('email')?.hasError('required') &&
+                  registerForm.get('email')?.touched
+                "
+                class="error-message"
+              >
+                Email is required.
+              </p>
+              <p
+                *ngIf="
+                  registerForm.get('email')?.hasError('email') &&
+                  registerForm.get('email')?.touched
+                "
+                class="error-message"
+              >
+                Please enter a valid email address.
+              </p>
+            </p-floatLabel>
+          </div>
+
+          <div class="form-row">
+            <div class="form-field inp">
+              <p-floatLabel class="full-width">
+                <input
+                  pInputText
+                  id="firstName"
+                  formControlName="firstName"
+                  autocomplete="off"
+                  [style]="{ width: '95%' }"
+                />
+                <label for="firstName">First Name</label>
+                <p
+                  *ngIf="
+                    registerForm.get('firstName')?.hasError('required') &&
+                    registerForm.get('firstName')?.touched
+                  "
+                  class="error-message"
+                >
+                  First Name is required.
+                </p>
+              </p-floatLabel>
+            </div>
+
+            <div class="form-field inp">
+              <p-floatLabel class="full-width">
+                <input
+                  pInputText
+                  id="lastName"
+                  formControlName="lastName"
+                  autocomplete="off"
+                  [style]="{ width: '95%' }"
+                />
+                <label for="lastName">Last Name</label>
+                <p
+                  *ngIf="
+                    registerForm.get('lastName')?.hasError('required') &&
+                    registerForm.get('lastName')?.touched
+                  "
+                  class="error-message"
+                >
+                  Last Name is required.
+                </p>
+              </p-floatLabel>
+            </div>
+          </div>
+
+          <div class="form-field inp">
+            <p-floatLabel class="full-width">
+              <input
+                pInputText
+                id="userName"
+                formControlName="userName"
+                autocomplete="off"
+                [style]="{ width: '100%' }"
+              />
+              <label for="userName">Username</label>
+              <p
+                *ngIf="
+                  registerForm.get('userName')?.hasError('required') &&
+                  registerForm.get('userName')?.touched
+                "
+                class="error-message"
+              >
+                Username is required.
+              </p>
+            </p-floatLabel>
+          </div>
+
+          <div class="form-field inp">
+            <p-dropdown
+              formControlName="role"
+              [options]="role"
+              placeholder="Select Role"
+              required
+              [style]="{ width: '100%' }"
+            ></p-dropdown>
+            <p
+              *ngIf="
+                registerForm.get('role')?.hasError('required') &&
+                registerForm.get('role')?.touched
+              "
+              class="error-message"
+            >
+              Role is required.
+            </p>
+          </div>
+
+          <div class="form-field inp password-input">
+            <p-floatLabel class="full-width">
+              <p-password
+                formControlName="password"
+                [toggleMask]="true"
+                [feedback]="false"
+                [showClear]="false"
+                required
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+              ></p-password>
+              <label for="password">Password</label>
+              <p
+                *ngIf="
+                  registerForm.get('password')?.hasError('required') &&
+                  registerForm.get('password')?.touched
+                "
+                class="error-message"
+              >
+                Password is required.
+              </p>
+            </p-floatLabel>
+          </div>
+
+          <div class="button-container submit-button-container">
+            <div>
+              <button
+                pButton
+                label="Register"
+                type="submit"
+                [disabled]="!registerForm.valid"
+              ></button>
+            </div>
+          </div>
+        </form>
+        <div class="form-footer mt-3">
+          <p>
+            Already have an account?
+            <button class="sign-in-btn" routerLink="/login">Login here</button>
+          </p>
+        </div>
+      </p-card>
+    </div>
+  </div>
+</div>

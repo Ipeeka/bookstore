@@ -1,0 +1,34 @@
+<h2>Manage User</h2>
+
+<form [formGroup]="userForm" (ngSubmit)="saveProfile()">
+  <mat-form-field>
+    <mat-label>First Name</mat-label>
+    <input matInput formControlName="firstName" required />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Last Name</mat-label>
+    <input matInput formControlName="lastName" required />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Email</mat-label>
+    <input matInput formControlName="email" required />
+  </mat-form-field>
+
+  
+  
+  <div class="button-container">
+    <div>
+      <button mat-raised-button (click)="close()">Cancel</button>
+     </div>
+    <div>
+      <button mat-raised-button color="primary" type="submit" [disabled]="!userForm.valid">
+        Save
+      </button>
+    </div>
+  
+    
+  </div>
+  
+</form>

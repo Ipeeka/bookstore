@@ -1,0 +1,159 @@
+body {
+  font-family: "Arial", "Helvetica", sans-serif;
+}
+
+.auth-screen {
+  display: flex;
+  height: 100vh;
+}
+
+.auth-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.auth-left {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.auth-graphic img {
+  width: 100%;
+  height: auto;
+}
+
+.auth-right {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.auth-forms {
+  width: 100%;
+  max-width: 450px;
+  margin: 0 auto;
+}
+
+.auth-card-title {
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.form-card {
+  padding: 2rem;
+  border-radius: 8px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.form-field {
+  margin-bottom: 25px;
+}
+
+.form-field label {
+  font-size: 14px;
+  color: #555;
+}
+
+.p-inputtext,
+.p-password,
+.p-dropdown {
+  width: 100%;
+  border-radius: 4px;
+  padding: 10px;
+}
+
+.p-password input {
+  height: 40px;
+}
+
+.p-dropdown {
+  height: 40px;
+}
+
+.form-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-row .form-field {
+  width: 48%;
+}
+
+.password-input {
+  margin-top: 10px;
+}
+
+.error-message {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+}
+
+.submit-button-container {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.p-button {
+  width: 100%;
+  height: 40px;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+}
+
+.p-button:disabled {
+  background-color: #cccccc;
+}
+
+.p-button:not(:disabled):hover {
+  background-color: #0056b3;
+}
+
+.form-footer {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.form-footer p {
+  font-size: 14px;
+  color: #555;
+}
+
+.form-footer button {
+  color: #007bff;
+  border: none;
+  background: none;
+}
+
+.form-footer button:hover {
+  text-decoration: underline;
+}
+
+.sign-in-btn {
+  background: none;
+  border: none;
+  color: #007bff;
+  font-weight: bold;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.sign-in-btn:hover {
+  color: #0056b3;
+}

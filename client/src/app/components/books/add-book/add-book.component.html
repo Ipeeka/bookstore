@@ -1,0 +1,104 @@
+<p-toast></p-toast>
+
+
+<p-dialog
+  header="Add Book"
+  [(visible)]="displayDialog"
+  [modal]="true"
+  [closable]="true"
+  
+>
+  <form [formGroup]="addBookForm" (ngSubmit)="onSubmit()">
+    <div class="p-fluid">
+      <div class="p-field">
+        <label for="title">Title</label>
+        <input id="title" pInputText formControlName="title" required />
+        <p-messages
+          *ngIf="addBookForm.get('title')?.hasError('required')"
+          severity="error"
+          text="Title is required"
+        ></p-messages>
+      </div>
+
+      <div class="p-field">
+        <label for="author">Author</label>
+        <input id="author" pInputText formControlName="author" required />
+        <p-messages
+          *ngIf="addBookForm.get('author')?.hasError('required')"
+          severity="error"
+          text="Author is required"
+        ></p-messages>
+      </div>
+
+      <div class="p-field">
+        <label for="publicationYear">Publication Year</label>
+        <input
+          id="publicationYear"
+          pInputText
+          formControlName="publicationYear"
+          required
+        />
+        <p-messages
+          *ngIf="addBookForm.get('publicationYear')?.hasError('required')"
+          severity="error"
+          text="Year is required"
+        ></p-messages>
+        <p-messages
+          *ngIf="addBookForm.get('publicationYear')?.hasError('min')"
+          severity="error"
+          text="Year must be at least 1900"
+        ></p-messages>
+        <p-messages
+          *ngIf="addBookForm.get('publicationYear')?.hasError('max')"
+          severity="error"
+          text="Year cannot be in the future"
+        ></p-messages>
+      </div>
+
+      <div class="p-field">
+        <label for="price">Price</label>
+        <input id="price" pInputText formControlName="price" required />
+        <p-messages
+          *ngIf="addBookForm.get('price')?.hasError('required')"
+          severity="error"
+          text="Price is required"
+        ></p-messages>
+        <p-messages
+          *ngIf="addBookForm.get('price')?.hasError('pattern')"
+          severity="error"
+          text="Price must be a valid number"
+        ></p-messages>
+      </div>
+
+      <div class="p-field">
+        <label for="genre">Genre</label>
+        <input id="genre" pInputText formControlName="genre" required />
+        <p-messages
+          *ngIf="addBookForm.get('genre')?.hasError('required')"
+          severity="error"
+          text="Genre is required"
+        ></p-messages>
+      </div>
+
+      <!-- <div class="p-field-checkbox">
+        <p-checkbox
+          formControlName="availability"
+          label="Available"
+
+        ></p-checkbox>
+      </div> -->
+    </div>
+  </form>
+  <p-footer>
+    <button
+      pButton
+      type="submit"
+      label="Add Book"
+      [disabled]="addBookForm.invalid"
+      (click)="onSubmit()"
+    ></button>
+  </p-footer>
+</p-dialog>
+
+
+<!-- <button pButton type="button" label="Add Book" (click)="showDialog()"></button> -->

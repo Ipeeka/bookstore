@@ -1,0 +1,18 @@
+<h2>Bookmarked Books</h2>
+<table mat-table [dataSource]="bookmarkedBooks">
+  <!-- Table Columns -->
+  <ng-container matColumnDef="title">
+    <th mat-header-cell *matHeaderCellDef> Title </th>
+    <td mat-cell *matCellDef="let book">{{ book.title }}</td>
+  </ng-container>
+  
+  <ng-container matColumnDef="author">
+    <th mat-header-cell *matHeaderCellDef> Author </th>
+    <td mat-cell *matCellDef="let book">{{ book.author }}</td>
+  </ng-container>
+
+  <!-- More Columns -->
+
+  <tr mat-header-row *matHeaderRowDef="['title', 'author']"></tr>
+  <tr mat-row *matRowDef="let row; columns: ['title', 'author'];"></tr>
+</table>

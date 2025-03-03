@@ -1,0 +1,35 @@
+<p-toolbar [style]="{ backgroundColor: '#ddd' }">
+  <div class="header">
+    <h2 class="heading">Bookstore Inventory Management System</h2>
+  </div>
+
+  <span class="right">
+    <p-button *ngIf="!isLoggedIn" label="Login" icon="pi pi-user"></p-button>
+    
+    <button class="notification fa-btn">
+      <i class="fas fa-bell"></i>
+    </button>
+
+    <div *ngIf="userProfileVisible">
+      <div class="user-profile">
+        <h4>Hi, {{ userName }}</h4>
+
+        <button class="avatar fa-btn" (click)="toggleProfileMenu()">
+          <i class="fa fa-user"></i>
+        </button>
+
+        <p-menu
+          *ngIf="profileMenuVisible"
+          [model]="profileItems"
+          class="profile-menu"
+        ></p-menu>
+      </div>
+    </div>
+  </span>
+</p-toolbar>
+
+<div class="card flex justify-center">
+  <p-toast></p-toast>
+
+  <p-confirmDialog></p-confirmDialog>
+</div>
