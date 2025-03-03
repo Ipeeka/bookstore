@@ -1,20 +1,30 @@
 <p-toolbar [style]="{ backgroundColor: '#ddd' }">
-  <div class="header">
-    <h2 class="heading">Bookstore Inventory Management System</h2>
+  <div class="header" >
+    <img src="assets/logo.png" alt="Cart" style="width: 160px;
+    height: 80px;"/>
   </div>
 
   <span class="right">
     <p-button *ngIf="!isLoggedIn" label="Login" icon="pi pi-user"></p-button>
-    
+
+  <div class="nav-btn" style="margin-right: 10px;">
+       
     <button class="notification fa-btn">
-      <i class="fas fa-bell"></i>
+      <i class="pi pi-bell"></i>
     </button>
+
+    <button class="cart fa-btn" style="border: none;">
+      <i class="pi pi-shopping-cart"></i>
+    </button>
+    </div>
+   
+   
 
     <div *ngIf="userProfileVisible">
       <div class="user-profile">
         <h4>Hi, {{ userName }}</h4>
 
-        <button class="avatar fa-btn" (click)="toggleProfileMenu()">
+        <button class="avatar fa-btn"  (click)="toggleProfileMenu()">
           <i class="fa fa-user"></i>
         </button>
 

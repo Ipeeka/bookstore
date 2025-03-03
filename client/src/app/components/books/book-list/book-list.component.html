@@ -1,6 +1,6 @@
 <div class="book-list">
   <div class="header-container">
-    <h1 style="width: 200px">BOOK LIST</h1>
+    <h1 style="width: 200px">BOOK LIST:</h1>
 
     <div class="booklist-container">
       <div class="search-bar">
@@ -298,14 +298,32 @@
                   <span>{{ element.download }}</span>
 
                   <button
-                  mat-icon-button
-                  aria-label="bookmark"
-                  matTooltip="{{ element.bookmarked ? 'Remove from Bookmarks' : 'Add to Bookmarks' }}"
-                  (click)="toggleBookmark(element._id,element.bookmarked)"
-                >
-                  <mat-icon>{{ element.bookmarked ? 'bookmark' : 'bookmark_border' }}</mat-icon>
-                </button>
-                <span>{{ element.bookmarked ? 'Bookmarked' : 'Not Bookmarked' }}</span>
+                    mat-icon-button
+                    aria-label="bookmark"
+                    matTooltip="{{
+                      element.bookmarked
+                        ? 'Remove from Bookmarks'
+                        : 'Add to Bookmarks'
+                    }}"
+                    (click)="toggleBookmark(element._id, element.bookmarked)"
+                  >
+                    <mat-icon>{{
+                      element.bookmarked ? "bookmark" : "bookmark_border"
+                    }}</mat-icon>
+                  </button>
+                  <span>{{
+                    element.bookmarked ? "Bookmarked" : "Not Bookmarked"
+                  }}</span>
+
+                  <button
+                    mat-icon-button
+                    aria-label="cart"
+                    matTooltip="add to cart"
+                  >
+                  <mat-icon style="color: #888">shopping_cart</mat-icon>
+
+                  </button>
+                  <span>{{ element.download }}</span>
 
                   <div
                     class="comment-toggle-container"
@@ -474,12 +492,14 @@
     <div *ngIf="dataSource.data.length === 0" class="no-data-message">
       No data found , try something else .
     </div>
-    <mat-paginator
-      [length]="dataSource.data.length"
-      [pageSize]="5"
-      [pageSizeOptions]="[5, 10, 20]"
-      showFirstLastButtons
-    ></mat-paginator>
+    <div class="mt-2">
+      <mat-paginator
+        [length]="dataSource.data.length"
+        [pageSize]="5"
+        [pageSizeOptions]="[5, 10, 20]"
+        showFirstLastButtons
+      ></mat-paginator>
+    </div>
   </mat-card>
 
   <div class="card flex justify-center">

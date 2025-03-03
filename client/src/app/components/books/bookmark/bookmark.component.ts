@@ -21,7 +21,7 @@ import { MatSortModule } from '@angular/material/sort';
 })
 export class BookmarkComponent implements OnInit {
   bookmarkedBooks: Book[] = [];
-
+  tableHeaderBgColor: string = '#dddddd';
   constructor(private bookService: BookService) {}
 
   ngOnInit(): void {

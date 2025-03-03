@@ -1,135 +1,132 @@
 .add-book-btn {
-    position: absolute;
-    top: 10px;
-    right: 20px;
-  }
-  
-  .demo-table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .mat-mdc-row .mat-mdc-cell {
-    border-bottom: 1px solid transparent;
-    border-top: 1px solid transparent;
-    cursor: pointer;
-    padding: 10px;
-    text-align: left;
-  }
-  
-  .mat-mdc-row:hover .mat-mdc-cell {
-    border-color: currentColor;
-    background-color: #f1f1f1;
-  }
-  
-  .demo-row-is-clicked {
-    font-weight: bold;
-  }
-  
-  mat-card {
-   
-    position: relative;
-  }
-  
-  mat-card-title {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 10px;
-  }
-  
-  .filter-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-  
-  .filter-field {
-    width: 20%;
-  }
-  
-  .available-checkbox-container {
-    display: flex;
-    align-items: center;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 8px;
-    justify-content: center;
-    margin-bottom: 20px;
-  }
-  
-  .mat-checkbox {
-    padding-left: 0;
-    margin-right: 10px;
-  }
-  
-  mat-form-field {
-    width: 100%;
-  }
-  
-  mat-select {
-    width: 100%;
-  }
-  
-  mat-card-content {
-    padding: 15px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-  }
-  
-  table {
-    width: 100%;
-    margin-top: 10px;
-    background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  th.mat-header-cell {
-    background-color: #f1f1f1;
-    font-weight: bold;
-    padding: 10px;
-    text-align: left;
-    color: #333;
-  }
-  
-  td.mat-cell {
-    padding: 10px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  button.mat-button {
-    margin-right: 10px;
-  }
-  
-  button.mat-button:hover {
-    background-color: #007bff;
-    color: white;
-  }
-  
-  mat-checkbox {
-    padding: 0;
-  }
-  
-  tr.mat-row:hover {
-    background-color: #f1f1f1;
-  }
-  
-  mat-icon.matPrefix {
-    margin-right: 15px;
-  }
-  
-  mat-paginator {
-    margin-top: 20px;
-    justify-content: center;
-    display: flex;
-    align-items: center;
-  }
-  
-  .tab {
-    height: 85vh !important ;
-  }
-  
-  
-  
+  position: absolute;
+  top: 10px;
+  right: 20px;
+}
+
+.demo-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.mat-mdc-row .mat-mdc-cell {
+  border-bottom: 1px solid transparent;
+  border-top: 1px solid transparent;
+  cursor: pointer;
+  padding: 10px;
+  text-align: left;
+}
+
+.mat-mdc-row:hover .mat-mdc-cell {
+  border-color: currentColor;
+  background-color: #f1f1f1;
+}
+
+.demo-row-is-clicked {
+  font-weight: bold;
+}
+
+mat-card {
+  position: relative;
+}
+
+mat-card-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.filter-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.filter-field {
+  width: 20%;
+}
+
+.available-checkbox-container {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 8px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.mat-checkbox {
+  padding-left: 0;
+  margin-right: 10px;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+mat-select {
+  width: 100%;
+}
+
+mat-card-content {
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+table {
+  width: 100%;
+
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+th.mat-header-cell {
+  background-color: #f1f1f1;
+  font-weight: bold;
+  padding: 10px;
+  text-align: left;
+  color: #333;
+}
+
+td.mat-cell {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+button.mat-button {
+  margin-right: 10px;
+}
+
+button.mat-button:hover {
+  background-color: #007bff;
+  color: white;
+}
+
+mat-checkbox {
+  padding: 0;
+}
+
+tr.mat-row:hover {
+  background-color: #f1f1f1;
+}
+
+mat-icon.matPrefix {
+  margin-right: 15px;
+}
+
+mat-paginator {
+  margin-top: 20px;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+}
+
+
+h1 {
+  font-size: 24px;
+  font-weight: bold;
+}

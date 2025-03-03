@@ -26,7 +26,7 @@ import { ToastModule } from 'primeng/toast';
     MenuModule,
     ReactiveFormsModule,
     ConfirmDialogModule,
-    ToastModule
+    ToastModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [ConfirmationService,MessageService]  ,
