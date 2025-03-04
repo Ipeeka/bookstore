@@ -1,34 +1,45 @@
-<h2>Manage User</h2>
-
 <form [formGroup]="userForm" (ngSubmit)="saveProfile()">
-  <mat-form-field>
-    <mat-label>First Name</mat-label>
-    <input matInput formControlName="firstName" required />
-  </mat-form-field>
+  <h2>Manage User</h2>
 
-  <mat-form-field>
-    <mat-label>Last Name</mat-label>
-    <input matInput formControlName="lastName" required />
-  </mat-form-field>
-
-  <mat-form-field>
+  <mat-form-field appearance="fill">
     <mat-label>Email</mat-label>
     <input matInput formControlName="email" required />
   </mat-form-field>
 
+  <mat-form-field appearance="fill">
+    <mat-label>User Name</mat-label>
+    <input matInput formControlName="userName" required />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>First Name</mat-label>
+    <input matInput formControlName="firstName" required />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Last Name</mat-label>
+    <input matInput formControlName="lastName" required />
+  </mat-form-field>
+
   <div class="button-container">
-    <div>
-      <button mat-raised-button (click)="close()">Cancel</button>
-    </div>
-    <div>
-      <button
-        mat-raised-button
-        color="primary"
-        type="submit"
-        [disabled]="!userForm.valid"
-      >
-        Save
-      </button>
-    </div>
+    <button mat-button (click)="close()" class="cancel-button">
+      Cancel
+    </button>
+    <button
+    class="save-button"
+      mat-button
+      color="primary"
+      type="submit"
+      [disabled]="!userForm.valid"
+    >
+      Save
+    </button>
   </div>
 </form>
+
+
+<div class="card flex justify-center">
+  <p-toast></p-toast>
+
+  <p-confirmDialog></p-confirmDialog>
+</div>

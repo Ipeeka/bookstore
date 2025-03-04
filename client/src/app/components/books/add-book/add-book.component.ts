@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import {
   ReactiveFormsModule,
   FormBuilder,
@@ -17,6 +17,11 @@ import { InputTextModule } from 'primeng/inputtext';
 import { CheckboxModule } from 'primeng/checkbox';
 import { DropdownModule } from 'primeng/dropdown';
 import { MessagesModule } from 'primeng/messages';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @Component({
   selector: 'add-book',
@@ -34,13 +39,22 @@ import { MessagesModule } from 'primeng/messages';
     DropdownModule,
     MessagesModule,
     FormsModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatDialogModule
   ],
   providers: [MessageService],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AddBookComponent {
   addBookForm: FormGroup;
   private bookService = inject(BookService);
   private route = inject(Router);
+
+  readonly dialog = inject(MatDialog);
 
   displayDialog: boolean = true;
 
@@ -104,5 +118,9 @@ export class AddBookComponent {
         detail: 'Form is invalid. Please check the inputs.',
       });
     }
+  }
+
+  onCloseDialog() {
+    // this.dialogRef.close(); 
   }
 }

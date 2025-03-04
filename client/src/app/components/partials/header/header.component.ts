@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, CUSTOM_ELEMENTS_SCHEMA, HostListener } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../../shared/services/auth.service';
 import { BookService } from '../../../shared/services/book.service';
@@ -12,6 +12,8 @@ import { MenuModule } from 'primeng/menu';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
+import { DialogModule } from 'primeng/dialog';
+import { NotificationComponent } from "../../constants/notification/notification.component";
 
 
 @Component({
@@ -27,7 +29,10 @@ import { ToastModule } from 'primeng/toast';
     ReactiveFormsModule,
     ConfirmDialogModule,
     ToastModule,
-  ],
+    RouterLink,
+    DialogModule,
+    NotificationComponent
+],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [ConfirmationService,MessageService]  ,
   templateUrl: './header.component.html',
@@ -42,6 +47,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   profileItems: any[] = [];
   profileMenuVisible: boolean = false; 
   private userSubscription: Subscription = new Subscription();
+  notificationDialogVisible: boolean = false;
 
   constructor(
     private authService: AuthService,
@@ -50,6 +56,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private confirmationService: ConfirmationService,
     private messageService: MessageService
   ) {}
+
+
+  openNotificationDialog() {
+    this.notificationDialogVisible = true;
+  }
 
   ngOnInit(): void {
     const currentUser = this.authService.currentUserSubject();

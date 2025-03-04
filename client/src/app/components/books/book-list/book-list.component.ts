@@ -260,7 +260,7 @@ export class BookListComponent implements AfterViewInit, OnInit {
   openAddBookDialog(): void {
   
     const dialogRef = this.dialog.open(AddBookComponent, {
-      width: '600px',
+      // width: '500px',
     });
 
     dialogRef.afterClosed().subscribe((result) => {

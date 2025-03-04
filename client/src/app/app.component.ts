@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { ThemeService } from '../styles/themes/theme.service';
 
 @Component({
   selector: 'app-root',
@@ -12,4 +13,5 @@ import { CommonModule } from '@angular/common';
 })
 export class AppComponent {
   title = 'bookstore-frontend';
+  constructor(public themeService: ThemeService){}
 }

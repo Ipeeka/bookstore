@@ -1,0 +1,15 @@
+<div class="cart">
+    <h3>Your Cart</h3>
+    <ul>
+      <li *ngFor="let item of cartItems">
+        {{ item.name }} ({{ item.quantity }})
+        <button (click)="removeFromCart(item.name)">Remove</button>
+      </li>
+    </ul>
+    <div *ngIf="cartItems.length === 0">Your cart is empty</div>
+  </div>
+  
+ 
+  <button (click)="addToCart('Apple')">Add Apple to Cart</button>
+  <button (click)="addToCart('Banana')">Add Banana to Cart</button>
+  

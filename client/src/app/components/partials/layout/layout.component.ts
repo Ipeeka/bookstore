@@ -45,11 +45,11 @@ export class LayoutComponent {
       icon: 'pi pi-folder',
       children: [
         { name: 'Saved', RouterLink: '/book/bookmark', icon: 'pi pi-folder' },
-        {
-          name: 'Sub Saved 2',
-          RouterLink: '/sub-test2',
-          icon: 'pi pi-folder-open',
-        },
+        // {
+        //   name: 'Sub Saved 2',
+        //   RouterLink: '/sub-test2',
+        //   icon: 'pi pi-folder-open',
+        // },
       ],
     },
   ];

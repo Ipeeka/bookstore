@@ -23,6 +23,11 @@ const routes: Routes = [
         path: 'layout',
         loadChildren: () => import("../user/user.module").then(m => m.UserModule),
       },
+      {
+        path: 'constants',  
+        loadChildren: () => import('../constants/constants.module').then(m => m.ConstantsModule),
+      
+    },
       
     ]
   }

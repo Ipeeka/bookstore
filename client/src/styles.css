@@ -1,4 +1,8 @@
 
+
+
+
+
 body {
     font-family: 'Inter', sans-serif;
    
@@ -13,3 +17,12 @@ html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 
+.cancel-button:hover{
+  color: white;
+  background-color: red;
+}
+
+.save-button:hover{
+  color: white;
+  background-color: blue;
+}

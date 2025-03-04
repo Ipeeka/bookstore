@@ -84,7 +84,7 @@ export class UserListComponent implements OnInit {
   editUser(id: string): void {
     const dialogRef = this.dialog.open(EditUserComponent, {
       data: { userId: id },
-      width: '400px',
+      width: '500px',
     });
 
     dialogRef.afterClosed().subscribe((result) => {

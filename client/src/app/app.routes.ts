@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './shared/guard/auth.guard';
+import { CartComponent } from './components/constants/cart/cart.component';
 
 
 export const routes: Routes = [
@@ -27,6 +28,11 @@ export const routes: Routes = [
         path: '**',
         redirectTo: 'auth'
     },
-  
+    {
+        path: 'constants',  
+        loadChildren: () => import('./components/constants/constants.module').then(m => m.ConstantsModule),
+      
+    },
+      
      
 ];

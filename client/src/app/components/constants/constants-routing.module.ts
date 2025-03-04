@@ -1,0 +1,21 @@
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { NotificationComponent } from './notification/notification.component';
+import { CartComponent } from './cart/cart.component';
+
+const routes: Routes = [
+  {
+    path: 'notifications',  
+    component: NotificationComponent
+  },
+  {
+    path: 'cart',  
+    component: CartComponent
+  }
+];
+
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
+})
+export class ConstantsRoutingModule { }

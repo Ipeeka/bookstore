@@ -1,30 +1,30 @@
 <p-toolbar [style]="{ backgroundColor: '#ddd' }">
-  <div class="header" >
-    <img src="assets/logo.png" alt="Cart" style="width: 160px;
-    height: 80px;"/>
+  <div class="header">
+    <img src="assets/logo.png" alt="Cart" style="width: 160px; height: 80px" />
   </div>
 
   <span class="right">
     <p-button *ngIf="!isLoggedIn" label="Login" icon="pi pi-user"></p-button>
 
-  <div class="nav-btn" style="margin-right: 10px;">
-       
-    <button class="notification fa-btn">
-      <i class="pi pi-bell"></i>
-    </button>
+    <div class="nav-btn" style="margin-right: 10px">
+      <button
+        class="cart fa-btn"
+        style="border: none"
+     
+      >
+        <i class="pi pi-shopping-cart"></i>
+      </button>
 
-    <button class="cart fa-btn" style="border: none;">
-      <i class="pi pi-shopping-cart"></i>
-    </button>
+      <button class="notification fa-btn" (click)="openNotificationDialog()">
+        <i class="pi pi-bell"></i>
+      </button>
     </div>
-   
-   
 
     <div *ngIf="userProfileVisible">
       <div class="user-profile">
         <h4>Hi, {{ userName }}</h4>
 
-        <button class="avatar fa-btn"  (click)="toggleProfileMenu()">
+        <button class="avatar fa-btn" (click)="toggleProfileMenu()">
           <i class="fa fa-user"></i>
         </button>
 
@@ -43,3 +43,13 @@
 
   <p-confirmDialog></p-confirmDialog>
 </div>
+<p-dialog
+  header="Notifications"
+  [(visible)]="notificationDialogVisible"
+  [closable]="true"
+  [modal]="true"
+  [style]="{ 'position': 'fixed', 'top': '100px', 'right': '20px', 'width': '400px', 'height': '500px' }"
+>
+  <app-notification></app-notification>
+</p-dialog>
+

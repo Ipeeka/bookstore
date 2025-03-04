@@ -1,0 +1,13 @@
+<div class="notification-container">
+  <div class="notification-header"></div>
+  <div class="notification-list">
+    <div *ngFor="let notification of notifications" class="notification">
+      <div class="notification-type">
+        <strong>{{ notification.type }}:</strong>
+      </div>
+      <div class="notification-content">
+        {{ notification.content }}
+      </div>
+    </div>
+  </div>
+</div>
