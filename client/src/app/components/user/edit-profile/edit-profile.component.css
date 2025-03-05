@@ -20,6 +20,14 @@
   max-width: 100%;
 }
 
+.profile-image {
+  max-width: 120px;
+  max-height: 120px;
+  width: 100%;
+  height: auto;
+}
+
+
 .profile-img img {
   width: 120px;
   height: 120px;

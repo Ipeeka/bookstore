@@ -1,5 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import {
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  inject,
+  OnInit,
+} from '@angular/core';
 import {
   FormGroup,
   Validators,
@@ -13,6 +18,9 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { AvatarModule } from 'primeng/avatar';
 import { UserService } from '../../../shared/services/user.service';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'edit-profile',
@@ -24,20 +32,27 @@ import { UserService } from '../../../shared/services/user.service';
     AvatarModule,
     InputTextModule,
     ButtonModule,
+    ConfirmDialogModule,
+    ToastModule,
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  providers: [ConfirmationService, MessageService],
   templateUrl: './edit-profile.component.html',
   styleUrls: ['./edit-profile.component.scss'],
 })
 export class EditProfileComponent implements OnInit {
   editProfileForm: FormGroup;
-  profileImage: string =
-    'https://png.pngitem.com/pimgs/s/150-1503945_transparent-user-png-default-user-image-png-png.png';
+  profileImage: string | null = null;
   isAddressFormVisible = false;
   public currentLoggedUser: any;
   private userService = inject(UserService);
   private router = inject(Router);
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService
+  ) {
     const userData = localStorage.getItem('user');
     if (userData) {
       this.currentLoggedUser = JSON.parse(userData);
@@ -51,7 +66,7 @@ export class EditProfileComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       phone: [],
       userName: ['', [Validators.required]],
-
+      profileImage: [null],
       street: [''],
       city: [''],
       state: [''],
@@ -103,30 +118,63 @@ export class EditProfileComponent implements OnInit {
       const reader = new FileReader();
       reader.onload = () => {
         this.profileImage = reader.result as string;
+        this.editProfileForm.patchValue({
+          profileImage: file,
+        });
       };
       reader.readAsDataURL(file);
     }
   }
 
   saveProfile(): void {
-    if (this.editProfileForm.valid) {
-      const updatedData = this.editProfileForm.value;
+    this.confirmationService.confirm({
+      message: 'Are you sure you want to update your profile?',
+      header: 'Profile Update Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        if (this.editProfileForm.valid) {
+          const updatedData = this.editProfileForm.value;
+          const formData = new FormData();
 
-      if (this.profileImage) {
-        updatedData.profileImage = this.profileImage;
-      }
+          for (const key in updatedData) {
+            if (updatedData[key]) {
+              formData.append(key, updatedData[key]);
+            }
+          }
 
-      this.userService
-        .updateUser(this.currentLoggedUser._id, updatedData)
-        .subscribe({
-          next: () => {
-            // this.toastr.success('Profile updated successfully.');
-            this.router.navigate(['user/edit-profile']);
-          },
-          error: () => {
-            // this.toastr.error('Failed to update profile.');
-          },
+          this.userService
+            .updateUser(this.currentLoggedUser._id, formData)
+            .subscribe({
+              next: (response) => {
+                this.profileImage = response.profileImage;
+                this.router.navigate(['user/edit-profile']);
+
+                this.messageService.add({
+                  severity: 'success',
+                  summary: 'Profile Updated',
+                  detail: 'Your profile has been updated successfully.',
+                  life: 3000,
+                });
+              },
+              error: (error) => {
+                this.messageService.add({
+                  severity: 'error',
+                  summary: 'Update Failed',
+                  detail: 'Failed to update your profile.',
+                  life: 3000,
+                });
+              },
+            });
+        }
+      },
+      reject: () => {
+        this.messageService.add({
+          severity: 'info',
+          summary: 'Update Canceled',
+          detail: 'You have canceled the profile update.',
+          life: 3000,
         });
-    }
+      },
+    });
   }
 }

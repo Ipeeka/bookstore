@@ -31,6 +31,7 @@ export class UserService {
   }
 
   updateUser(id: string, data: any): Observable<any> {
+    console.log('Data being sent to the server:', data);
     return this.http.put(`${this.apiUrl}/user/update-user/${id}`, data);
   }
 

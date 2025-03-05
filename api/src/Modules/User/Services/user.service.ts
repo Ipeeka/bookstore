@@ -14,6 +14,8 @@ export class UserService implements IUserService {
   constructor(private userRepository: UserRepository) {}
 
   async updateUser(id: string, updateUserDTO: UpdateUserDTO) {
+    console.log('Updating user with data:', updateUserDTO);
+    
     if (updateUserDTO.email) {
       const existingUser = await this.userRepository.findByEmail(
         updateUserDTO.email,
@@ -22,10 +24,10 @@ export class UserService implements IUserService {
         throw new BadRequestException('Email already exists');
       }
     }
-
-    await this.userRepository.updateUser(id, updateUserDTO);
-    return { message: 'User updated successfully', status: true };
+  
+    return this.userRepository.updateUser(id, updateUserDTO);
   }
+  
 
   async getUser(id: string) {
     const user = await this.userRepository.findById(id);

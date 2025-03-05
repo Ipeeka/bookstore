@@ -9,12 +9,15 @@ import {
   Param,
   Put,
   UseGuards,
+  UseInterceptors, UploadedFile
 } from '@nestjs/common';
 import { UserService } from './Services/user.service';
-import { JwtAuthGuard } from 'src/Common/Guards/jwt.guard';
 import { Types } from 'mongoose';
-import { RolesGuard } from 'src/Common/Guards/roles.guard';
 import { UpdateUserDTO } from './DTOs/updateUserDTO';
+import { diskStorage } from 'multer';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { Request } from 'express'; 
+
 
 
 @Controller('user')
@@ -22,16 +25,31 @@ export class UserController {
   constructor(private userService: UserService) {}
 
   @Put('update-user/:id')
+  @UseInterceptors(
+    FileInterceptor('profileImage', {
+      storage: diskStorage({
+        destination: './uploads',
+        filename: (req, file, callback) => {
+          callback(null, Date.now() + '-' + file.originalname);
+        },
+      }),
+    })
+  )
   async updateUser(
     @Param('id') id: string,
     @Body() updateUserDTO: UpdateUserDTO,
+    @UploadedFile() profileImage: Express.Multer.File
   ) {
     if (!Types.ObjectId.isValid(id)) {
-      debugger
       throw new NotFoundException({
         message: 'Invalid User ID format',
         status: false,
       });
+    }
+
+    if (profileImage) {
+    
+      updateUserDTO.profileImage = profileImage.path; 
     }
     return this.userService.updateUser(id, updateUserDTO);
   }

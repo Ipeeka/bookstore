@@ -2,23 +2,36 @@
   <div class="d-flex justify-content-between align-items-center">
     <h3 class="font-weight-bold">Edit Profile:</h3>
   </div>
-  <form [formGroup]="editProfileForm">
+  <form [formGroup]="editProfileForm" (ngSubmit)="saveProfile()">
     <div class="row">
       <div class="col-md-4">
         <div class="card shadow-sm">
           <div class="card-body text-center">
             <h5 class="card-title">Profile Image</h5>
             <img
+            *ngIf="profileImage"
               [src]="profileImage"
-              class="avatar img-circle"
+              class="profile-image"
+              type="profileImage"
+              id="profileImage"
               alt="avatar"
               style="width: 120px; border-radius: 50%"
             />
-            <h6 class="mt-2">Upload a different photo...</h6>
+            <img
+              *ngIf="!profileImage"
+              src="/assets/profile.jpg"
+              class="profile-image"
+              alt="default-avatar"
+              style="width: 120px; border-radius: 50%"
+            />
+            <h6 class="mt-2">Upload a new photo...</h6>
             <input
               type="file"
+              id="profileImage"
               class="form-control-file mt-2"
               (change)="onImageChange($event)"
+              accept="image/*"
+              
             />
           </div>
         </div>
@@ -213,4 +226,9 @@
       </div>
     </div>
   </form>
+  <div class="card flex justify-center">
+    <p-toast></p-toast>
+
+    <p-confirmDialog></p-confirmDialog>
+  </div>
 </div>
