@@ -1,89 +1,84 @@
-<h2 mat-dialog-title>Add Book:</h2>
+<p-dialog 
+  [(visible)]="displayDialog" 
+  [style]="{ width: '600px' }" 
+  header="Add Book" 
+  [modal]="true" 
+  styleClass="p-fluid"
+  [closable]="true"
+  [resizable]="false"
+  >
 
-<form [formGroup]="addBookForm" (ngSubmit)="onSubmit()">
-  <div class="p-fluid">
-    <div class="p-field">
-      <mat-form-field appearance="fill">
-        <mat-label>Title</mat-label>
-        <input id="title" matInput formControlName="title" required />
-        <mat-error *ngIf="addBookForm.get('title')?.hasError('required')">
+  <form [formGroup]="addBookForm" (ngSubmit)="onSubmit()">
+    <div class="p-fluid">
+      <div class="p-field">
+        <label for="title">Title</label>
+        <input id="title" pInputText formControlName="title" required />
+        <small *ngIf="addBookForm.get('title')?.hasError('required')" class="p-error">
           Title is required
-        </mat-error>
-      </mat-form-field>
-    </div>
+        </small>
+      </div>
 
-    <div class="p-field">
-      <mat-form-field appearance="fill">
-        <mat-label>Author</mat-label>
-        <input id="author" matInput formControlName="author" required />
-        <mat-error *ngIf="addBookForm.get('author')?.hasError('required')">
+      <div class="p-field">
+        <label for="author">Author</label>
+        <input id="author" pInputText formControlName="author" required />
+        <small *ngIf="addBookForm.get('author')?.hasError('required')" class="p-error">
           Author is required
-        </mat-error>
-      </mat-form-field>
-    </div>
+        </small>
+      </div>
 
-    <div class="p-field">
-      <mat-form-field appearance="fill">
-        <mat-label>Publication Year</mat-label>
-        <input
-          id="publicationYear"
-          matInput
-          formControlName="publicationYear"
-          required
-        />
-        <mat-error
-          *ngIf="addBookForm.get('publicationYear')?.hasError('required')"
-        >
+      <div class="p-field">
+        <label for="publicationYear">Publication Year</label>
+        <input id="publicationYear" pInputText formControlName="publicationYear" required />
+        <small *ngIf="addBookForm.get('publicationYear')?.hasError('required')" class="p-error">
           Year is required
-        </mat-error>
-        <mat-error *ngIf="addBookForm.get('publicationYear')?.hasError('min')">
+        </small>
+        <small *ngIf="addBookForm.get('publicationYear')?.hasError('min')" class="p-error">
           Year must be at least 1900
-        </mat-error>
-        <mat-error *ngIf="addBookForm.get('publicationYear')?.hasError('max')">
+        </small>
+        <small *ngIf="addBookForm.get('publicationYear')?.hasError('max')" class="p-error">
           Year cannot be in the future
-        </mat-error>
-      </mat-form-field>
-    </div>
+        </small>
+      </div>
 
-    <div class="p-field">
-      <mat-form-field appearance="fill">
-        <mat-label>Price</mat-label>
-        <input id="price" matInput formControlName="price" required />
-        <mat-error *ngIf="addBookForm.get('price')?.hasError('required')">
+      <div class="p-field">
+        <label for="price">Price (100-1000$)</label>
+        <input id="price" pInputText formControlName="price" required />
+        <small *ngIf="addBookForm.get('price')?.hasError('required')" class="p-error">
           Price is required
-        </mat-error>
-        <mat-error *ngIf="addBookForm.get('price')?.hasError('pattern')">
+        </small>
+        <small *ngIf="addBookForm.get('price')?.hasError('pattern')" class="p-error">
           Price must be a valid number
-        </mat-error>
-      </mat-form-field>
-    </div>
+        </small>
+      </div>
 
-    <div class="p-field">
-      <mat-form-field appearance="fill">
-        <mat-label>Genre</mat-label>
-        <input id="genre" matInput formControlName="genre" required />
-        <mat-error *ngIf="addBookForm.get('genre')?.hasError('required')">
+      <div class="p-field">
+        <label for="genre">Genre</label>
+        <p-dropdown 
+          formControlName="genre" 
+          [options]="genres" 
+          optionLabel="name" 
+          placeholder="Select a genre" 
+          required>
+        </p-dropdown>
+        <small *ngIf="addBookForm.get('genre')?.hasError('required')" class="p-error">
           Genre is required
-        </mat-error>
-      </mat-form-field>
+        </small>
+      </div>
+
+      <div class="p-field-checkbox">
+        <p-checkbox formControlName="availability" label="Available"></p-checkbox>
+      </div>
     </div>
 
-    <div class="p-field-checkbox">
-      <mat-checkbox formControlName="availability">Available</mat-checkbox>
+    <div align="end">
+      <button mat-button mat-dialog-close>Cancel</button>
+      <button 
+        mat-button 
+        color="primary" 
+        [disabled]="addBookForm.invalid" 
+        type="submit">
+        Save Changes
+      </button>
     </div>
-  </div>
-
-  <div align="end">
-    <button mat-button mat-dialog-close>Cancel</button>
-    <button
-      mat-button
-      color="primary"
-      [disabled]="addBookForm.invalid"
-      type="submit"
-    >
-      Save Changes
-    </button>
-  </div>
-</form>
-
-<p-toast></p-toast>
+  </form>
+</p-dialog>

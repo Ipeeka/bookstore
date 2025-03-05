@@ -19,6 +19,7 @@ import { CardModule } from 'primeng/card';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { AuthService } from '../../shared/services/auth.service';
 import { MessageService } from 'primeng/api';
+import { CheckboxModule } from 'primeng/checkbox';
 
 @Component({
   selector: 'app-register',
@@ -35,6 +36,7 @@ import { MessageService } from 'primeng/api';
     CardModule,
     FloatLabelModule,
     ToastModule,
+    CheckboxModule
   ],
   providers: [MessageService],
   templateUrl: './register.component.html',

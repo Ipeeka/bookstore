@@ -151,8 +151,6 @@ export class BookListComponent implements AfterViewInit, OnInit {
     }
   }
 
-
-
   loadComment(bookId: string) {
     this.bookService.getBookDetails().subscribe(
       (bookDetail) => {
@@ -174,7 +172,7 @@ export class BookListComponent implements AfterViewInit, OnInit {
 
   isCommentSectionVisible = false;
 
-  @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
+  @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
 
   constructor(
     private bookService: BookService,
@@ -188,7 +186,6 @@ export class BookListComponent implements AfterViewInit, OnInit {
   ngOnInit(): void {
     this.currentUser = this.authService.currentUserSubject();
     if (this.currentUser.role === 'user') {
-      
       this.isUser = true;
       this.columnsToDisplay = this.columnsToDisplay.filter(
         (column) => column !== 'actions'
@@ -200,7 +197,7 @@ export class BookListComponent implements AfterViewInit, OnInit {
     }
     this.bookService.getAllBooks().subscribe((books) => {
       this.dataSource.data = books;
-    
+
       if (this.paginator) {
         this.dataSource.paginator = this.paginator;
       }
@@ -209,11 +206,11 @@ export class BookListComponent implements AfterViewInit, OnInit {
   }
 
   toggleBookmark(bookId: string, toggleBookmarked: boolean): void {
-    debugger
+    debugger;
     this.bookService.toggleBookmark(bookId, toggleBookmarked).subscribe(
       (response) => {
-        debugger   
-        this.loadBooks(); 
+        debugger;
+        this.loadBooks();
         this.messageService.add({
           severity: 'success',
           summary: response.message,
@@ -232,7 +229,7 @@ export class BookListComponent implements AfterViewInit, OnInit {
       }
     );
   }
-  
+
   loadBooks(): void {
     this.bookService.getAllBooks().subscribe((books) => {
       this.books = books;
@@ -247,7 +244,6 @@ export class BookListComponent implements AfterViewInit, OnInit {
   getBooks(): void {
     this.bookService.getAllBooks().subscribe(
       (books) => {
-      
         this.books = books;
         this.dataSource.data = books;
       },
@@ -258,13 +254,11 @@ export class BookListComponent implements AfterViewInit, OnInit {
   }
 
   openAddBookDialog(): void {
-  
     const dialogRef = this.dialog.open(AddBookComponent, {
       // width: '500px',
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-     
       if (result) {
         this.getBooks();
       }
@@ -279,33 +273,42 @@ export class BookListComponent implements AfterViewInit, OnInit {
   applyFilter(): void {
     const filter: any = {};
     debugger;
-    
+
     this.bookService.getAllBooks().subscribe(
       (books) => {
-        debugger
+        debugger;
         let filteredBooks = books;
-    
+
         if (this.selectedGenre && this.selectedGenre !== 'all') {
-          filteredBooks = filteredBooks.filter((book) => book.genre.toLowerCase() === this.selectedGenre.toLowerCase());
+          filteredBooks = filteredBooks.filter(
+            (book) =>
+              book.genre.toLowerCase() === this.selectedGenre.toLowerCase()
+          );
         }
-    
-        if (this.selectedAvailability !== undefined && this.selectedAvailability !== 'all') {
-          filteredBooks = filteredBooks.filter((book) => book.availability.toString() === this.selectedAvailability);
+
+        if (
+          this.selectedAvailability !== undefined &&
+          this.selectedAvailability !== 'all'
+        ) {
+          filteredBooks = filteredBooks.filter(
+            (book) => book.availability.toString() === this.selectedAvailability
+          );
         }
-    
+
         if (this.selectedPrice !== undefined) {
-          filteredBooks = filteredBooks.filter((book) => book.price <= this.selectedPrice);
+          filteredBooks = filteredBooks.filter(
+            (book) => book.price <= this.selectedPrice
+          );
         }
-  
+
         this.books = filteredBooks;
         this.dataSource.data = this.books;
-        
       },
       (error) => {
         console.error('Error fetching books:', error);
       }
     );
-  }    
+  }
 
   clearFilters(): void {
     this.selectedGenre = 'all';

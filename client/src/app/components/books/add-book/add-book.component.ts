@@ -17,12 +17,19 @@ import { InputTextModule } from 'primeng/inputtext';
 import { CheckboxModule } from 'primeng/checkbox';
 import { DropdownModule } from 'primeng/dropdown';
 import { MessagesModule } from 'primeng/messages';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import {
+  MatDialog,
+  MatDialogModule,
+  MatDialogRef,
+} from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-
+import { MatSelectModule } from '@angular/material/select';
+import { StepsModule } from 'primeng/steps';
+import { PanelModule } from 'primeng/panel';
+import { StepperModule } from 'primeng/stepper';
 @Component({
   selector: 'add-book',
   standalone: true,
@@ -31,6 +38,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
   imports: [
     ReactiveFormsModule,
     CommonModule,
+   
     ToastModule,
     DialogModule,
     ButtonModule,
@@ -44,7 +52,12 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatInputModule,
     MatButtonModule,
     MatCheckboxModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSelectModule,
+    StepsModule,
+    PanelModule,
+    StepperModule
+    
   ],
   providers: [MessageService],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -53,10 +66,11 @@ export class AddBookComponent {
   addBookForm: FormGroup;
   private bookService = inject(BookService);
   private route = inject(Router);
-
+  private dialogRef = inject(MatDialogRef<AddBookComponent>); 
   readonly dialog = inject(MatDialog);
 
   displayDialog: boolean = true;
+  genres: string[] = ['Fiction', 'Non-fiction', 'Science', 'Fantasy'];
 
   constructor(private fb: FormBuilder, private messageService: MessageService) {
     this.addBookForm = this.fb.group({
@@ -80,7 +94,6 @@ export class AddBookComponent {
   }
 
   onSubmit() {
-    debugger;
     if (this.addBookForm.valid) {
       const formValues = this.addBookForm.value;
       const book = {
@@ -92,14 +105,18 @@ export class AddBookComponent {
       this.bookService.addBook(book).subscribe(
         (response) => {
           console.log('Book added successfully', response);
+
           this.messageService.add({
             severity: 'success',
             summary: 'Success',
             detail: 'Book added successfully!',
           });
 
-          this.displayDialog = false;
-          this.route.navigate(['book/list']);
+          setTimeout(() => {
+            this.dialogRef.close(true);
+
+            this.route.navigate(['book/list']);
+          }, 500);
         },
         (error) => {
           console.error('Error adding book', error);
@@ -121,6 +138,6 @@ export class AddBookComponent {
   }
 
   onCloseDialog() {
-    // this.dialogRef.close(); 
+    this.dialogRef.close();
   }
 }

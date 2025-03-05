@@ -1,4 +1,9 @@
-import { CUSTOM_ELEMENTS_SCHEMA, Component, OnInit, inject } from '@angular/core';
+import {
+  CUSTOM_ELEMENTS_SCHEMA,
+  Component,
+  OnInit,
+  inject,
+} from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -67,27 +72,23 @@ export class LoginComponent implements OnInit {
         const saveSubscribe = this.loginService
           .login(this.loginForm.value)
           .subscribe({
-            
             next: () => {
-              if (this.loginService.currentUserSubject().role == 'admin') {
-                this.messageService.add({
-                  severity: 'success',
-                  summary: 'Login Successful',
-                  detail: 'Welcome Back ',
-                  life: 1000
-                });
-                this.route.navigateByUrl('book/list');
-              } else {
-                this.messageService.add({
-                  severity: 'success',
-                  summary: 'Login Successful',
-                  detail: 'Welcome Back ',
-                  life: 1000
-                });
-                this.route.navigateByUrl('book/list');
-              }
+              this.messageService.add({
+                severity: 'success',
+                summary: 'Login Successful',
+                detail: 'Welcome Back',
+                life: 1000,
+              });
 
-              this.loginForm.reset();
+              setTimeout(() => {
+                if (this.loginService.currentUserSubject().role == 'admin') {
+                  this.route.navigateByUrl('book/list');
+                } else {
+                  this.route.navigateByUrl('book/list');
+                }
+
+                this.loginForm.reset();
+              }, 1000);
             },
             error: (err) => {
               this.messageService.add({

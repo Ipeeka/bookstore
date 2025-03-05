@@ -24,10 +24,5 @@ export class NotificationComponent {
     { type: 'Activity', content: 'Your account has been updated.' },
   ];
 
-  addNotification() {
-    this.notifications.push({
-      type: 'New Activity',
-      content: 'You have a new notification!',
-    });
-  }
+ 
 }

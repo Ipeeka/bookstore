@@ -14,6 +14,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { DialogModule } from 'primeng/dialog';
 import { NotificationComponent } from "../../constants/notification/notification.component";
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 @Component({
@@ -29,7 +30,7 @@ import { NotificationComponent } from "../../constants/notification/notification
     ReactiveFormsModule,
     ConfirmDialogModule,
     ToastModule,
-    RouterLink,
+   MatTooltipModule,
     DialogModule,
     NotificationComponent
 ],

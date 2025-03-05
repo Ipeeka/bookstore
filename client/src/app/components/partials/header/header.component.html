@@ -10,12 +10,13 @@
       <button
         class="cart fa-btn"
         style="border: none"
+        [matTooltip]="'cart'"
      
       >
         <i class="pi pi-shopping-cart"></i>
       </button>
 
-      <button class="notification fa-btn" (click)="openNotificationDialog()">
+      <button class="notification fa-btn" [matTooltip]="'notification'" (click)="openNotificationDialog()">
         <i class="pi pi-bell"></i>
       </button>
     </div>

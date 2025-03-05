@@ -4,10 +4,15 @@ form {
   gap: 25px;
   padding: 25px;
   width: 500px;
+ 
 }
 
 mat-form-field {
   width: 100%;
+}
+
+.select {
+  height: 130px !important;
 }
 
 button-container {
