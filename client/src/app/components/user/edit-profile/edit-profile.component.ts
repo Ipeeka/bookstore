@@ -75,7 +75,7 @@ export class EditProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    debugger;
+
     this.loadUserData();
   }
 

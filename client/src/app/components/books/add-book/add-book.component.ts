@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  inject,
+  OnInit,
+  Output,
+} from '@angular/core';
 import {
   ReactiveFormsModule,
   FormBuilder,
@@ -30,6 +37,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { StepsModule } from 'primeng/steps';
 import { PanelModule } from 'primeng/panel';
 import { StepperModule } from 'primeng/stepper';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { CalendarModule } from 'primeng/calendar';
 @Component({
   selector: 'add-book',
   standalone: true,
@@ -37,8 +47,10 @@ import { StepperModule } from 'primeng/stepper';
   styleUrls: ['./add-book.component.css'],
   imports: [
     ReactiveFormsModule,
+    CalendarModule,
+    FormsModule,
     CommonModule,
-   
+    RadioButtonModule,
     ToastModule,
     DialogModule,
     ButtonModule,
@@ -56,50 +68,63 @@ import { StepperModule } from 'primeng/stepper';
     MatSelectModule,
     StepsModule,
     PanelModule,
-    StepperModule
-    
+    StepperModule,
+    InputNumberModule,
   ],
   providers: [MessageService],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AddBookComponent {
+export class AddBookComponent implements OnInit {
   addBookForm: FormGroup;
   private bookService = inject(BookService);
   private route = inject(Router);
-  private dialogRef = inject(MatDialogRef<AddBookComponent>); 
-  readonly dialog = inject(MatDialog);
-
+  statuses: any[] = [
+    { label: 'In Stock', value: 'inStock' },
+    { label: 'Low Stock', value: 'lowStock' },
+    { label: 'Pre-order', value: 'preOrder' },
+    { label: 'Out of Stock', value: 'outOfStock' },
+  ];
   displayDialog: boolean = true;
   genres: string[] = ['Fiction', 'Non-fiction', 'Science', 'Fantasy'];
-
+  currentStep: number = 1;
+  @Output() saveBook = new EventEmitter<boolean>();
   constructor(private fb: FormBuilder, private messageService: MessageService) {
     this.addBookForm = this.fb.group({
-      title: ['', [Validators.required]],
-      author: ['', [Validators.required]],
-      publicationYear: [
-        '',
-        [
-          Validators.required,
-          Validators.min(1900),
-          Validators.max(new Date().getFullYear()),
-        ],
-      ],
+      title: ['', Validators.required],
+      author: ['', Validators.required],
+      publicationYearMonth: ['', Validators.required],
       price: [
         '',
-        [Validators.required, Validators.pattern('^[0-9]+(.[0-9]+)?$')],
+        [Validators.required, Validators.pattern(/^[0-9]+(\.[0-9]{1,2})?$/)],
       ],
-      availability: [true],
-      genre: ['', [Validators.required]],
+      genre: ['', Validators.required],
+
+      inventoryStatus: ['', Validators.required],
+      publisher: ['', Validators.required],
+      description: ['', Validators.required],
+      quantity: [1, Validators.required],
     });
   }
 
+  onMonthSelect(event: any) {
+    // The event will contain a full Date object
+    const selectedDate = event;
+    const monthName = selectedDate.toLocaleString('default', { month: 'long' }); // Full month name (e.g., "January")
+    const year = selectedDate.getFullYear(); // Get the year from the Date object
+    
+    // Set the value of publicationYearMonth in "Month YYYY" format
+    this.addBookForm.controls['publicationYearMonth'].setValue(`${monthName} ${year}`);
+  }
+  ngOnInit() {}
   onSubmit() {
+ 
     if (this.addBookForm.valid) {
+   
       const formValues = this.addBookForm.value;
       const book = {
         ...formValues,
         price: parseFloat(formValues.price),
-        publicationYear: parseInt(formValues.publicationYear),
+        publicationYearMonth: formValues.publicationYearMonth,
       };
 
       this.bookService.addBook(book).subscribe(
@@ -111,10 +136,9 @@ export class AddBookComponent {
             summary: 'Success',
             detail: 'Book added successfully!',
           });
-
+          this.saveBook.emit(true);
           setTimeout(() => {
-            this.dialogRef.close(true);
-
+            // this.dialogRef.close(true);
             this.route.navigate(['book/list']);
           }, 500);
         },
@@ -138,6 +162,21 @@ export class AddBookComponent {
   }
 
   onCloseDialog() {
-    this.dialogRef.close();
+    // this.dialogRef.close();
+  }
+
+  onNextClick() {
+
+    if (this.currentStep === 1) {
+      this.currentStep = 2;
+    }else{
+      this.onSubmit()
+    }
+  }
+
+  onPreviousClick() {
+    if (this.currentStep === 2) {
+      this.currentStep = 1;
+    }
   }
 }

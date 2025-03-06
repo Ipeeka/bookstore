@@ -4,11 +4,48 @@ form {
   gap: 25px;
   padding: 25px;
   width: 500px;
+  max-width: 100%;
+  box-sizing: border-box;
  
 }
 
-mat-form-field {
+.p-dialog .p-dialog-content {
+  transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+}
+
+.p-dialog .p-dialog-mask {
+  transition: opacity 0.3s ease-out;
+}
+
+.p-field {
+  margin-bottom: 15px;
+}
+
+.p-field label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.p-field input,
+.p-field textarea,
+.p-dropdown {
   width: 100%;
+}
+
+.radio-btn{
+  margin:11px;
+}
+
+.p-dropdown .p-dropdown-label {
+  width: 100%;
+}
+
+.p-dropdown .p-dropdown-items {
+  max-height: 250px; 
+}
+
+.p-inputTextarea {
+  resize: vertical; 
 }
 
 .select {
@@ -57,10 +94,51 @@ h3 {
   }
 }
 
-.p-dialog .p-dialog-content {
-  transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+
+.p-dropdown {
+  width: 100%;
 }
 
-.p-dialog .p-dialog-mask {
-  transition: opacity 0.3s ease-out;
+
+.p-field {
+  margin-bottom: 15px;
+  display: block; 
 }
+
+.p-field input,
+.p-field textarea,
+.p-dropdown {
+  width: 100%;
+}
+
+
+.p-dialog .p-dialog-content {
+  padding: 20px;
+  max-height: calc(100vh - 120px); 
+  overflow-y: auto; 
+}
+
+.p-dropdown .p-dropdown-label {
+  width: 100%;
+}
+
+.p-dropdown .p-dropdown-items {
+  max-height: 250px;
+}
+
+
+small.p-error {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.previous-button {
+  /* background-color: #f44336; */
+  color: rgb(12, 12, 12);
+  border: none;
+  padding: 10px 20px;
+  font-size: 14px;
+  cursor: pointer;
+}
+

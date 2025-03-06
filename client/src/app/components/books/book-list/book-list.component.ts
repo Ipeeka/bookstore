@@ -43,12 +43,13 @@ import { FormsModule } from '@angular/forms';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { AuthService } from '../../../shared/services/auth.service';
 import { ChangeDetectorRef } from '@angular/core';
+import { DialogModule } from 'primeng/dialog';
 
 export interface Book {
   id: string;
   title: string;
   author: string;
-  publicationYear: number;
+  publicationYearMonth: string;
   price: number;
   availability: boolean;
   genre: string;
@@ -98,7 +99,9 @@ interface Comment {
     ToastModule,
     FormsModule,
     MatButtonToggleModule,
-  ],
+    DialogModule,
+    AddBookComponent
+],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [ConfirmationService, MessageService],
   templateUrl: './book-list.component.html',
@@ -113,7 +116,7 @@ export class BookListComponent implements AfterViewInit, OnInit {
     'serialNo',
     'title',
     'author',
-    'publicationYear',
+    'publicationYearMonth',
     'price',
     'genre',
     'availability',
@@ -133,7 +136,7 @@ export class BookListComponent implements AfterViewInit, OnInit {
   searchQuery: string = '';
   newComment: string = '';
   isUser: boolean = false;
-
+  displayDialog: boolean = false;
   addedComments: string = '';
   addLikes: boolean = false;
   addDislikes: boolean = false;
@@ -146,7 +149,7 @@ export class BookListComponent implements AfterViewInit, OnInit {
     this.isCommentSectionVisible = !this.isCommentSectionVisible;
 
     if (this.isCommentSectionVisible) {
-      debugger;
+   
       this.loadComment(bookId);
     }
   }
@@ -154,7 +157,7 @@ export class BookListComponent implements AfterViewInit, OnInit {
   loadComment(bookId: string) {
     this.bookService.getBookDetails().subscribe(
       (bookDetail) => {
-        debugger;
+      
         this.comments = bookDetail.filter((detail) => detail.bookId === bookId);
         console.log(this.comments);
         this.cdRef.detectChanges();
@@ -206,10 +209,10 @@ export class BookListComponent implements AfterViewInit, OnInit {
   }
 
   toggleBookmark(bookId: string, toggleBookmarked: boolean): void {
-    debugger;
+  
     this.bookService.toggleBookmark(bookId, toggleBookmarked).subscribe(
       (response) => {
-        debugger;
+    
         this.loadBooks();
         this.messageService.add({
           severity: 'success',
@@ -254,17 +257,18 @@ export class BookListComponent implements AfterViewInit, OnInit {
   }
 
   openAddBookDialog(): void {
-    const dialogRef = this.dialog.open(AddBookComponent, {
-      // width: '500px',
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this.getBooks();
-      }
-    });
+    this.displayDialog = true; // Open the PrimeNG dialog
   }
 
+  onDialogHide(): void {
+    // Reset any state when the dialog is closed (optional)
+  }
+
+  onBookSaved(newBook: any): void {
+    console.log('New Book Added:', newBook);
+    this.getBooks(); // Refresh the books list
+    this.displayDialog = false; // Close the dialog after adding the book
+  }
   toggleFilter(): void {
     this.isFilterVisible = !this.isFilterVisible;
   }
@@ -272,11 +276,11 @@ export class BookListComponent implements AfterViewInit, OnInit {
 
   applyFilter(): void {
     const filter: any = {};
-    debugger;
+ 
 
     this.bookService.getAllBooks().subscribe(
       (books) => {
-        debugger;
+     
         let filteredBooks = books;
 
         if (this.selectedGenre && this.selectedGenre !== 'all') {
@@ -323,7 +327,7 @@ export class BookListComponent implements AfterViewInit, OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      debugger;
+
       if (result) {
         this.getBooks();
       }
@@ -371,11 +375,11 @@ export class BookListComponent implements AfterViewInit, OnInit {
   }
 
   onSearch(): void {
-    debugger;
+ 
     if (this.searchQuery.trim() === '') {
       this.dataSource.data = this.books;
     } else {
-      debugger;
+   
       this.dataSource.data = this.books.filter(
         (book) =>
           book.title.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
@@ -386,7 +390,7 @@ export class BookListComponent implements AfterViewInit, OnInit {
   }
 
   saveBookDetails(bookid: string) {
-    debugger;
+ 
     console.log(this.addedComments);
     console.log(this.addDislikes);
     console.log(this.addLikes);
@@ -400,10 +404,10 @@ export class BookListComponent implements AfterViewInit, OnInit {
       likes: this.addLikes || '',
       disLikes: this.addDislikes || '',
     };
-    debugger;
+
     this.bookService.addBookDetails(addBookDetails).subscribe(
       (response) => {
-        debugger;
+     
         //this.books = response;
         this.loadComment(response.bookId);
         //this.dataSource.data = books;
@@ -415,7 +419,7 @@ export class BookListComponent implements AfterViewInit, OnInit {
   }
 
   onLikeDislikeChange(likeOrDislike: string, bookid: string) {
-    debugger;
+   
     let updatedBookDetails = {
       like: likeOrDislike === 'like' ? 'true' : 'false',
       dislike: likeOrDislike === 'dislike' ? 'true' : 'false',
@@ -429,7 +433,7 @@ export class BookListComponent implements AfterViewInit, OnInit {
 
     this.bookService.updateBookLikeDisLike(updatedBookDetails).subscribe(
       (books) => {
-        debugger;
+      
         this.books = books;
         this.dataSource.data = books;
       },

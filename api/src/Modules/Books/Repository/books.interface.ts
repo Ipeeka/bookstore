@@ -1,4 +1,3 @@
-
 import { Document } from 'mongoose';
 
 export interface Book extends Document {
@@ -6,7 +5,10 @@ export interface Book extends Document {
   author: string;
   publicationYear: number;
   price: number;
-  availability: boolean;
   genre: string;
   bookmarked: boolean;
+  quantity: number;  
+  description: string;  
+  inventoryStatus: 'inStock' | 'lowStock' | 'preOrder' | 'outOfStock';  
+  publisher: string;  
 }

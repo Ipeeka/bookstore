@@ -31,9 +31,9 @@ export class BookmarkComponent implements OnInit {
   }
 
   loadBookmarkedBooks(): void {
-    debugger;
+  
     this.bookService.getAllBooks().subscribe((books) => {
-      debugger;
+   
       this.bookmarkedBooks = books.filter(
         (detail) => detail.bookmarked === true
       );

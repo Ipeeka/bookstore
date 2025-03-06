@@ -43,7 +43,7 @@ export class EditUserComponent implements OnInit {
   }
 
   loadUserData(): void {
-    debugger;
+   
     this.userService.getUserById(this.data.userId).subscribe({
       next: (res) => {
         this.userForm = new FormGroup({
