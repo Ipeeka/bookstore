@@ -1,5 +1,5 @@
 
-import { Controller, Post, Body, BadRequestException } from '@nestjs/common';
+import { Controller, Post, Body, BadRequestException, Query, Get } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterDTO } from 'src/Modules/Auth/DTOs/registerDTO';
 import { LoginDTO } from 'src/Modules/Auth/DTOs/loginDTO';
@@ -14,6 +14,7 @@ export class AuthController {
       const result = await this.authService.register(registerDTO);
       return { token: result.token };
     } catch (error) {
+      console.error(error); 
       throw new BadRequestException(error.message);
     }
   }
@@ -23,6 +24,16 @@ export class AuthController {
     try {
       const result = await this.authService.login(loginDTO);
       return result;
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
+  }
+
+  @Get('verify-email')
+  async verifyEmail(@Query('token') token: string) {
+    try {
+      const result = await this.authService.verifyEmail(token);
+      return { message: result.message };
     } catch (error) {
       throw new BadRequestException(error.message);
     }

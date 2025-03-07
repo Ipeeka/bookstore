@@ -62,6 +62,9 @@ export class User {
 
   @Prop({})
   profileImage?: string;
+
+  @Prop({ required: true, default: false })
+  isEmailVerified: boolean; 
 }
 
 export type UserDocument = User & Document;
