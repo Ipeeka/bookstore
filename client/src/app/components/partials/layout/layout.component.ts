@@ -39,6 +39,7 @@ export class LayoutComponent {
   menuItems: any[] = [];
   constantMenuItems = [
     { name: 'Book List', RouterLink: '/book/list' },
+    { name: 'verify', RouterLink: '/auth/verification' },
     {
       name: 'More..',
       RouterLink: '/test',

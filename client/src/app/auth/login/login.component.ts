@@ -23,6 +23,7 @@ import { CommonModule } from '@angular/common';
 import { AuthService } from '../../shared/services/auth.service';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { ForgotPasswordComponent } from '../forgot-password/forgot-password.component';
 
 @Component({
   selector: 'app-login',
@@ -38,6 +39,7 @@ import { MessageService } from 'primeng/api';
     CardModule,
     RouterLink,
     ToastModule,
+    ForgotPasswordComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [MessageService],
@@ -48,6 +50,7 @@ export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   email: string = '';
   password: string = '';
+  isForgotPassword: boolean = false;
 
   private loginService = inject(AuthService);
   private route = inject(Router);
@@ -66,6 +69,13 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  showForgotPassword() {
+    this.isForgotPassword = true; 
+  }
+
+  onBackToLogin() {
+    this.isForgotPassword = false; 
+  }
   onLogin() {
     try {
       if (this.loginForm.valid) {

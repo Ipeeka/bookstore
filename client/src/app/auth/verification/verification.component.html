@@ -1,0 +1,25 @@
+<div class="verification-container">
+    <div class="verification-card">
+      <div class="verification-header">
+        <img src="/assets/email.jpg" alt="Email Icon" class="email-icon">
+        <h2>Email Verified Successfully</h2>
+      </div>
+      <div class="verification-body">
+        
+      
+        <p *ngIf="countdown === 0">Redirecting to login page...</p>
+        
+        <p>Thank you for verifying your email address. You are now ready to start exploring our platform!</p>
+        
+        <a class="btn btn-primary" href="/dashboard">Go to Dashboard</a>
+  
+       
+        <p *ngIf="countdown > 0">You will be redirected to the login page in    <i class="fas fa-clock"></i> {{ countdown }} seconds...</p>
+        
+      </div>
+      <div class="verification-footer">
+        <p>If you did not sign up, please ignore this email or <a href="/contact">contact us</a>.</p>
+      </div>
+    </div>
+  </div>
+  

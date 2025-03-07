@@ -12,6 +12,6 @@ import { ThemeService } from '../styles/themes/theme.service';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'bookstore-frontend';
+  title = 'bookstore';
   constructor(public themeService: ThemeService){}
 }

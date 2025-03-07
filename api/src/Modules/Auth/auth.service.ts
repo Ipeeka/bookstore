@@ -12,6 +12,7 @@ export class AuthService {
     private authRepository: AuthRepository,
     private jwtService: JwtService,
     private readonly emailService: EmailService,
+    
   ) {}
 
   async register(registerDTO: RegisterDTO): Promise<any> {
@@ -37,7 +38,10 @@ export class AuthService {
     await this.emailService.sendVerificationEmail(
       newUser.email,
       verificationToken,
+      newUser.firstName,  
+      newUser.lastName    
     );
+    
 
     return {
       message:
