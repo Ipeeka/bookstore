@@ -42,6 +42,12 @@ export class UserService {
   getCurrentUser(id: string): Observable<any> {
     return this.http.get(`${this.apiUrl}/user/profile`);
   }
+  sendOtp(email: string): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/user/forgot-password`, { email });
+  }
 
+  verifyOtp(email: string, otp: string): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/auth/verify-otp`, { email, otp });
+  }
 
 }

@@ -30,4 +30,13 @@ export class UserRepository implements IUserRepository {
     return await this.userModel.findById(id);
   }
 
+  async findOne(query: object) {
+    return this.userModel.findOne(query).exec();
+  }
+
+ 
+  async updateOne(query: object, update: object) {
+    return this.userModel.updateOne(query, update).exec();
+  }
+
 }

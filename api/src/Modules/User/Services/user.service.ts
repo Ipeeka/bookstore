@@ -59,4 +59,29 @@ export class UserService implements IUserService {
     }
     return { message: 'User deleted successfully', status: true };
   }
+
+  async findByEmail(email: string) {
+    const user = await this.userRepository.findOne({ email });
+    if (!user) {
+      throw new BadRequestException('User not found');
+    }
+    return user;
+  }
+
+  async storeOtp(email: string, otp: string) {
+    // Store OTP in the database or cache (this is just a placeholder)
+    await this.userRepository.updateOne({ email }, { $set: { otp } });
+  }
+
+  async getOtp(email: string) {
+    const user = await this.userRepository.findOne({ email });
+    if (!user || !user.otp) {
+      throw new BadRequestException('OTP not found');
+    }
+    return user.otp;
+  }
+
+  async updatePassword(email: string, hashedPassword: string) {
+    await this.userRepository.updateOne({ email }, { $set: { password: hashedPassword } });
+  }
 }

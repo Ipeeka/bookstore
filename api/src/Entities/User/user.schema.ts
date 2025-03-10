@@ -65,6 +65,9 @@ export class User {
 
   @Prop({ required: true, default: false })
   isEmailVerified: boolean; 
+
+  @Prop({ required: false })
+  otp?: string; 
 }
 
 export type UserDocument = User & Document;

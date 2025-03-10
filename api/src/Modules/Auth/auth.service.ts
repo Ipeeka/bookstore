@@ -6,12 +6,17 @@ import { LoginDTO } from 'src/Modules/Auth/DTOs/loginDTO';
 import * as bcrypt from 'bcrypt';
 import { EmailService } from './email.service';
 
+import { UserService } from '../User/Services/user.service';
+import { randomBytes } from 'crypto'; // Ensure this import is added
+
+
 @Injectable()
 export class AuthService {
   constructor(
     private authRepository: AuthRepository,
-    private jwtService: JwtService,
+    private readonly jwtService: JwtService,
     private readonly emailService: EmailService,
+    private readonly userService: UserService,
     
   ) {}
 
@@ -104,5 +109,47 @@ export class AuthService {
       message: 'Login successful',
       status: true,
     };
+  }
+
+  async forgotPassword(email: string) {
+    // Check if the user exists
+    const user = await this.userService.findByEmail(email);
+    if (!user) {
+      throw new BadRequestException('User not found');
+    }
+
+    // Generate OTP (6 characters in hex format)
+    const otp = randomBytes(3).toString('hex'); // 3 bytes = 6 hexadecimal characters
+
+    // Send OTP via email
+    await this.emailService.sendOtpEmail(email, otp);
+
+    // Store OTP in the database or cache (can use Redis or MongoDB)
+    await this.userService.storeOtp(email, otp);
+
+    return { message: 'OTP sent to your email' };
+  }
+
+  async verifyOtp(email: string, otp: string) {
+    const storedOtp = await this.userService.getOtp(email);
+
+    if (!storedOtp || storedOtp !== otp) {
+      throw new BadRequestException('Invalid OTP');
+    }
+
+    return { message: 'OTP verified successfully' };
+  }
+
+  async resetPassword(email: string, otp: string, newPassword: string) {
+    const storedOtp = await this.userService.getOtp(email);
+
+    if (!storedOtp || storedOtp !== otp) {
+      throw new BadRequestException('Invalid OTP');
+    }
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    await this.userService.updatePassword(email, hashedPassword);
+
+    return { message: 'Password reset successfully' };
   }
 }

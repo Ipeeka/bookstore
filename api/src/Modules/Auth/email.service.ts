@@ -12,6 +12,30 @@ export class EmailService {
     sgMail.setApiKey(sendGridApiKey);
   }
 
+  // Method to send OTP email
+  async sendOtpEmail(email: string, otp: string) {
+    const subject = 'Your OTP Code';
+    const text = `Your OTP is: ${otp}. Please use it to reset your password.`;
+    const html = `<p>Your OTP is: <strong>${otp}</strong>. Please use it to reset your password.</p>`;
+
+    const msg = {
+      to: email,
+      from: 'pawan.kumar@eplannerpro.com',  // Replace with your verified sender email
+      subject: subject,
+      text: text,
+      html: html,
+    };
+
+    try {
+      await sgMail.send(msg);
+      console.log('OTP sent to', email);
+    } catch (error) {
+      console.error('Error sending OTP email:', error);
+      throw new Error('Error sending OTP email');
+    }
+  }
+
+  // Method to send verification email
   async sendVerificationEmail(
     to: string,
     token: string,
@@ -116,40 +140,29 @@ export class EmailService {
                 font-weight: bold; /* Bold the "Get in touch" text */
               }
             </style>
-           
             <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
           </head>
           <body>
             <div class="container">
-              
-             
               <div class="bold-header">
                 YOUR BOOKSTORE<sub>.com</sub>
               </div>
-
-           
               <div class="header">
                 <i class="fas fa-envelope email-icon"></i> 
                 <div>
-                <p>T H A N K S   F O R   S I G N I N G   U P !</p>
-                  
+                  <p>T H A N K S   F O R   S I G N I N G   U P !</p>
                 </div>
               </div>
-
-           
               <div class="content">
                 <p>Hi ${firstName} ${lastName},</p>
-                <p>We're happy you signed up.  You're almost ready to get started. Pleas verify your email address . To start exploring and enjoy exclusive services with us!</p>
+                <p>We're happy you signed up.  You're almost ready to get started. Please verify your email address to start exploring and enjoy exclusive services with us!</p>
                 <a href="${verificationUrl}" class="button" style="color:white;">VERIFY YOUR EMAIL</a>
                 <p>Thanks,<br>The BOOKSTORE Team</p>
               </div>
-
               <div class="disclaimer">
                 <p>Did you receive this email without signing up? <a href="${verificationUrl}" style="color: #003399;">Click here</a>.</p>
                 <p>This verification link will expire in ${verificationExpireTime}.</p>
               </div>
-
-        
               <div class="footer">
                 <p class="get-in-touch">Get in touch:</p>
                 <p>+11 111 333 4444 | Info@bookstore.com</p>
@@ -161,7 +174,6 @@ export class EmailService {
                 </div>
                 <p>Copyrights ©pawan All Rights Reserved</p>
               </div>
-
             </div>
           </body>
         </html>

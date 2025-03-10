@@ -1,10 +1,11 @@
-import { CommonModule } from '@angular/common';
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputOtpModule } from 'primeng/inputotp';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { UserService } from '../../shared/services/user.service'; 
 
 @Component({
   selector: 'app-forgot-password',
@@ -15,56 +16,80 @@ import { FormsModule } from '@angular/forms';
 })
 export class ForgotPasswordComponent implements OnInit, OnDestroy {
   forgotPasswordForm!: FormGroup;
-  otpSent: boolean = false; 
-  resendTimeout: number = 30; 
-  otpTimer: any; 
+  otpSent: boolean = false;
+  resendTimeout: number = 30;
+  otpTimer: any;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private userService: UserService,private cdRef: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.forgotPasswordForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      otp: ['', Validators.required]  
+      otp: [''],
     });
   }
 
- 
+  // Handle form submission
   onSubmit() {
-   
-    console.log('Form Valid:', this.forgotPasswordForm.valid);
-    console.log('Form Errors:', this.forgotPasswordForm.errors);
-    
-    if (this.forgotPasswordForm.valid && !this.otpSent) {
-
-      this.onGetOtp();
-    } else if (this.otpSent && this.forgotPasswordForm.get('otp')?.valid) {
-    
-      console.log('OTP Submitted:', this.forgotPasswordForm.get('otp')?.value);
+    if (this.forgotPasswordForm.valid) {
+      if (this.otpSent && this.forgotPasswordForm.get('otp')?.valid) {
+        console.log('OTP Submitted:', this.forgotPasswordForm.get('otp')?.value);
+        this.verifyOtp();
+      } else if (!this.otpSent) {
+        this.sendOtp();
+      }
     } else {
       console.log('Form is not valid');
     }
   }
 
-
-  onGetOtp() {
+  // Send OTP to the user's email
+  sendOtp() {
     const email = this.forgotPasswordForm.value.email;
     console.log(`Sending OTP to ${email}`);
-    this.otpSent = true;
-    this.startOtpTimer(); 
+    this.userService.sendOtp(email).subscribe(
+      (response) => {
+        debugger
+        console.log(response); 
+        this.otpSent = true;
+        this.startOtpTimer();
+        this.cdRef.detectChanges();
+      },
+      (error) => {
+        console.error(error);
+        alert('Error sending OTP. Please try again later.');
+      }
+    );
   }
 
-  
+  // Verify the OTP entered by the user
+  verifyOtp() {
+    const otp = this.forgotPasswordForm.get('otp')?.value;
+    const email = this.forgotPasswordForm.value.email;
+    this.userService.verifyOtp(email, otp).subscribe(
+      (response) => {
+        console.log('OTP verified successfully', response);
+        // Handle further action after successful OTP verification (e.g., navigate to reset password page)
+      },
+      (error) => {
+        console.error(error);
+        // Display error to user
+        alert('Invalid OTP. Please try again.');
+      }
+    );
+  }
+
+  // Resend OTP if the timeout has elapsed
   onResendOtp() {
     if (this.resendTimeout <= 0) {
       console.log('Resending OTP...');
-      this.forgotPasswordForm.get('otp')?.setValue(''); 
-      this.startOtpTimer(); 
+      this.sendOtp();
     }
   }
 
- 
+  // Start the OTP timer for resend functionality
   startOtpTimer() {
-    this.resendTimeout = 30; 
+    this.resendTimeout = 30;
     this.otpTimer = setInterval(() => {
       if (this.resendTimeout > 0) {
         this.resendTimeout--;
@@ -72,12 +97,11 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
     }, 1000);
   }
 
-  
+  // Go back to the login page
   onBackToLogin() {
     window.history.back();
   }
 
- 
   ngOnDestroy() {
     if (this.otpTimer) {
       clearInterval(this.otpTimer);
