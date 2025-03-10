@@ -119,7 +119,7 @@ export class AuthService {
     }
 
     // Generate OTP (6 characters in hex format)
-    const otp = randomBytes(3).toString('hex'); // 3 bytes = 6 hexadecimal characters
+    const otp = randomBytes(2).toString('hex'); // 3 bytes = 6 hexadecimal characters
 
     // Send OTP via email
     await this.emailService.sendOtpEmail(email, otp);

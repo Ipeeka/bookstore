@@ -3,91 +3,107 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ButtonModule } from 'primeng/button';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputOtpModule } from 'primeng/inputotp';
-import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { UserService } from '../../shared/services/user.service'; 
+import { UserService } from '../../shared/services/user.service';
 
 @Component({
   selector: 'app-forgot-password',
   standalone: true,
-  imports: [CommonModule, FloatLabelModule, ReactiveFormsModule, ButtonModule, InputOtpModule, FormsModule],
+  imports: [CommonModule, FloatLabelModule, ReactiveFormsModule, ButtonModule, InputOtpModule],
   templateUrl: './forgot-password.component.html',
   styleUrls: ['./forgot-password.component.css'],
 })
 export class ForgotPasswordComponent implements OnInit, OnDestroy {
   forgotPasswordForm!: FormGroup;
+  otpForm!: FormGroup;
+  resetPasswordForm!: FormGroup;
   otpSent: boolean = false;
+  otpVerified: boolean = false;
   resendTimeout: number = 30;
   otpTimer: any;
 
-  constructor(private fb: FormBuilder, private userService: UserService,private cdRef: ChangeDetectorRef) {}
+  constructor(private fb: FormBuilder, private userService: UserService, private cdRef: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.forgotPasswordForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      otp: [''],
+    });
+
+    this.otpForm = this.fb.group({
+      otp: ['', [Validators.required, Validators.pattern(/^\d{4}$/)]],
+    });
+
+    this.resetPasswordForm = this.fb.group({
+      newPassword: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', [Validators.required]],
     });
   }
 
-  // Handle form submission
   onSubmit() {
     if (this.forgotPasswordForm.valid) {
-      if (this.otpSent && this.forgotPasswordForm.get('otp')?.valid) {
-        console.log('OTP Submitted:', this.forgotPasswordForm.get('otp')?.value);
+      if (this.otpSent && this.otpForm.valid) {
         this.verifyOtp();
       } else if (!this.otpSent) {
         this.sendOtp();
       }
-    } else {
-      console.log('Form is not valid');
     }
   }
 
-  // Send OTP to the user's email
   sendOtp() {
     const email = this.forgotPasswordForm.value.email;
-    console.log(`Sending OTP to ${email}`);
     this.userService.sendOtp(email).subscribe(
-      (response) => {
-        debugger
-        console.log(response); 
+      () => {
         this.otpSent = true;
         this.startOtpTimer();
         this.cdRef.detectChanges();
       },
       (error) => {
-        console.error(error);
-        alert('Error sending OTP. Please try again later.');
+        alert('Error sending OTP. Please try again.');
       }
     );
   }
 
-  // Verify the OTP entered by the user
   verifyOtp() {
-    const otp = this.forgotPasswordForm.get('otp')?.value;
     const email = this.forgotPasswordForm.value.email;
+    const otp = this.otpForm.value.otp;
     this.userService.verifyOtp(email, otp).subscribe(
-      (response) => {
-        console.log('OTP verified successfully', response);
-        // Handle further action after successful OTP verification (e.g., navigate to reset password page)
+      () => {
+        this.otpVerified = true;
       },
       (error) => {
-        console.error(error);
-        // Display error to user
         alert('Invalid OTP. Please try again.');
       }
     );
   }
 
-  // Resend OTP if the timeout has elapsed
-  onResendOtp() {
-    if (this.resendTimeout <= 0) {
-      console.log('Resending OTP...');
-      this.sendOtp();
+  resetPassword() {
+    if (this.resetPasswordForm.valid) {
+      const { newPassword, confirmPassword } = this.resetPasswordForm.value;
+
+      if (newPassword !== confirmPassword) {
+        alert('Passwords do not match!');
+        return;
+      }
+
+      const email = this.forgotPasswordForm.value.email;
+      const otp = this.otpForm.value.otp;
+
+      this.userService.resetPassword(email, otp, newPassword).subscribe(
+        () => {
+          alert('Password updated successfully!');
+          this.otpSent = false;
+          this.otpVerified = false;
+          this.forgotPasswordForm.reset();
+          this.otpForm.reset();
+          this.resetPasswordForm.reset();
+        },
+        (error) => {
+          alert('Error updating password. Please try again.');
+        }
+      );
     }
   }
 
-  // Start the OTP timer for resend functionality
   startOtpTimer() {
     this.resendTimeout = 30;
     this.otpTimer = setInterval(() => {
@@ -97,7 +113,6 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
     }, 1000);
   }
 
-  // Go back to the login page
   onBackToLogin() {
     window.history.back();
   }
