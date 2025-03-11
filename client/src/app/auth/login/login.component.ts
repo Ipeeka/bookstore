@@ -60,6 +60,21 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.getLoginForm();
+    this.adjustLabels();
+    
+  }
+
+  adjustLabels() {
+    const formControls = Object.keys(this.loginForm.controls);
+    formControls.forEach(control => {
+      const inputControl = this.loginForm.get(control);
+      if (inputControl && inputControl.value) {
+        const label = document.querySelector(`label[for='${control}']`);
+        if (label) {
+          label.classList.add('label-float'); // Add a custom class to trigger label floating
+        }
+      }
+    });
   }
 
   getLoginForm() {
@@ -71,11 +86,16 @@ export class LoginComponent implements OnInit {
 
   showForgotPassword() {
     this.isForgotPassword = true; 
+
   }
 
-  onBackToLogin() {
-    this.isForgotPassword = false; 
+  handleBackToLogin() {
+    this.isForgotPassword = false;
   }
+ 
+
+
+
   onLogin() {
     try {
       if (this.loginForm.valid) {

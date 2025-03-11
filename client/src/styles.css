@@ -1,7 +1,10 @@
 
 
-
-
+.label-float {
+  top: -12px;
+  font-size: 13px;
+  color: black;
+}
 
 body {
     font-family: 'Inter', sans-serif;

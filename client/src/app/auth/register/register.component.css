@@ -141,16 +141,14 @@ body {
   background: none;
 }
 
-.form-footer button:hover {
-  text-decoration: underline;
-}
+
 
 .sign-in-btn {
   background: none;
   border: none;
   color: #007bff;
   font-weight: bold;
-  text-decoration: underline;
+
   cursor: pointer;
 }
 

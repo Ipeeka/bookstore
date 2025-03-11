@@ -47,7 +47,7 @@
 }
 
 .p-floatlabel label {
-  position: absolute;
+  position: relative;
   left: 0;
   top: -16px;
   font-size: 15px;
@@ -56,12 +56,8 @@
   pointer-events: none;
 }
 
-.p-floatlabel .p-inputtext:focus ~ label,
-.p-floatlabel .p-password:focus ~ label {
-  top: -16px;
-  font-size: 15px;
-  color: #007bff;
-}
+
+
 
 button.p-button {
   border-radius: 8px;
@@ -105,7 +101,6 @@ button.p-button:disabled {
   color: #007bff;
   background: none;
   border: none;
-  text-decoration: underline;
   cursor: pointer;
   padding: 0;
   margin: 0;
@@ -113,7 +108,7 @@ button.p-button:disabled {
 
 .forgot-password-btn:hover {
   color: #0056b3;
-  text-decoration: underline;
+
 }
 
 .submit-button-container {
@@ -128,7 +123,7 @@ button.p-button:disabled {
   border: none;
   color: #007bff;
   font-weight: bold;
-  text-decoration: underline;
+
   cursor: pointer;
 }
 

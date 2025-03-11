@@ -12,7 +12,7 @@ export class EmailService {
     sgMail.setApiKey(sendGridApiKey);
   }
 
-  // Method to send OTP email
+ 
   async sendOtpEmail(email: string, otp: string) {
     const subject = 'Your OTP Code';
     const text = `Your OTP is: ${otp}. Please use it to reset your password.`;
@@ -20,7 +20,7 @@ export class EmailService {
 
     const msg = {
       to: email,
-      from: 'pawan.kumar@eplannerpro.com',  // Replace with your verified sender email
+      from: 'pawan.kumar@eplannerpro.com',  
       subject: subject,
       text: text,
       html: html,
@@ -35,14 +35,15 @@ export class EmailService {
     }
   }
 
-  // Method to send verification email
+ 
   async sendVerificationEmail(
     to: string,
     token: string,
     firstName: string,
     lastName: string,
   ) {
-    const verificationUrl = `http://localhost:3000/auth/verify-email?token=${token}`;
+    //const verificationUrl = `http://localhost:3000/auth/verify-email?token=${token}`;
+    const verificationUrl = `http://localhost:4200/auth/verification#token=${token}`;
     const verificationExpireTime = '24 hours';
 
     const msg = {

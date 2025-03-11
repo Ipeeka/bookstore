@@ -1,17 +1,22 @@
-import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef, inject, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputOtpModule } from 'primeng/inputotp';
 import { CommonModule } from '@angular/common';
 import { UserService } from '../../shared/services/user.service';
+import { PasswordModule } from 'primeng/password';
+import { Router, RouterLink } from '@angular/router';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-forgot-password',
   standalone: true,
-  imports: [CommonModule, FloatLabelModule, ReactiveFormsModule, ButtonModule, InputOtpModule],
+  imports: [CommonModule, FloatLabelModule, ReactiveFormsModule, ButtonModule, InputOtpModule, PasswordModule,ToastModule],
   templateUrl: './forgot-password.component.html',
   styleUrls: ['./forgot-password.component.css'],
+  providers: [MessageService],
 })
 export class ForgotPasswordComponent implements OnInit, OnDestroy {
   forgotPasswordForm!: FormGroup;
@@ -22,18 +27,17 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
   resendTimeout: number = 30;
   otpTimer: any;
 
+  @Output() backToLoginEvent = new EventEmitter<void>();
+
+  private route = inject(Router);
+  private messageService = inject(MessageService);
+
   constructor(private fb: FormBuilder, private userService: UserService, private cdRef: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.forgotPasswordForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-    });
-
-    this.otpForm = this.fb.group({
       otp: ['', [Validators.required, Validators.pattern(/^\d{4}$/)]],
-    });
-
-    this.resetPasswordForm = this.fb.group({
       newPassword: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', [Validators.required]],
     });
@@ -41,10 +45,12 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     if (this.forgotPasswordForm.valid) {
-      if (this.otpSent && this.otpForm.valid) {
-        this.verifyOtp();
+      if (this.otpSent && this.otpVerified) {
+        this.resetPassword(); // Proceed to reset password
+      } else if (this.otpSent && !this.otpVerified) {
+        this.verifyOtp(); // Verify OTP if OTP is sent but not verified yet
       } else if (!this.otpSent) {
-        this.sendOtp();
+        this.sendOtp(); // Send OTP if not sent
       }
     }
   }
@@ -55,53 +61,82 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
       () => {
         this.otpSent = true;
         this.startOtpTimer();
+        this.forgotPasswordForm.addControl('otp', this.fb.control('', [Validators.required, Validators.pattern(/^\d{4}$/)]));
         this.cdRef.detectChanges();
+        this.messageService.add({
+          severity: 'success',
+          summary: 'OTP Sent',
+          detail: 'OTP has been sent to your email address.',
+        });
       },
       (error) => {
-        alert('Error sending OTP. Please try again.');
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error Sending OTP',
+          detail: 'Error sending OTP. Please try again later.',
+        });
       }
     );
   }
 
   verifyOtp() {
     const email = this.forgotPasswordForm.value.email;
-    const otp = this.otpForm.value.otp;
+    const otp = this.forgotPasswordForm.value.otp;
     this.userService.verifyOtp(email, otp).subscribe(
       () => {
         this.otpVerified = true;
+        this.messageService.add({
+          severity: 'success',
+          summary: 'OTP Verified',
+          detail: 'OTP successfully verified. You can now reset your password.',
+        });
       },
       (error) => {
-        alert('Invalid OTP. Please try again.');
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Invalid OTP',
+          detail: 'The OTP you entered is invalid. Please try again.',
+        });
       }
     );
   }
-
   resetPassword() {
-    if (this.resetPasswordForm.valid) {
-      const { newPassword, confirmPassword } = this.resetPasswordForm.value;
-
-      if (newPassword !== confirmPassword) {
-        alert('Passwords do not match!');
-        return;
-      }
-
-      const email = this.forgotPasswordForm.value.email;
-      const otp = this.otpForm.value.otp;
-
-      this.userService.resetPassword(email, otp, newPassword).subscribe(
-        () => {
-          alert('Password updated successfully!');
-          this.otpSent = false;
-          this.otpVerified = false;
-          this.forgotPasswordForm.reset();
-          this.otpForm.reset();
-          this.resetPasswordForm.reset();
-        },
-        (error) => {
-          alert('Error updating password. Please try again.');
-        }
-      );
+    const { newPassword, confirmPassword } = this.forgotPasswordForm.value;
+    if (newPassword !== confirmPassword) {
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Password Mismatch',
+        detail: 'Passwords do not match. Please try again.',
+      });
+      return;
     }
+
+    const email = this.forgotPasswordForm.value.email;
+    const otp = this.forgotPasswordForm.value.otp;
+
+    this.userService.resetPassword(email, otp, newPassword).subscribe(
+      () => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Password Updated',
+          detail: 'Your password has been successfully updated . You can login now..',
+          life: 2000,
+        });
+        this.otpSent = false;
+        this.otpVerified = false;
+        this.forgotPasswordForm.reset();
+        setTimeout(() => {
+          this.backToLogin();
+        }, 3000);
+      },
+      (error) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error Updating Password',
+          detail: 'There was an error updating your password. Please try again.',
+        });
+      }
+    );
   }
 
   startOtpTimer() {
@@ -113,13 +148,14 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
     }, 1000);
   }
 
-  onBackToLogin() {
-    window.history.back();
-  }
-
   ngOnDestroy() {
     if (this.otpTimer) {
       clearInterval(this.otpTimer);
     }
+  }
+
+  // Method for going back to login page
+  backToLogin() {
+    this.backToLoginEvent.emit(); // Emit event to go back to login
   }
 }
