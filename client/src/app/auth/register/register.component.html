@@ -5,11 +5,12 @@
     <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
   </div>
 </div>
+
 <div class="auth-screen onload">
   <div class="auth-container" id="authRegister">
     <div class="auth-left d-flex justify-content-center align-items-center">
       <div class="auth-graphic">
-        <img alt="Register" class="img-fluid" src="/assets/login.jpg" />
+        <img alt="Register" class="img-fluid" src="/assets/register.jpg" />
       </div>
     </div>
 
@@ -29,19 +30,13 @@
               />
               <label for="email">Email</label>
               <p
-                *ngIf="
-                  registerForm.get('email')?.hasError('required') &&
-                  registerForm.get('email')?.touched
-                "
+                *ngIf="registerForm.get('email')?.hasError('required') && registerForm.get('email')?.touched"
                 class="error-message"
               >
                 Email is required.
               </p>
               <p
-                *ngIf="
-                  registerForm.get('email')?.hasError('email') &&
-                  registerForm.get('email')?.touched
-                "
+                *ngIf="registerForm.get('email')?.hasError('email') && registerForm.get('email')?.touched"
                 class="error-message"
               >
                 Please enter a valid email address.
@@ -57,14 +52,11 @@
                   id="firstName"
                   formControlName="firstName"
                   autocomplete="off"
-                  [style]="{ width: '95%' }"
+                  [style]="{ width: '99%' }"
                 />
                 <label for="firstName">First Name</label>
                 <p
-                  *ngIf="
-                    registerForm.get('firstName')?.hasError('required') &&
-                    registerForm.get('firstName')?.touched
-                  "
+                  *ngIf="registerForm.get('firstName')?.hasError('required') && registerForm.get('firstName')?.touched"
                   class="error-message"
                 >
                   First Name is required.
@@ -79,14 +71,11 @@
                   id="lastName"
                   formControlName="lastName"
                   autocomplete="off"
-                  [style]="{ width: '95%' }"
+                  [style]="{ width: '99%' }"
                 />
                 <label for="lastName">Last Name</label>
                 <p
-                  *ngIf="
-                    registerForm.get('lastName')?.hasError('required') &&
-                    registerForm.get('lastName')?.touched
-                  "
+                  *ngIf="registerForm.get('lastName')?.hasError('required') && registerForm.get('lastName')?.touched"
                   class="error-message"
                 >
                   Last Name is required.
@@ -106,10 +95,7 @@
               />
               <label for="userName">Username</label>
               <p
-                *ngIf="
-                  registerForm.get('userName')?.hasError('required') &&
-                  registerForm.get('userName')?.touched
-                "
+                *ngIf="registerForm.get('userName')?.hasError('required') && registerForm.get('userName')?.touched"
                 class="error-message"
               >
                 Username is required.
@@ -126,10 +112,7 @@
               [style]="{ width: '100%' }"
             ></p-dropdown>
             <p
-              *ngIf="
-                registerForm.get('role')?.hasError('required') &&
-                registerForm.get('role')?.touched
-              "
+              *ngIf="registerForm.get('role')?.hasError('required') && registerForm.get('role')?.touched"
               class="error-message"
             >
               Role is required.
@@ -149,10 +132,7 @@
               ></p-password>
               <label for="password">Password</label>
               <p
-                *ngIf="
-                  registerForm.get('password')?.hasError('required') &&
-                  registerForm.get('password')?.touched
-                "
+                *ngIf="registerForm.get('password')?.hasError('required') && registerForm.get('password')?.touched"
                 class="error-message"
               >
                 Password is required.
@@ -161,18 +141,13 @@
           </div>
 
           <div class="flex items-center gap-2">
-            <p-checkbox id="accept"  name="accept" value="Accept" />
+            <p-checkbox id="accept" name="accept" value="Accept" />
             <label for="accept">I agree to the terms and conditions.</label>
-        </div>
+          </div>
 
           <div class="button-container submit-button-container">
             <div>
-              <button
-                pButton
-                label="Register"
-                type="submit"
-                [disabled]="!registerForm.valid"
-              ></button>
+              <button pButton label="Register" type="submit"></button>
             </div>
           </div>
         </form>
@@ -185,4 +160,6 @@
       </p-card>
     </div>
   </div>
+
+  
 </div>

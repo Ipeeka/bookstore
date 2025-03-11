@@ -20,11 +20,13 @@
 <div class="auth-screen d-flex justify-content-center align-items-center">
   <div class="auth-container d-flex justify-content-between">
     <div class="auth-left d-flex justify-content-center align-items-center">
-      <img src="/assets/auth.jpg" alt="Login" class="img-fluid rounded" />
+      <div class="auth-graphic">
+        <img [src]="isForgotPassword ? '/assets/forgot-pass.jpg' : '/assets/login.jpg'" alt="Login" class="img-fluid rounded" />
+    </div>
     </div>
 
     <div class="auth-right d-flex justify-content-center align-items-center">
-      <div class="auth-forms">
+      <p-card class="auth-forms">
         <h3 class="auth-card-title text-center">
           {{ isForgotPassword ? "Forgot Password" : "Login" }}
         </h3>
@@ -125,7 +127,7 @@
             <button class="sign-up-btn" routerLink="register">Sign up</button>
           </p>
         </div>
-      </div>
+      </p-card>
     </div>
   </div>
 </div>

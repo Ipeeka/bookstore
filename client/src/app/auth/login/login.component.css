@@ -11,6 +11,7 @@
   display: flex;
   justify-content: space-between;
   flex-direction: row;
+
 }
 
 .auth-left,
@@ -29,7 +30,7 @@
   width: 100%;
   padding: 30px;
   border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+ 
   margin: 0 auto;
 }
 
@@ -56,7 +57,11 @@
   pointer-events: none;
 }
 
-
+.auth-graphic img {
+  width: 100%;
+  height: 90vh;
+  margin-top: 45px;
+}
 
 
 button.p-button {

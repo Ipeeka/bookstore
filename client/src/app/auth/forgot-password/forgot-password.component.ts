@@ -24,7 +24,7 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
   resetPasswordForm!: FormGroup;
   otpSent: boolean = false;
   otpVerified: boolean = false;
-  resendTimeout: number = 30;
+  resendTimeout: number = 15;
   otpTimer: any;
 
   @Output() backToLoginEvent = new EventEmitter<void>();
@@ -46,11 +46,11 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
   onSubmit() {
     if (this.forgotPasswordForm.valid) {
       if (this.otpSent && this.otpVerified) {
-        this.resetPassword(); // Proceed to reset password
+        this.resetPassword();
       } else if (this.otpSent && !this.otpVerified) {
-        this.verifyOtp(); // Verify OTP if OTP is sent but not verified yet
+        this.verifyOtp();
       } else if (!this.otpSent) {
-        this.sendOtp(); // Send OTP if not sent
+        this.sendOtp(); 
       }
     }
   }
@@ -140,7 +140,7 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
   }
 
   startOtpTimer() {
-    this.resendTimeout = 30;
+    this.resendTimeout = 15;
     this.otpTimer = setInterval(() => {
       if (this.resendTimeout > 0) {
         this.resendTimeout--;
@@ -154,8 +154,8 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
     }
   }
 
-  // Method for going back to login page
+
   backToLogin() {
-    this.backToLoginEvent.emit(); // Emit event to go back to login
+    this.backToLoginEvent.emit(); 
   }
 }
