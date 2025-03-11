@@ -11,6 +11,7 @@ import { CdkDrag } from '@angular/cdk/drag-drop';
 import { BadgeModule } from 'primeng/badge';
 import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
+import { ChatBotComponent } from "../../constants/chat-bot/chat-bot.component";
 
 @Component({
   selector: 'app-layout',
@@ -29,7 +30,8 @@ import { InputTextModule } from 'primeng/inputtext';
     BadgeModule,
     CardModule,
     InputTextModule,
-  ],
+    ChatBotComponent
+],
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.css'],
 })
@@ -38,24 +40,26 @@ export class LayoutComponent {
   isAdmin: boolean = false;
   menuItems: any[] = [];
   constantMenuItems = [
-    { name: 'Book List', RouterLink: '/book/list' },
+    { name: 'Book List', RouterLink: '/book/list', icon: 'fas fa-book' },
+    // { name: 'Messages', RouterLink: '/book/liset', icon: 'fas fa-message' },
+    { name: 'Settings', RouterLink: '/book/lists', icon: 'fas fa-setting' },
     
     {
       name: 'More..',
       RouterLink: '/test',
-      icon: 'pi pi-folder',
+      // icon: 'fas fa-ellipsis-h'
+      // ,
       children: [
         { name: 'Saved', RouterLink: '/book/bookmark', icon: 'pi pi-folder' },
-        // {
-        //   name: 'Sub Saved 2',
-        //   RouterLink: '/sub-test2',
-        //   icon: 'pi pi-folder-open',
-        // },
+        { name: 'Reports', RouterLink: '/constants/report', icon: 'fas fa-report' },
       ],
-    },
+      collapsed: true 
+    }
   ];
   userMenuItems = [];
-  adminMenuItems = [{ name: 'User List', RouterLink: '/user/list' }];
+  adminMenuItems = [{ name: 'User List', RouterLink: '/user/list' , icon: 'fas fa-users'},
+    //{ name: 'Reports', RouterLink: '/constants/report', icon: 'fas fa-report' },
+  ];
   isMenuOpen = false;
   isMenuExpanded = false;
   value: string = '';

@@ -1,4 +1,4 @@
-.book-list{
+.book-list {
   margin: 20px;
 }
 
@@ -8,18 +8,49 @@
   align-items: center;
   margin-bottom: 15px;
   width: 100%;
-  
+}
+
+
+.delete-btn {
+  color: #f1416c !important;
 }
 
 .delete-btn:hover {
-  color: white;
-  background-color:  rgb(235, 23, 23);
+  color: white !important;
+  background-color: rgb(235, 23, 23);
 }
 
+.edit-btn {
+  color: #3e97ff !important;
+}
 
 .edit-btn:hover {
-  background-color:  blue;
-  color: white;
+  background-color: #3e97ff !important;
+  color: white !important;
+}
+
+.toggle-btn {
+  color: #3e97ff !important;
+  background-color: #eef6ff !important;
+  border-color: #eef6ff !important;
+}
+
+.toggle-btn:hover {
+  color: #ffffff !important;
+  background-color: #3e97ff !important;
+  border-color: #3e97ff !important;
+}
+
+.add-btn {
+  color: #3e97ff !important;
+  background-color: #eef6ff !important;
+  border-color: #eef6ff !important;
+}
+
+.add-btn:hover {
+  color: #ffffff !important;
+  background-color: #3e97ff !important;
+  border-color: #3e97ff !important;
 }
 
 .booklist-container {
@@ -98,20 +129,22 @@
   margin: 9px 8px 6px 130px;
 }
 
+.clear-filter {
+  color: #f1416c !important;
+}
 
+.clear-filter:hover {
+  color: white !important;
+  background-color: rgb(235, 23, 23) !important ;
+}
 
-/* .clear-filter:hover {
-  color: white;
-  background-color:  rgb(235, 23, 23);
-} */
-
-
-
-/* .apply-filter-btn {
-  background-color: #4caf50;
-  color: white;
-} */
-
+.apply-btn {
+  color: #3e97ff !important;
+}
+.apply-btn:hover {
+  background-color: #3e97ff !important;
+  color: white !important;
+}
 
 .filter-actions button:hover {
   opacity: 0.8;
@@ -235,7 +268,7 @@ h1 {
 
 .action-buttons {
   display: flex;
-  gap: 15px; 
+  gap: 15px;
 }
 
 .no-data-message {
@@ -244,4 +277,3 @@ h1 {
   font-size: 16px;
   padding: 20px;
 }
-

@@ -1,0 +1,48 @@
+<div class="floating-btn" cdkDrag>
+    <button mat-fab color="primary" (click)="onFloatingMenuClick()">
+      <i class="fas fa-headset" pBadge value="2"></i>
+    </button>
+  
+    <div
+      *ngIf="isMenuOpen"
+      class="floating-chat"
+      [class.expanded]="isMenuExpanded"
+    >
+      <div class="chat-header">
+        <span>Chat</span>
+        <i
+          class="pi pi-chevron-up"
+          (click)="onToggleExpandCollapse()"
+          style="cursor: pointer"
+        ></i>
+        <i
+          class="pi pi-bars"
+          (mousedown)="onResizeChatBox($event)"
+          style="cursor: ew-resize; margin-left: auto"
+        ></i>
+      </div>
+      <div class="chat-body">
+        <div class="messages">
+          <div
+            *ngFor="let message of messages"
+            [ngClass]="{'sent-message': message.sent, 'received-message': !message.sent}"
+            class="message"
+          >
+            <span>{{ message.user }}:</span> {{ message.text }}
+          </div>
+        </div>
+        <div class="chat-input">
+          <input
+            type="text"
+            pInputText
+            [(ngModel)]="value"
+            placeholder="Type a message..."
+          />
+          <button mat-button (click)="onMenuItemClick('send')">
+            <i class="pi pi-send"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

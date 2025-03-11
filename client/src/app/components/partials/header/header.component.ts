@@ -137,5 +137,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.profileMenuVisible = false;
     }
   }
+
+
+  
 }
 

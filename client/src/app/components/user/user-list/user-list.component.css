@@ -9,15 +9,22 @@
   border-collapse: collapse;
 }
 
+.delete-btn{
+  color: #F1416C !important;
+}
+
 .delete-btn:hover {
-  color: white;
+  color: white !important;
   background-color:  rgb(235, 23, 23);
 }
 
+.edit-btn{
+  color: #3E97FF !important;
+}
 
 .edit-btn:hover {
-  background-color:  blue;
-  color: white;
+  background-color: #3e97ff !important;
+  color: white !important;
 }
 
 .mat-mdc-row .mat-mdc-cell {

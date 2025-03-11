@@ -23,6 +23,15 @@
               (click)="toggleTree(item)"
             >
               <i class="{{ item.icon }}"></i> {{ item.name }}
+              <i
+                class="pi"
+                [ngClass]="{
+                  'pi-chevron-down': item.isExpanded,
+                  'pi-chevron-right': !item.isExpanded
+                }"
+                [style.margin-left]="'48px'"
+              >
+              </i>
             </button>
             <div *ngIf="item.isExpanded" class="nested-tree">
               <a
@@ -45,49 +54,6 @@
   </div>
 
   <div class="floating-btn" cdkDrag>
-    <button mat-fab color="primary" (click)="onFloatingMenuClick()">
-      <i class="fas fa-headset" pBadge value="2"></i>
-    </button>
-
-    <div
-      *ngIf="isMenuOpen"
-      class="floating-chat"
-      [class.expanded]="isMenuExpanded"
-    >
-      <div class="chat-header">
-        <span>Chat</span>
-        <i
-          class="pi pi-chevron-up"
-          (click)="onToggleExpandCollapse()"
-          style="cursor: pointer"
-        ></i>
-        <i
-          class="pi pi-bars"
-          (mousedown)="onResizeChatBox($event)"
-          style="cursor: ew-resize; margin-left: auto"
-        ></i>
-      </div>
-      <div class="chat-body">
-        <div class="messages">
-          <div class="message">
-            <span>User1:</span> Hello, how can I help you?
-          </div>
-          <div class="message">
-            <span>User2:</span> I need some help with my account.
-          </div>
-        </div>
-        <div class="chat-input">
-          <input
-            type="text"
-            pInputText
-            [(ngModel)]="value"
-            placeholder="Type a message..."
-          />
-          <button mat-button (click)="onMenuItemClick('send')">
-            <i class="pi pi-send"></i>
-          </button>
-        </div>
-      </div>
-    </div>
+    <app-chat-bot></app-chat-bot>
   </div>
 </div>

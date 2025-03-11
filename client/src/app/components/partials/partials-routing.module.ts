@@ -24,7 +24,7 @@ const routes: Routes = [
         loadChildren: () => import("../user/user.module").then(m => m.UserModule),
       },
       {
-        path: 'constants',  
+        path: 'report',  
         loadChildren: () => import('../constants/constants.module').then(m => m.ConstantsModule),
       
     },
