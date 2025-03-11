@@ -39,7 +39,7 @@ import { ForgotPasswordComponent } from '../forgot-password/forgot-password.comp
     CardModule,
     RouterLink,
     ToastModule,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [MessageService],
@@ -51,6 +51,7 @@ export class LoginComponent implements OnInit {
   email: string = '';
   password: string = '';
   isForgotPassword: boolean = false;
+  loading: boolean = false;
 
   private loginService = inject(AuthService);
   private route = inject(Router);
@@ -60,21 +61,6 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.getLoginForm();
-    this.adjustLabels();
-    
-  }
-
-  adjustLabels() {
-    const formControls = Object.keys(this.loginForm.controls);
-    formControls.forEach(control => {
-      const inputControl = this.loginForm.get(control);
-      if (inputControl && inputControl.value) {
-        const label = document.querySelector(`label[for='${control}']`);
-        if (label) {
-          label.classList.add('label-float'); // Add a custom class to trigger label floating
-        }
-      }
-    });
   }
 
   getLoginForm() {
@@ -85,49 +71,93 @@ export class LoginComponent implements OnInit {
   }
 
   showForgotPassword() {
-    this.isForgotPassword = true; 
-
+    this.isForgotPassword = true;
   }
 
   handleBackToLogin() {
     this.isForgotPassword = false;
   }
- 
-
-
 
   onLogin() {
     try {
       if (this.loginForm.valid) {
+        this.loading = true;
+
         const saveSubscribe = this.loginService
           .login(this.loginForm.value)
           .subscribe({
-            next: () => {
-              this.messageService.add({
-                severity: 'success',
-                summary: 'Login Successful',
-                detail: 'Welcome Back',
-                life: 1000,
-              });
-
+            next: (response) => {
               setTimeout(() => {
-                if (this.loginService.currentUserSubject().role == 'admin') {
-                  this.route.navigateByUrl('book/list');
-                } else {
-                  this.route.navigateByUrl('book/list');
-                }
+                this.loading = false;
 
-                this.loginForm.reset();
+                this.messageService.add({
+                  severity: 'success',
+                  summary: 'Login Successful',
+                  detail: 'Welcome Back!',
+                  life: 1000,
+                });
+
+                setTimeout(() => {
+                  if (this.loginService.currentUserSubject().role === 'admin') {
+                    this.route.navigateByUrl('book/list');
+                  } else {
+                    this.route.navigateByUrl('book/list');
+                  }
+
+                  this.loginForm.reset();
+                }, 1000);
               }, 1000);
             },
             error: (err) => {
-              this.messageService.add({
-                severity: 'error',
-                summary: 'Error',
-                detail:
-                  err?.error?.message ||
-                  'Something went wrong. Please try again later.',
-              });
+              setTimeout(() => {
+                this.loading = false;
+
+                if (
+                  err?.error?.message?.toLowerCase().includes('user not found')
+                ) {
+                  this.messageService.add({
+                    severity: 'error',
+                    summary: 'User Not Found',
+                    detail:
+                      'User not found, please check your credentials or register.',
+                    life: 3000,
+                  });
+
+                  setTimeout(() => {
+                    this.route.navigateByUrl('register');
+                  }, 3000);
+                } else if (
+                  err?.error?.message
+                    ?.toLowerCase()
+                    .includes('please verify your email')
+                ) {
+                  this.messageService.add({
+                    severity: 'error',
+                    summary: 'Email Not Verified',
+                    detail: 'Please verify your email before logging in.',
+                    life: 3000,
+                  });
+                } else if (
+                  err?.error?.message
+                    ?.toLowerCase()
+                    .includes('incorrect password')
+                ) {
+                  this.messageService.add({
+                    severity: 'error',
+                    summary: 'Incorrect Password',
+                    detail: 'The password you entered is incorrect.',
+                    life: 3000,
+                  });
+                } else {
+                  this.messageService.add({
+                    severity: 'error',
+                    summary: 'Error',
+                    detail:
+                      err?.error?.message || 'An unexpected error occurred.',
+                    life: 3000,
+                  });
+                }
+              }, 1000);
             },
           });
         this.unsubscribe.push(saveSubscribe);
@@ -135,14 +165,17 @@ export class LoginComponent implements OnInit {
         this.messageService.add({
           severity: 'warn',
           summary: 'Validation Error',
-          detail: 'Please fill in all required fields',
+          detail: 'Please fill in all required fields.',
+          life: 3000,
         });
       }
     } catch (err: any) {
+      this.loading = false;
       this.messageService.add({
         severity: 'error',
         summary: 'Unexpected Error',
-        detail: err || 'An unexpected error occurred',
+        detail: err || 'An unexpected error occurred.',
+        life: 3000,
       });
     }
   }

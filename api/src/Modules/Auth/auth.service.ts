@@ -77,22 +77,24 @@ export class AuthService {
   }
 
   async login(@Body() loginDTO: LoginDTO) {
+  
     const user = await this.authRepository.findByEmail(loginDTO.email);
     if (!user) {
-      throw new BadRequestException('Invalid credentials');
+      throw new BadRequestException('Invalid credentials: User not found');
     }
 
+   
     if (!user.isEmailVerified) {
-      throw new BadRequestException(
-        'Please verify your email before logging in',
-      );
+      throw new BadRequestException('Please verify your email before logging in');
     }
 
+   
     const isMatch = await bcrypt.compare(loginDTO.password, user.password);
     if (!isMatch) {
-      throw new BadRequestException('Invalid credentials');
+      throw new BadRequestException('Invalid credentials: Incorrect password');
     }
 
+   
     const payload = { email: user.email, sub: user._id, role: user.role };
     const token = this.jwtService.sign(payload);
 
@@ -112,19 +114,18 @@ export class AuthService {
   }
 
   async forgotPassword(email: string) {
-    // Check if the user exists
+   
     const user = await this.userService.findByEmail(email);
     if (!user) {
       throw new BadRequestException('User not found');
     }
 
-    // Generate OTP (6 characters in hex format)
-    const otp = randomBytes(2).toString('hex'); // 3 bytes = 6 hexadecimal characters
 
-    // Send OTP via email
+    const otp = randomBytes(2).toString('hex'); 
+
     await this.emailService.sendOtpEmail(email, otp);
 
-    // Store OTP in the database or cache (can use Redis or MongoDB)
+   
     await this.userService.storeOtp(email, otp);
 
     return { message: 'OTP sent to your email' };

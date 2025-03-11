@@ -36,7 +36,7 @@ import { CheckboxModule } from 'primeng/checkbox';
     CardModule,
     FloatLabelModule,
     ToastModule,
-    CheckboxModule
+    CheckboxModule,
   ],
   providers: [MessageService],
   templateUrl: './register.component.html',
@@ -51,7 +51,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   email: string = '';
   userName: string = '';
   password: string = '';
-
+  loading: boolean = false;
   firstName: string = '';
   lastName: string = '';
   role: any[] = [
@@ -77,43 +77,63 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   onRegister() {
-    if (this.registerForm.valid) {
-      const saveSubscribe = this.authService
-        .register(this.registerForm.value)
-        .subscribe({
-          next: () => {
-            this.messageService.add({
-              severity: 'success',
-              summary: 'Registration Successful',
-              detail:
-                'You have been registered successfully. Redirecting to login page...',
-              life: 1000,
-            });
+    try {
+      if (this.registerForm.valid) {
+        this.loading = true;
 
-            setTimeout(() => {
-              this.route.navigateByUrl('/login');
-            }, 3000);
+        const saveSubscribe = this.authService
+          .register(this.registerForm.value)
+          .subscribe({
+            next: () => {
+              setTimeout(() => {
+                this.loading = false;
 
-            this.registerForm.reset();
-          },
-          error: (err) => {
-            const errorMessage =
-              err?.error?.message ||
-              'Something went wrong. Please try again later.';
-            this.messageService.add({
-              severity: 'error',
-              summary: 'Registration Failed',
-              detail: errorMessage,
-              life: 3000,
-            });
-          },
+                this.messageService.add({
+                  severity: 'success',
+                  summary: 'Registration Successful',
+                  detail:
+                    'You have been registered successfully.Verification link sent to your email. Please verify your email before logging in. Redirecting to login page...',
+                  life: 1500,
+                });
+
+                setTimeout(() => {
+                  this.route.navigateByUrl('/login');
+                }, 3000);
+
+                this.registerForm.reset();
+              }, 1000);
+            },
+            error: (err) => {
+              setTimeout(() => {
+                this.loading = false;
+
+                const errorMessage =
+                  err?.error?.message ||
+                  'Something went wrong. Please try again later.';
+                this.messageService.add({
+                  severity: 'error',
+                  summary: 'Registration Failed',
+                  detail: errorMessage,
+                  life: 3000,
+                });
+              }, 1000);
+            },
+          });
+        this.unsubscribe.push(saveSubscribe);
+      } else {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Invalid Input',
+          detail: 'Please fill in all required fields correctly',
+          life: 3000,
         });
-      this.unsubscribe.push(saveSubscribe);
-    } else {
+      }
+    } catch (err: any) {
+      this.loading = false;
       this.messageService.add({
         severity: 'error',
-        summary: 'Invalid Input',
-        detail: 'Please fill in all required fields correctly',
+        summary: 'Unexpected Error',
+        detail: err || 'An unexpected error occurred.',
         life: 3000,
       });
     }

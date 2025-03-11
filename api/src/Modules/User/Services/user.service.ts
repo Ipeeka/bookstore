@@ -61,15 +61,15 @@ export class UserService implements IUserService {
   }
 
   async findByEmail(email: string) {
-    const user = await this.userRepository.findOne({ email });
+    const user = await this.userRepository.findByEmail(email);
     if (!user) {
-      throw new BadRequestException('User not found');
+      throw new BadRequestException('User not found');  
     }
     return user;
   }
 
   async storeOtp(email: string, otp: string) {
-    // Store OTP in the database or cache (this is just a placeholder)
+
     await this.userRepository.updateOne({ email }, { $set: { otp } });
   }
 

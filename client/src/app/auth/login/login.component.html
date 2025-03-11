@@ -1,5 +1,21 @@
-<!-- Conditionally display login or forgot password -->
 <p-toast></p-toast>
+
+<div *ngIf="loading" class="lds-spinner-overlay">
+  <div class="lds-spinner">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+</div>
 
 <div class="auth-screen d-flex justify-content-center align-items-center">
   <div class="auth-container d-flex justify-content-between">
@@ -10,12 +26,15 @@
     <div class="auth-right d-flex justify-content-center align-items-center">
       <div class="auth-forms">
         <h3 class="auth-card-title text-center">
-          {{ isForgotPassword ? 'Forgot Password' : 'Login' }}
+          {{ isForgotPassword ? "Forgot Password" : "Login" }}
         </h3>
 
-        <!-- Only show the login form when isForgotPassword is false -->
-        <form *ngIf="!isForgotPassword" [formGroup]="loginForm" (ngSubmit)="onLogin()">
-          <div class="form-field ">
+        <form
+          *ngIf="!isForgotPassword"
+          [formGroup]="loginForm"
+          (ngSubmit)="onLogin()"
+        >
+          <div class="form-field">
             <p-floatLabel variant="in" class="w-100">
               <input
                 pInputText
@@ -28,13 +47,19 @@
               />
               <label class="label-float" for="email">Email</label>
               <p
-                *ngIf="loginForm.get('email')?.hasError('required') && loginForm.get('email')?.touched"
+                *ngIf="
+                  loginForm.get('email')?.hasError('required') &&
+                  loginForm.get('email')?.touched
+                "
                 class="error-message"
               >
                 Email is required.
               </p>
               <p
-                *ngIf="loginForm.get('email')?.hasError('email') && loginForm.get('email')?.touched"
+                *ngIf="
+                  loginForm.get('email')?.hasError('email') &&
+                  loginForm.get('email')?.touched
+                "
                 class="error-message"
               >
                 Please enter a valid email address.
@@ -57,7 +82,10 @@
               ></p-password>
               <label class="label-float" for="password">Password</label>
               <p
-                *ngIf="loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched"
+                *ngIf="
+                  loginForm.get('password')?.hasError('required') &&
+                  loginForm.get('password')?.touched
+                "
                 class="error-message"
               >
                 Password is required.
@@ -76,20 +104,21 @@
 
             <div class="submit-button-container">
               <button
+                *ngIf="!loading"
                 pButton
                 class="btn btn-primary"
                 type="submit"
-                [disabled]="!loginForm.valid"
                 label="Login"
               ></button>
             </div>
           </div>
         </form>
 
-        <!-- Show forgot password form when isForgotPassword is true -->
-        <app-forgot-password *ngIf="isForgotPassword"  (backToLoginEvent)="handleBackToLogin()"></app-forgot-password>
+        <app-forgot-password
+          *ngIf="isForgotPassword"
+          (backToLoginEvent)="handleBackToLogin()"
+        ></app-forgot-password>
 
-        <!-- Sign-up link (only visible when on the login form) -->
         <div *ngIf="!isForgotPassword" class="form-footer mt-3">
           <p>
             Don’t have an account?

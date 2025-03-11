@@ -1,4 +1,10 @@
 <p-toast />
+
+<div *ngIf="loading" class="lds-spinner-overlay">
+  <div class="lds-spinner">
+    <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+  </div>
+</div>
 <div class="auth-screen onload">
   <div class="auth-container" id="authRegister">
     <div class="auth-left d-flex justify-content-center align-items-center">
