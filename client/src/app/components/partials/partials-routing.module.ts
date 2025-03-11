@@ -24,8 +24,8 @@ const routes: Routes = [
         loadChildren: () => import("../user/user.module").then(m => m.UserModule),
       },
       {
-        path: 'report',  
-        loadChildren: () => import('../constants/constants.module').then(m => m.ConstantsModule),
+        path: 'component',  
+        loadChildren: () => import('../../components/components.module').then(m => m.ComponentsModule),
       
     },
       

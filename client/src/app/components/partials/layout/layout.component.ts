@@ -11,7 +11,7 @@ import { CdkDrag } from '@angular/cdk/drag-drop';
 import { BadgeModule } from 'primeng/badge';
 import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
-import { ChatBotComponent } from "../../constants/chat-bot/chat-bot.component";
+import { ChatBotComponent } from "../../chat-bot/chat-bot.component";
 
 @Component({
   selector: 'app-layout',
@@ -51,7 +51,7 @@ export class LayoutComponent {
       // ,
       children: [
         { name: 'Saved', RouterLink: '/book/bookmark', icon: 'pi pi-folder' },
-        { name: 'Reports', RouterLink: '/constants/report', icon: 'fas fa-report' },
+        { name: 'Reports', RouterLink: '/component/report', icon: 'fas fa-report' },
       ],
       collapsed: true 
     }
