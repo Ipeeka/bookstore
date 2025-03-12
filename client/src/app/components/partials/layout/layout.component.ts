@@ -11,7 +11,8 @@ import { CdkDrag } from '@angular/cdk/drag-drop';
 import { BadgeModule } from 'primeng/badge';
 import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
-import { ChatBotComponent } from "../../chat-bot/chat-bot.component";
+import { ChatBotComponent } from '../../chat-bot/chat-bot.component';
+import { Dialog, DialogModule } from 'primeng/dialog';
 
 @Component({
   selector: 'app-layout',
@@ -26,12 +27,15 @@ import { ChatBotComponent } from "../../chat-bot/chat-bot.component";
     FormsModule,
     ReactiveFormsModule,
     RouterLink,
-    CdkDrag,
+
     BadgeModule,
     CardModule,
     InputTextModule,
-    ChatBotComponent
-],
+    ChatBotComponent,
+    DialogModule,
+    ButtonModule,
+    InputTextModule,
+  ],
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.css'],
 })
@@ -39,25 +43,55 @@ export class LayoutComponent {
   isLoggedIn: boolean = false;
   isAdmin: boolean = false;
   menuItems: any[] = [];
+  visible: boolean = false;
+
+  closeDialog() {
+    this.visible = false;
+  }
+
+  showDialog(
+    position:
+      | 'left'
+      | 'right'
+      | 'top'
+      | 'bottom'
+      | 'center'
+      | 'topleft'
+      | 'topright'
+      | 'bottomleft'
+      | 'bottomright'
+  ) {
+    this.visible = true;
+  }
+  isChatOpened: boolean = false;
   constantMenuItems = [
     { name: 'Book List', RouterLink: '/book/list', icon: 'fas fa-book' },
     // { name: 'Messages', RouterLink: '/book/liset', icon: 'fas fa-message' },
-    { name: 'Settings', RouterLink: '/book/lists', icon: 'fas fa-setting' },
-    
+    { name: 'Settings', RouterLink: '/book/lists', icon: 'pi pi-cog' },
+
     {
       name: 'More..',
       RouterLink: '/test',
       // icon: 'fas fa-ellipsis-h'
       // ,
       children: [
-        { name: 'Saved', RouterLink: '/book/bookmark', icon: 'pi pi-folder' },
-        { name: 'Reports', RouterLink: '/component/report', icon: 'fas fa-report' },
+        {
+          name: 'Saved',
+          RouterLink: '/book/bookmark',
+          icon: 'pi pi-bookmark-fill',
+        },
+        {
+          name: 'Reports',
+          RouterLink: '/component/report',
+          icon: 'pi pi-chart-bar',
+        },
       ],
-      collapsed: true 
-    }
+      collapsed: true,
+    },
   ];
   userMenuItems = [];
-  adminMenuItems = [{ name: 'User List', RouterLink: '/user/list' , icon: 'fas fa-users'},
+  adminMenuItems = [
+    { name: 'User List', RouterLink: '/user/list', icon: 'fas fa-users' },
     //{ name: 'Reports', RouterLink: '/constants/report', icon: 'fas fa-report' },
   ];
   isMenuOpen = false;

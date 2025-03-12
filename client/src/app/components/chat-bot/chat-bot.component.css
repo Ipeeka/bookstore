@@ -1,89 +1,127 @@
-.main-wrapper {
-    display: flex;
-    position: relative;
-  }
-  
-  .floating-btn {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 1000;
-  }
-  
-  .floating-btn button {
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    font-size: 24px;
-  }
-  
-  .floating-chat {
-    position: absolute;
-    bottom: 70px;
-    right: 20px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 300px;
-    max-height: 400px;
-    overflow: hidden;
-    transition: all 0.3s ease-in-out;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .floating-chat.expanded {
-    height: 400px;
-  }
-  
-  .chat-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
-    font-size: 16px;
-  }
-  
-  .chat-header i {
-    cursor: pointer;
-    font-size: 16px;
-  }
-  
-  .chat-body {
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
-    height: 100%;
-    overflow-y: auto;
-  }
-  
-  .messages {
-    flex-grow: 1;
-    margin-bottom: 10px;
-  }
-  
-  .message {
-    padding: 5px;
-    margin: 5px 0;
-    background-color: #f1f1f1;
-    border-radius: 5px;
-  }
-  
-  .chat-input {
-    display: flex;
-    align-items: center;
-  }
-  
-  .chat-input input {
-    flex-grow: 1;
-    margin-right: 10px;
-  }
-  
-  .pi-bars {
-    font-size: 18px;
-    cursor: ew-resize;
-    margin-left: 10px;
-  }
-  
+.bottom-card {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 400px;
+  background: #ffffff;
+  border-radius: 50px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  z-index: 10;
+}
+
+.top-card {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 400px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column; 
+  align-items: center;
+}
+
+.top-card-content {
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  width: 100%;
+}
+
+.avatar {
+  margin-right: 25px;
+  font-size: 3rem; 
+}
+
+.agent-info {
+  flex-grow: 1;
+  text-align: left;
+}
+
+.button-container {
+  width: 100%;
+  display: flex;
+  justify-content: center; 
+  margin: 10px;
+}
+
+
+
+
+.bottom-card-content {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.icon-button {
+  text-align: center;
+  padding-top: 10px;
+  cursor: pointer;
+}
+
+.icon-button i {
+  font-size: 24px;
+  margin-bottom: 1px;
+}
+
+.icon-button p {
+  margin-top: 1px;
+  font-size: 14px;
+  color: #007bff;
+}
+
+.icon-button:hover {
+  background-color: transparent;
+}
+
+.chat-body {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.messages {
+  flex-grow: 1;
+  margin-bottom: 10px;
+}
+
+.message {
+  padding: 5px;
+  margin: 5px 0;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+}
+
+.chat-input {
+  display: flex;
+  align-items: center;
+}
+
+.chat-input input {
+  flex-grow: 1;
+  margin-right: 10px;
+}
+
+.sent-message {
+  text-align: right;
+  background-color: #e0f7fa;
+}
+
+.received-message {
+  text-align: left;
+  background-color: #f1f1f1;
+}

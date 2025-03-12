@@ -72,7 +72,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.isAdmin = currentUser.role === 'admin';
 
       this.profileItems = [
-        { label: 'Edit Profile', icon: 'pi pi-pencil', routerLink: '/user/edit-profile' },
+        { label: 'Edit Profile', icon: 'pi pi-user-edit me-2', routerLink: '/user/edit-profile' },
         { label: 'Logout', icon: 'pi pi-sign-out', command: () => this.onLogout() },
       ];
     }

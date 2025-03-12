@@ -53,7 +53,46 @@
     </div>
   </div>
 
-  <div class="floating-btn" cdkDrag>
-    <app-chat-bot></app-chat-bot>
+  <div class="floating-btn">
+    <p-button
+      (click)="showDialog('bottomright')"
+      icon="fas fa-comments"
+      styleClass="min-w-40"
+      [rounded]="true"
+      severity="secondary"
+    />
   </div>
 </div>
+<p-dialog
+  [modal]="true"
+  [(visible)]="visible"
+  [position]="'bottomright'"
+  [style]="{
+    width: '25rem',
+    height: '35rem',
+    'border-radius': '52px',
+    'margin-right': '5rem',
+
+    padding: '0px '
+  }"
+>
+  <ng-template pTemplate="header">
+    <div>
+      <i class="fas fa-comments" style="margin-right: 10px"></i> Chat with Agent
+    </div>
+  </ng-template>
+
+  <div
+    style="
+      background: linear-gradient(to top, #ffffff, #87cefa);
+      height: calc(100% - 30px);
+      padding: 10px;
+    "
+  >
+    <app-chat-bot></app-chat-bot>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <h3 style="text-align: center">Powered By BookStore.com</h3>
+  </ng-template>
+</p-dialog>
