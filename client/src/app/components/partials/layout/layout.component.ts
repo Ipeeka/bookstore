@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { SidebarModule } from 'primeng/sidebar';
@@ -38,6 +38,7 @@ import { Dialog, DialogModule } from 'primeng/dialog';
   ],
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.css'],
+  encapsulation: ViewEncapsulation.Emulated 
 })
 export class LayoutComponent {
   isLoggedIn: boolean = false;

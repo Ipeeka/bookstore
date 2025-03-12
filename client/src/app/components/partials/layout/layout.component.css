@@ -128,17 +128,24 @@
   align-items: center;
 }
 
-::ng-deep .p-dialog .p-dialog-header {
+
+:host ::ng-deep .custom-dialog .p-dialog-header {
   background-color: #87cefa !important;
-  padding: 10px !important;  
+  padding: 10px !important;
 }
 
-
-
-::ng-deep .p-dialog .p-dialog-content {
+:host ::ng-deep .custom-dialog .p-dialog-content {
   padding: 0 !important;
 }
 
-::ng-deep .p-dialog .p-dialog-footer {
+:host ::ng-deep .custom-dialog .p-dialog-footer {
+  padding: 0 !important;
+}
+
+:host ::ng-deep .custom-dialog .p-dialog {
+  width: 25rem !important;
+  height: 35rem !important;
+  border-radius: 52px !important;
+  margin-right: 5rem !important;
   padding: 0 !important;
 }
