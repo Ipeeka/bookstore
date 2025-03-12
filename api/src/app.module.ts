@@ -7,6 +7,8 @@ import { ConfigModule } from '@nestjs/config';
 import { UserModule } from './Modules/User/user.module';
 import { BooksModule } from './Modules/Books/Services/books.service.interface';
 import { BookDetailsModule } from './Modules/BooksDetails/book-detail.module';
+import { GeminiController } from './gemini/gemini.controller';
+import { GeminiService } from './gemini/gemini.service';
 
 
 
@@ -19,7 +21,7 @@ import { BookDetailsModule } from './Modules/BooksDetails/book-detail.module';
     UserModule,
     BookDetailsModule
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController,GeminiController],
+  providers: [AppService,GeminiService],
 })
 export class AppModule {}

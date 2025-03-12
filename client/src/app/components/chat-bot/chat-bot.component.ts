@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
+import { ChatbotService } from './chat-bot.service';
 
 @Component({
   selector: 'app-chat-bot',
@@ -15,12 +16,10 @@ import { InputTextModule } from 'primeng/inputtext';
 export class ChatBotComponent {
   isChatOpened = false;
   @Output() chatOpened = new EventEmitter<boolean>();
-  messages = [
-    { user: 'User1', text: 'Hello, how can I help you?', sent: false },
-    { user: 'User2', text: 'I need some help with my account.', sent: true },
-  ];
+  messages: Array<{ user: string; text: string; sent: boolean }> = [];
+  userMessage: string = '';
   dropdownOpen = false; 
-
+  constructor(private chatbotService: ChatbotService) {}
 
   openChat() {
     this.isChatOpened = true;
@@ -35,11 +34,30 @@ export class ChatBotComponent {
 
 
   sendMessage() {
-    const messageInput = document.querySelector('input') as HTMLInputElement;
-    const newMessage = messageInput.value.trim();
-    if (newMessage) {
-      this.messages.push({ user: 'User', text: newMessage, sent: true });
-      messageInput.value = ''; 
+    const message = this.userMessage.trim();
+    if (message) {
+      this.messages.push({ user: 'User', text: message, sent: true });
+      this.userMessage = ''; 
+
+     
+      this.chatbotService.askGemini(message).subscribe(
+        (response) => {
+          this.messages.push({
+            user: 'Gemini',
+            text: response.candidates[0].content.parts[0].text, 
+            sent: false,
+          });
+          console.log("response", response.candidates[0].content.parts[0].text)
+        },
+        (error) => {
+          this.messages.push({
+            user: 'Gemini',
+            text: 'Sorry, something went wrong!',
+            sent: false,
+          });
+          console.error('Error:', error);
+        }
+      );
     }
   }
 

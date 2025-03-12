@@ -1,4 +1,5 @@
 <div class="chat-bot">
+  <!-- Initial View: When chat is closed -->
   <div *ngIf="!isChatOpened" class="initial-view">
     <div>
       <h1 style="margin-bottom: 0; margin-top: -10px">How can We</h1>
@@ -7,18 +8,13 @@
         today?<span
           role="img"
           aria-label="waving hand"
-          style="
-            font-size: 4rem;
-            display: block;
-            margin-top: -10px;
-            margin-left: 10px;
-          "
-        >
+          style="font-size: 4rem; display: block; margin-top: -10px; margin-left: 10px;">
           👋
         </span>
       </h3>
     </div>
 
+    <!-- Top Card with Avatar -->
     <div class="top-card">
       <div class="top-card-content">
         <div class="avatar">
@@ -34,15 +30,17 @@
         <button
           pButton
           style="width: 280px"
-          label=" Chat With Us"
+          label="Chat With Us"
           icon="pi pi-comments"
-          (click)="openChat()"
-        ></button>
+          (click)="openChat()">
+        </button>
       </div>
     </div>
   </div>
 
+  <!-- Chat View: When chat is opened -->
   <div *ngIf="isChatOpened" class="chat-body">
+    <!-- Chat Header with Back Button and Dropdown Menu -->
     <div class="chat-header">
       <button class="back-btn" (click)="closeChat()">
         <i class="pi pi-arrow-left"></i> Back
@@ -57,6 +55,7 @@
       </div>
     </div>
 
+    <!-- Chat Messages -->
     <div class="messages">
       <div
         *ngFor="let message of messages"
@@ -64,8 +63,7 @@
           'sent-message': message.sent,
           'received-message': !message.sent
         }"
-        class="message"
-      >
+        class="message">
         <span>{{ message.user }}:</span> {{ message.text }}
       </div>
     </div>
@@ -83,8 +81,10 @@
       </div>
     </div>
   </div>
+
+  
   <div *ngIf="isChatOpened" class="chat-input">
-    <input type="text" pInputText placeholder="Type a message..." />
+    <input type="text" pInputText [(ngModel)]="userMessage" placeholder="Type a message..." />
     <button mat-button (click)="sendMessage()">
       <i class="pi pi-send"></i>
     </button>
