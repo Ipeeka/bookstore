@@ -109,7 +109,7 @@
         >
           SerialNo
         </th>
-        <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}</td>
+        <td mat-cell *matCellDef="let element; let rowIndex = dataIndex">{{rowIndex + 1 }}.</td>
       </ng-container>
 
       <ng-container matColumnDef="title">

@@ -73,6 +73,7 @@ export class UserListComponent implements OnInit {
   getAllUsers(): void {
     this.userService.getAllUsers().subscribe({
       next: (res) => {
+        debugger
         this.users = res.data;
       },
       error: (err) => {

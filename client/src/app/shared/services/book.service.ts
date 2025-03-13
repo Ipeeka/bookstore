@@ -48,7 +48,7 @@ export class BookService {
     if (filter?.available !== undefined) {
       params.available = filter.available;
     }
-    return this.http.get<any[]>(this.apiUrl, { params });
+    return this.http.get<any>(this.apiUrl, { params });
   }
 
   updateBook(id: string, book: any): Observable<any> {

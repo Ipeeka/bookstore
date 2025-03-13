@@ -247,6 +247,7 @@ export class BookListComponent implements AfterViewInit, OnInit {
   getBooks(): void {
     this.bookService.getAllBooks().subscribe(
       (books) => {
+        debugger
         this.books = books;
         this.dataSource.data = books;
       },
@@ -257,17 +258,17 @@ export class BookListComponent implements AfterViewInit, OnInit {
   }
 
   openAddBookDialog(): void {
-    this.displayDialog = true; // Open the PrimeNG dialog
+    this.displayDialog = true; 
   }
 
   onDialogHide(): void {
-    // Reset any state when the dialog is closed (optional)
+   
   }
 
   onBookSaved(newBook: any): void {
     console.log('New Book Added:', newBook);
-    this.getBooks(); // Refresh the books list
-    this.displayDialog = false; // Close the dialog after adding the book
+    this.getBooks();
+    this.displayDialog = false;
   }
   toggleFilter(): void {
     this.isFilterVisible = !this.isFilterVisible;
