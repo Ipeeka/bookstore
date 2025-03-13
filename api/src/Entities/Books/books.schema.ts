@@ -10,7 +10,8 @@ export class Book extends Document {
   author: string;
 
   @Prop({ required: true })
-  publicationYearMonth: string; 
+  publicationYear: string;
+  
 
   @Prop({ required: true })
   genre: string;

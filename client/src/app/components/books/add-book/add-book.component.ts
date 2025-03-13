@@ -92,7 +92,7 @@ export class AddBookComponent implements OnInit {
     this.addBookForm = this.fb.group({
       title: ['', Validators.required],
       author: ['', Validators.required],
-      publicationYearMonth: ['', Validators.required],
+      publicationYear: [null, Validators.required],
       price: [
         '',
         [Validators.required, Validators.pattern(/^[0-9]+(\.[0-9]{1,2})?$/)],
@@ -106,25 +106,21 @@ export class AddBookComponent implements OnInit {
     });
   }
 
-  onMonthSelect(event: any) {
-    // The event will contain a full Date object
-    const selectedDate = event;
-    const monthName = selectedDate.toLocaleString('default', { month: 'long' }); // Full month name (e.g., "January")
-    const year = selectedDate.getFullYear(); // Get the year from the Date object
-    
-    // Set the value of publicationYearMonth in "Month YYYY" format
-    this.addBookForm.controls['publicationYearMonth'].setValue(`${monthName} ${year}`);
-  }
+ 
+  
+  
   ngOnInit() {}
   onSubmit() {
+    debugger
  
     if (this.addBookForm.valid) {
+      debugger
    
       const formValues = this.addBookForm.value;
       const book = {
         ...formValues,
         price: parseFloat(formValues.price),
-        publicationYearMonth: formValues.publicationYearMonth,
+        publicationYear: formValues.publicationYear,
       };
 
       this.bookService.addBook(book).subscribe(

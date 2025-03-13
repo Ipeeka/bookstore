@@ -11,11 +11,11 @@ export class CreateBookDTO {
   @ApiProperty()
   @IsNotEmpty()
   author: string;
-
+ 
   @IsString()
-  @ApiProperty()
-  @IsNotEmpty()
-  publicationYearMonth: string;
+@ApiProperty()
+publicationYear: string;
+
   
   @IsNumber()
   @ApiProperty()
@@ -60,8 +60,7 @@ export class UpdateBookDTO {
 
   @IsString()
   @ApiProperty()
-  @IsNotEmpty()
-  publicationYearMonth: string; 
+  publicationYear: string;
 
   @IsNumber()
   @ApiProperty()

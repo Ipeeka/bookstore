@@ -44,6 +44,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { AuthService } from '../../../shared/services/auth.service';
 import { ChangeDetectorRef } from '@angular/core';
 import { DialogModule } from 'primeng/dialog';
+import { SelectButton, SelectButtonModule } from 'primeng/selectbutton';
 
 export interface Book {
   id: string;
@@ -79,6 +80,7 @@ interface Comment {
     ]),
   ],
   imports: [
+    SelectButtonModule,
     MatTableModule,
     MatButtonModule,
     MatIconModule,
@@ -100,8 +102,8 @@ interface Comment {
     FormsModule,
     MatButtonToggleModule,
     DialogModule,
-    AddBookComponent
-],
+    AddBookComponent,
+  ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [ConfirmationService, MessageService],
   templateUrl: './book-list.component.html',
@@ -116,7 +118,7 @@ export class BookListComponent implements AfterViewInit, OnInit {
     'serialNo',
     'title',
     'author',
-    'publicationYearMonth',
+    'publicationYear',
     'price',
     'genre',
     'availability',
@@ -144,12 +146,40 @@ export class BookListComponent implements AfterViewInit, OnInit {
   bookDetails: any;
   comments: Comment[] = [];
   bookmarkedBooks: Book[] = [];
+  statuses: any[] = [
+    { label: 'In Stock', value: 'inStock', bgColor: '#DCFCE7', textColor: '#208646' },
+    { label: 'Low Stock', value: 'lowStock', bgColor: '#FFEDD5', textColor: '#C2440F' },
+    { label: 'Pre-order', value: 'preOrder', bgColor: 'lightblue', textColor: 'black' },
+    { label: 'Out of Stock', value: 'outOfStock', bgColor: '#FEE2E2', textColor: '#B91C1C' },
+  ];
+  viewMode: 'table' | 'grid' = 'table';
+  options = ['table', 'grid'];
 
+  getStatusLabel(status: string): string {
+    const found = this.statuses.find(s => s.value.toLowerCase() === status?.toLowerCase().trim());
+    return found ? found.label : 'Unknown';
+  }
+  
+  getStatusStyle(status: string): any {
+    const found = this.statuses.find(s => s.value.toLowerCase() === status?.toLowerCase().trim());
+    return found ? { 
+      'background-color': found.bgColor,
+      'color': found.textColor,
+      'padding': '5px 10px',
+      'border-radius': '10px',
+      'font-weight': 'bold',
+      'display': 'inline-block',
+      'min-width': '90px',
+      'text-align': 'center'
+    } : {};
+  }
+  
+  
+  
   toggleCommentSection(bookId: string): void {
     this.isCommentSectionVisible = !this.isCommentSectionVisible;
 
     if (this.isCommentSectionVisible) {
-   
       this.loadComment(bookId);
     }
   }
@@ -157,7 +187,6 @@ export class BookListComponent implements AfterViewInit, OnInit {
   loadComment(bookId: string) {
     this.bookService.getBookDetails().subscribe(
       (bookDetail) => {
-      
         this.comments = bookDetail.filter((detail) => detail.bookId === bookId);
         console.log(this.comments);
         this.cdRef.detectChanges();
@@ -209,10 +238,8 @@ export class BookListComponent implements AfterViewInit, OnInit {
   }
 
   toggleBookmark(bookId: string, toggleBookmarked: boolean): void {
-  
     this.bookService.toggleBookmark(bookId, toggleBookmarked).subscribe(
       (response) => {
-    
         this.loadBooks();
         this.messageService.add({
           severity: 'success',
@@ -247,7 +274,7 @@ export class BookListComponent implements AfterViewInit, OnInit {
   getBooks(): void {
     this.bookService.getAllBooks().subscribe(
       (books) => {
-        debugger
+        debugger;
         this.books = books;
         this.dataSource.data = books;
       },
@@ -258,12 +285,10 @@ export class BookListComponent implements AfterViewInit, OnInit {
   }
 
   openAddBookDialog(): void {
-    this.displayDialog = true; 
+    this.displayDialog = true;
   }
 
-  onDialogHide(): void {
-   
-  }
+  onDialogHide(): void {}
 
   onBookSaved(newBook: any): void {
     console.log('New Book Added:', newBook);
@@ -277,11 +302,9 @@ export class BookListComponent implements AfterViewInit, OnInit {
 
   applyFilter(): void {
     const filter: any = {};
- 
 
     this.bookService.getAllBooks().subscribe(
       (books) => {
-     
         let filteredBooks = books;
 
         if (this.selectedGenre && this.selectedGenre !== 'all') {
@@ -328,7 +351,6 @@ export class BookListComponent implements AfterViewInit, OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-
       if (result) {
         this.getBooks();
       }
@@ -376,11 +398,9 @@ export class BookListComponent implements AfterViewInit, OnInit {
   }
 
   onSearch(): void {
- 
     if (this.searchQuery.trim() === '') {
       this.dataSource.data = this.books;
     } else {
-   
       this.dataSource.data = this.books.filter(
         (book) =>
           book.title.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
@@ -391,7 +411,6 @@ export class BookListComponent implements AfterViewInit, OnInit {
   }
 
   saveBookDetails(bookid: string) {
- 
     console.log(this.addedComments);
     console.log(this.addDislikes);
     console.log(this.addLikes);
@@ -408,7 +427,6 @@ export class BookListComponent implements AfterViewInit, OnInit {
 
     this.bookService.addBookDetails(addBookDetails).subscribe(
       (response) => {
-     
         //this.books = response;
         this.loadComment(response.bookId);
         //this.dataSource.data = books;
@@ -420,7 +438,6 @@ export class BookListComponent implements AfterViewInit, OnInit {
   }
 
   onLikeDislikeChange(likeOrDislike: string, bookid: string) {
-   
     let updatedBookDetails = {
       like: likeOrDislike === 'like' ? 'true' : 'false',
       dislike: likeOrDislike === 'dislike' ? 'true' : 'false',
@@ -434,7 +451,6 @@ export class BookListComponent implements AfterViewInit, OnInit {
 
     this.bookService.updateBookLikeDisLike(updatedBookDetails).subscribe(
       (books) => {
-      
         this.books = books;
         this.dataSource.data = books;
       },
