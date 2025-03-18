@@ -567,18 +567,25 @@
     ></mat-paginator>
   </div>
 
-  <p-dialog
-    [(visible)]="displayDialog"
-    [style]="{ width: '600px', height: '700px' }"
-    header="Add Book"
-    [modal]="true"
-    [closable]="true"
-    styleClass="p-fluid"
-    (onHide)="onDialogHide()"
-    [resizable]="false"
-  >
+ <p-dialog
+  [(visible)]="displayDialog"
+  [style]="{ width: '600px', height: '700px' }"
+  [header]="isEditMode ? 'Edit Book' : 'Add Book'"
+  [modal]="true"
+  [closable]="true"
+  styleClass="p-fluid"
+  (onHide)="onDialogHide()"
+  [resizable]="false"
+>
+<ng-container *ngIf="isEditMode; else addBookTemplate">
+  <edit-book *ngIf="selectedBook" [book]="selectedBook" (saveBook)="onBookUpdate($event)"></edit-book>
+</ng-container>
+
+  <ng-template #addBookTemplate>
     <add-book (saveBook)="onBookSaved($event)"></add-book>
-  </p-dialog>
+  </ng-template>
+</p-dialog>
+
   <div class="card flex justify-center">
     <p-toast></p-toast>
 

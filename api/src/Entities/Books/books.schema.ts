@@ -38,6 +38,8 @@ export class Book extends Document {
   @Prop({ default: false })  
   bookmarked: boolean; 
 
+  @Prop({ required: true })
+  publisher: string; 
 
 }
 

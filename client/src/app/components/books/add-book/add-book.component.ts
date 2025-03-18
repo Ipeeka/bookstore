@@ -106,16 +106,13 @@ export class AddBookComponent implements OnInit {
     });
   }
 
- 
-  
-  
   ngOnInit() {}
   onSubmit() {
-    debugger
- 
+    debugger;
+
     if (this.addBookForm.valid) {
-      debugger
-   
+      debugger;
+
       const formValues = this.addBookForm.value;
       const book = {
         ...formValues,
@@ -162,11 +159,10 @@ export class AddBookComponent implements OnInit {
   }
 
   onNextClick() {
-
     if (this.currentStep === 1) {
       this.currentStep = 2;
-    }else{
-      this.onSubmit()
+    } else {
+      this.onSubmit();
     }
   }
 

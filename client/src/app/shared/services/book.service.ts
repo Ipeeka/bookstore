@@ -52,6 +52,7 @@ export class BookService {
   }
 
   updateBook(id: string, book: any): Observable<any> {
+    debugger
     return this.http.put<any>(`${this.apiUrl}/${id}`, book);
   }
 

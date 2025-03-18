@@ -1,32 +1,235 @@
-<h3 mat-dialog-title>Edit Book</h3>
-<mat-dialog-content>
-  <mat-form-field>
-    <mat-label>Title</mat-label>
-    <input matInput [(ngModel)]="data.title" />
-  </mat-form-field>
+<div class="header-container">
+  <button
+    *ngIf="currentStep === 2"
+    (click)="onPreviousClick()"
+    class="previous-button"
+  >
+    <i class="pi pi-chevron-left"></i> Previous
+  </button>
+</div>
 
-  <mat-form-field>
-    <mat-label>Author</mat-label>
-    <input matInput [(ngModel)]="data.author" />
-  </mat-form-field>
+<form [formGroup]="editBookForm"  *ngIf="editBookForm">
+  <div class="p-fluid">
+    <div *ngIf="currentStep === 1">
+      <div class="p-field">
+        <label for="title">Title</label>
+        <input id="title" pInputText formControlName="title" required />
+        <small
+          *ngIf="
+            (editBookForm.get('title')?.dirty ||
+            editBookForm.get('title')?.touched) &&
+            editBookForm.get('title')?.hasError('required')
+          "
+          class="p-error"
+        >
+          Title is required
+        </small>
+      </div>
 
-  <mat-form-field>
-    <mat-label>Genre</mat-label>
-    <input matInput [(ngModel)]="data.genre" />
-  </mat-form-field>
+      <div class="p-field">
+        <label for="author">Author</label>
+        <input id="author" pInputText formControlName="author" required />
+        <small
+          *ngIf="
+            (editBookForm.get('author')?.dirty ||
+            editBookForm.get('author')?.touched) &&
+            editBookForm.get('author')?.hasError('required')
+          "
+          class="p-error"
+        >
+          Author is required
+        </small>
+      </div>
 
-  <mat-form-field>
-    <mat-label>Price</mat-label>
-    <input matInput type="number" [(ngModel)]="data.price" />
-  </mat-form-field>
+      <div class="p-field">
+        <label for="publicationYear">Publication Year</label>
+        <p-calendar
+          id="publicationYear"
+          formControlName="publicationYear"
+          [readonlyInput]="false"
+          [showIcon]="true"
+          [view]="'year'"
+          [dateFormat]="'yy'"
+          [yearNavigator]="true"
+          [yearRange]="'1900:2100'"
+          placeholder="YYYY"
+        ></p-calendar>
 
-  <mat-checkbox [(ngModel)]="data.available">Available</mat-checkbox>
-</mat-dialog-content>
+        <small
+          *ngIf="
+            (editBookForm.get('publicationYear')?.dirty ||
+            editBookForm.get('publicationYear')?.touched) &&
+            editBookForm.get('publicationYear')?.hasError('required')
+          "
+          class="p-error"
+        >
+          Publication Year is required
+        </small>
+      </div>
 
-<mat-dialog-actions>
-  <button mat-button (click)="onCancel()"  class="cancel-button">Cancel</button>
-  <button mat-button (click)="onSave(data)" class="save-button">Save</button>
-</mat-dialog-actions>
+      <div class="p-field">
+        <label for="price">Price (100-1000$)</label>
+        <input id="price" pInputText formControlName="price" required />
+        <small
+          *ngIf="
+            (editBookForm.get('price')?.dirty ||
+            editBookForm.get('price')?.touched) &&
+            editBookForm.get('price')?.hasError('required')
+          "
+          class="p-error"
+        >
+          Price is required
+        </small>
+        <small
+          *ngIf="
+            (editBookForm.get('price')?.dirty ||
+            editBookForm.get('price')?.touched) &&
+            editBookForm.get('price')?.hasError('pattern')
+          "
+          class="p-error"
+        >
+          Price must be a valid number
+        </small>
+      </div>
+
+      <div class="p-field">
+        <label for="category">Genre</label>
+        <div class="p-radiobutton-group">
+          <p-radioButton
+            class="radio-btn"
+            name="genre"
+            value="Fiction"
+            formControlName="genre"
+            label="Fiction"
+          ></p-radioButton>
+          <p-radioButton
+            class="radio-btn"
+            name="genre"
+            value="Non-fiction"
+            formControlName="genre"
+            label="Non-fiction"
+          ></p-radioButton>
+          <p-radioButton
+            class="radio-btn"
+            name="genre"
+            value="Science"
+            formControlName="genre"
+            label="Science"
+          ></p-radioButton>
+          <p-radioButton
+            class="radio-btn"
+            name="genre"
+            value="Fantasy"
+            formControlName="genre"
+            label="Fantasy"
+          ></p-radioButton>
+        </div>
+        <small
+          *ngIf="
+            (editBookForm.get('genre')?.dirty ||
+            editBookForm.get('genre')?.touched) &&
+            editBookForm.get('genre')?.hasError('required')
+          "
+          class="p-error"
+        >
+          Genre is required
+        </small>
+      </div>
+    </div>
+
+    <div *ngIf="currentStep === 2">
+      <div class="p-field">
+        <label for="inventoryStatus">Inventory Status</label>
+        <p-dropdown
+          formControlName="inventoryStatus"
+          [options]="statuses"
+          placeholder="Select Status"
+          required
+        >
+        </p-dropdown>
+        <small
+          *ngIf="
+            (editBookForm.get('inventoryStatus')?.dirty ||
+            editBookForm.get('inventoryStatus')?.touched) &&
+            editBookForm.get('inventoryStatus')?.hasError('required')
+          "
+          class="p-error"
+        >
+          Inventory Status is required
+        </small>
+      </div>
+
+      <div class="p-field">
+        <label for="publisher">Publisher</label>
+        <input id="publisher" pInputText formControlName="publisher" required />
+        <small
+          *ngIf="
+            (editBookForm.get('publisher')?.dirty ||
+            editBookForm.get('publisher')?.touched) &&
+            editBookForm.get('publisher')?.hasError('required')
+          "
+          class="p-error"
+        >
+          Publisher is required
+        </small>
+      </div>
+
+      <div class="p-field">
+        <label for="quantity">Quantity</label>
+        <input
+          id="quantity"
+          pInputText
+          formControlName="quantity"
+          type="number"
+          required
+        />
+        <small
+          *ngIf="
+            (editBookForm.get('quantity')?.dirty ||
+            editBookForm.get('quantity')?.touched) &&
+            editBookForm.get('quantity')?.hasError('required')
+          "
+          class="p-error"
+        >
+          Quantity is required
+        </small>
+      </div>
+
+      <div class="p-field">
+        <label for="description">Description</label>
+        <textarea
+          id="description"
+          pInputTextarea
+          formControlName="description"
+          rows="3"
+          cols="20"
+        ></textarea>
+        <small
+          *ngIf="
+            (editBookForm.get('description')?.dirty ||
+            editBookForm.get('description')?.touched) &&
+            editBookForm.get('description')?.hasError('required')
+          "
+          class="p-error"
+        >
+          Description is required
+        </small>
+      </div>
+    </div>
+  </div>
+
+  <div align="end">
+    <button *ngIf="currentStep === 2" mat-button (click)="onCancel()">
+      Cancel
+    </button>
+    <button mat-button color="primary" (click)="onNextClick()">
+      {{ currentStep === 1 ? "Next" : "Save" }}
+    </button>
+  </div>
+</form>
+
+
+
 <div class="card flex justify-center">
   <p-toast></p-toast>
 

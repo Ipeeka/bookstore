@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './shared/guard/auth.guard';
 import { CartComponent } from './components/cart/cart.component';
+import { NotFoundComponent } from './components/partials/not-found/not-found.component';
 
 
 export const routes: Routes = [
@@ -24,10 +25,7 @@ export const routes: Routes = [
     //     path: 'error',
     //     component: ErrorPageComponent
     // },
-    {
-        path: '**',
-        redirectTo: 'auth'
-    },
+    { path: '**', component: NotFoundComponent },
     {
         path: 'component',  
         loadChildren: () => import('./components//components.module').then(m => m.ComponentsModule),

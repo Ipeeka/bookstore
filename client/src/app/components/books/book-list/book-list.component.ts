@@ -50,11 +50,15 @@ export interface Book {
   id: string;
   title: string;
   author: string;
-  publicationYearMonth: string;
+  publicationYear: string;
   price: number;
   availability: boolean;
   genre: string;
   bookmarked: boolean;
+  quantity: number;  
+  description: string;  
+  inventoryStatus: 'inStock' | 'lowStock' | 'preOrder' | 'outOfStock';  
+  publisher: string; 
 }
 
 interface Comment {
@@ -139,6 +143,8 @@ export class BookListComponent implements AfterViewInit, OnInit {
   newComment: string = '';
   isUser: boolean = false;
   displayDialog: boolean = false;
+  isEditMode: boolean = false;
+  selectedBook: Book | null = null;
   addedComments: string = '';
   addLikes: boolean = false;
   addDislikes: boolean = false;
@@ -285,12 +291,28 @@ export class BookListComponent implements AfterViewInit, OnInit {
   }
 
   openAddBookDialog(): void {
+    this.isEditMode = false;
+    this.selectedBook = null; 
     this.displayDialog = true;
   }
 
-  onDialogHide(): void {}
+  openEditDialog(book: Book): void {
+    this.isEditMode = true;
+    this.selectedBook = book; 
+    this.displayDialog = true;
+  }
 
+  onDialogHide(): void {
+    this.displayDialog = false;
+    this.selectedBook = null; 
+  }
   onBookSaved(newBook: any): void {
+    console.log('New Book Added:', newBook);
+    this.getBooks();
+    this.displayDialog = false;
+  }
+
+  onBookUpdate(newBook: any): void {
     console.log('New Book Added:', newBook);
     this.getBooks();
     this.displayDialog = false;
@@ -344,18 +366,7 @@ export class BookListComponent implements AfterViewInit, OnInit {
     this.selectedPrice = 1000;
   }
 
-  openEditDialog(book: Book): void {
-    const dialogRef = this.dialog.open(EditBookComponent, {
-      width: '600px',
-      data: { ...book },
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this.getBooks();
-      }
-    });
-  }
+  
 
   deleteBook(id: string): void {
     this.confirmationService.confirm({
