@@ -40,7 +40,7 @@ export class AuthService {
   logout() {
     localStorage.removeItem('user');
     this.currentUserSubject.set(null);
-    this.route.navigateByUrl('/login');
+    this.route.navigateByUrl('/auth');
   }
 
   register(data: any): Observable<any> {
