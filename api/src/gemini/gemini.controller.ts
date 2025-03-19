@@ -12,7 +12,7 @@ export class GeminiController {
       return response;
     } catch (error) {
       console.error('Error in GeminiController:', error);
-      throw error; 
+      throw error;
     }
   }
 }

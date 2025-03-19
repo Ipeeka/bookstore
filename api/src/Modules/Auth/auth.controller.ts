@@ -1,5 +1,11 @@
-
-import { Controller, Post, Body, BadRequestException, Query, Get } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  BadRequestException,
+  Query,
+  Get,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterDTO } from 'src/Modules/Auth/DTOs/registerDTO';
 import { LoginDTO } from 'src/Modules/Auth/DTOs/loginDTO';
@@ -14,7 +20,7 @@ export class AuthController {
       const result = await this.authService.register(registerDTO);
       return { token: result.token };
     } catch (error) {
-      console.error(error); 
+      console.error(error);
       throw new BadRequestException(error.message);
     }
   }

@@ -1,6 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { bookDetails } from 'src/Entities/BookDetails/book-detail.schema';
-import { CreateBookDetailDTO, UpdateBookDetailDTO } from '../DTOs/book-detailDTO';
+import {
+  CreateBookDetailDTO,
+  UpdateBookDetailDTO,
+} from '../DTOs/book-detailDTO';
 import { BookDetailsRepository } from '../Repository/book-detail.repository';
 
 @Injectable()
@@ -15,12 +18,14 @@ export class BookDetailsService {
     return this.bookDetailsRepository.findAll();
   }
 
-
   async findOne(id: string): Promise<bookDetails | null> {
     return this.bookDetailsRepository.findOne(id);
   }
 
-  async update(id: string, updateBookDetailDTO: UpdateBookDetailDTO): Promise<bookDetails | null> {
+  async update(
+    id: string,
+    updateBookDetailDTO: UpdateBookDetailDTO,
+  ): Promise<bookDetails | null> {
     return this.bookDetailsRepository.update(id, updateBookDetailDTO);
   }
 
@@ -29,6 +34,6 @@ export class BookDetailsService {
   }
 
   async findByBookId(bookId: string): Promise<bookDetails[]> {
-    return this.bookDetailsRepository.findByBookId(bookId)
+    return this.bookDetailsRepository.findByBookId(bookId);
   }
 }

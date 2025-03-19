@@ -1,4 +1,3 @@
-
 import {
   BadRequestException,
   Body,
@@ -9,23 +8,28 @@ import {
   Param,
   Put,
   UseGuards,
-  UseInterceptors, UploadedFile,
-  Post
+  UseInterceptors,
+  UploadedFile,
+  Post,
 } from '@nestjs/common';
 import { UserService } from './Services/user.service';
 import { Types } from 'mongoose';
 import { UpdateUserDTO } from './DTOs/updateUserDTO';
 import { diskStorage } from 'multer';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { Request } from 'express'; 
-import { ForgotPasswordDTO, ResetPasswordDTO } from '../Auth/DTOs/forgot-password.dto';
+import { Request } from 'express';
+import {
+  ForgotPasswordDTO,
+  ResetPasswordDTO,
+} from '../Auth/DTOs/forgot-password.dto';
 import { AuthService } from '../Auth/auth.service';
-
-
 
 @Controller('user')
 export class UserController {
-  constructor(private userService: UserService,private readonly authService: AuthService) {}
+  constructor(
+    private userService: UserService,
+    private readonly authService: AuthService,
+  ) {}
 
   @Put('update-user/:id')
   @UseInterceptors(
@@ -36,12 +40,12 @@ export class UserController {
           callback(null, Date.now() + '-' + file.originalname);
         },
       }),
-    })
+    }),
   )
   async updateUser(
     @Param('id') id: string,
     @Body() updateUserDTO: UpdateUserDTO,
-    @UploadedFile() profileImage: Express.Multer.File
+    @UploadedFile() profileImage: Express.Multer.File,
   ) {
     if (!Types.ObjectId.isValid(id)) {
       throw new NotFoundException({
@@ -51,8 +55,7 @@ export class UserController {
     }
 
     if (profileImage) {
-    
-      updateUserDTO.profileImage = profileImage.path; 
+      updateUserDTO.profileImage = profileImage.path;
     }
     return this.userService.updateUser(id, updateUserDTO);
   }

@@ -64,10 +64,10 @@ export class User {
   profileImage?: string;
 
   @Prop({ required: true, default: false })
-  isEmailVerified: boolean; 
+  isEmailVerified: boolean;
 
   @Prop({ required: false })
-  otp?: string; 
+  otp?: string;
 }
 
 export type UserDocument = User & Document;

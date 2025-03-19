@@ -2,7 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
 @Schema()
-export class bookDetails extends Document{
+export class bookDetails extends Document {
   @Prop({ required: true })
   bookId: string;
 
@@ -19,12 +19,11 @@ export class bookDetails extends Document{
   createdAt: Date;
 
   @Prop()
-  likes: string; 
+  likes: string;
 
   @Prop()
-  disLikes: string; 
+  disLikes: string;
 }
-
 
 export type BookDetailsDocument = bookDetails & Document;
 

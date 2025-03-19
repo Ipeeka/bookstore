@@ -53,7 +53,10 @@ export class BooksService {
     return this.booksRepository.searchBooks(query);
   }
 
-  async toggleBookmark(id: string, toggleBookmarked: boolean): Promise<BookDocument> {
+  async toggleBookmark(
+    id: string,
+    toggleBookmarked: boolean,
+  ): Promise<BookDocument> {
     const book = await this.booksRepository.findBookById(id);
     if (!book) {
       throw new Error('Book not found');
@@ -61,5 +64,4 @@ export class BooksService {
     book.bookmarked = !book.bookmarked;
     return this.booksRepository.updateBookmarked(id, toggleBookmarked);
   }
-
 }

@@ -3,8 +3,9 @@ import axios from 'axios';
 
 @Injectable()
 export class GeminiService {
-  private readonly apiUrl = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent'; 
-  private readonly apiKey = 'AIzaSyDtUlD14fO8SiRlP7azSFDBkCzKYUODKXg'; 
+  private readonly apiUrl =
+    'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
+  private readonly apiKey = 'AIzaSyDtUlD14fO8SiRlP7azSFDBkCzKYUODKXg';
 
   async getGeminiResponse(query: string): Promise<any> {
     try {
@@ -15,7 +16,7 @@ export class GeminiService {
             {
               parts: [
                 {
-                  text: query, // Use the query directly inside the 'text' field
+                  text: query,
                 },
               ],
             },
@@ -27,7 +28,7 @@ export class GeminiService {
           },
         },
       );
-      return response.data;  
+      return response.data;
     } catch (error) {
       console.error('Error calling Gemini API', error);
       throw new Error('Error connecting to Gemini API');

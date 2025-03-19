@@ -5,10 +5,8 @@ import { RegisterDTO } from './DTOs/registerDTO';
 import { LoginDTO } from 'src/Modules/Auth/DTOs/loginDTO';
 import * as bcrypt from 'bcrypt';
 import { EmailService } from './email.service';
-
 import { UserService } from '../User/Services/user.service';
-import { randomBytes } from 'crypto'; // Ensure this import is added
-
+import { randomBytes } from 'crypto';
 
 @Injectable()
 export class AuthService {
@@ -17,7 +15,6 @@ export class AuthService {
     private readonly jwtService: JwtService,
     private readonly emailService: EmailService,
     private readonly userService: UserService,
-    
   ) {}
 
   async register(registerDTO: RegisterDTO): Promise<any> {
@@ -43,10 +40,9 @@ export class AuthService {
     await this.emailService.sendVerificationEmail(
       newUser.email,
       verificationToken,
-      newUser.firstName,  
-      newUser.lastName    
+      newUser.firstName,
+      newUser.lastName,
     );
-    
 
     return {
       message:
@@ -77,24 +73,22 @@ export class AuthService {
   }
 
   async login(@Body() loginDTO: LoginDTO) {
-  
     const user = await this.authRepository.findByEmail(loginDTO.email);
     if (!user) {
       throw new BadRequestException('Invalid credentials: User not found');
     }
 
-   
     if (!user.isEmailVerified) {
-      throw new BadRequestException('Please verify your email before logging in');
+      throw new BadRequestException(
+        'Please verify your email before logging in',
+      );
     }
 
-   
     const isMatch = await bcrypt.compare(loginDTO.password, user.password);
     if (!isMatch) {
       throw new BadRequestException('Invalid credentials: Incorrect password');
     }
 
-   
     const payload = { email: user.email, sub: user._id, role: user.role };
     const token = this.jwtService.sign(payload);
 
@@ -114,18 +108,15 @@ export class AuthService {
   }
 
   async forgotPassword(email: string) {
-   
     const user = await this.userService.findByEmail(email);
     if (!user) {
       throw new BadRequestException('User not found');
     }
 
-
-    const otp = randomBytes(2).toString('hex'); 
+    const otp = randomBytes(2).toString('hex');
 
     await this.emailService.sendOtpEmail(email, otp);
 
-   
     await this.userService.storeOtp(email, otp);
 
     return { message: 'OTP sent to your email' };

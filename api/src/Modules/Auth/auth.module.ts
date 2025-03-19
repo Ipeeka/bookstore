@@ -9,7 +9,7 @@ import { AuthRepository } from './Repository/auth.repository';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { EmailService } from './email.service';
 import { UserModule } from '../User/user.module';
-import { UserService } from '../User/Services/user.service'; 
+import { UserService } from '../User/Services/user.service';
 
 @Module({
   imports: [
@@ -22,10 +22,11 @@ import { UserService } from '../User/Services/user.service';
         secret: process.env.JWT_SECRET,
         signOptions: { expiresIn: '2h' },
       }),
-    }),forwardRef(() => UserModule)
+    }),
+    forwardRef(() => UserModule),
   ],
-  providers: [AuthService, JwtStrategy, AuthRepository,EmailService],
+  providers: [AuthService, JwtStrategy, AuthRepository, EmailService],
   controllers: [AuthController],
-  exports : [AuthService], 
+  exports: [AuthService],
 })
 export class AuthModule {}

@@ -70,17 +70,17 @@ export class BooksRepository {
     return this.bookModel.find().exec();
   }
 
-  async updateBookmarked(id: string,toggleBookmarked: boolean): Promise<Book> {
+  async updateBookmarked(id: string, toggleBookmarked: boolean): Promise<Book> {
     try {
       const updatedBook = await this.bookModel.findByIdAndUpdate(
         id,
-        { bookmarked: toggleBookmarked }, 
-        { new: true } 
-      );     
+        { bookmarked: toggleBookmarked },
+        { new: true },
+      );
       if (!updatedBook) {
         throw new Error('Book not found');
       }
-  
+
       return updatedBook;
     } catch (error) {
       throw new Error(
@@ -88,5 +88,4 @@ export class BooksRepository {
       );
     }
   }
-
 }

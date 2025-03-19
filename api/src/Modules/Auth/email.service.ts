@@ -12,7 +12,6 @@ export class EmailService {
     sgMail.setApiKey(sendGridApiKey);
   }
 
- 
   async sendOtpEmail(email: string, otp: string) {
     const subject = 'Your OTP Code';
     const text = `Your OTP is: ${otp}. Please use it to reset your password.`;
@@ -20,7 +19,7 @@ export class EmailService {
 
     const msg = {
       to: email,
-      from: 'pawan.kumar@eplannerpro.com',  
+      from: 'pawan.kumar@eplannerpro.com',
       subject: subject,
       text: text,
       html: html,
@@ -35,7 +34,6 @@ export class EmailService {
     }
   }
 
- 
   async sendVerificationEmail(
     to: string,
     token: string,

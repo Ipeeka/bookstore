@@ -1,7 +1,15 @@
-import { Controller, Get, Post, Put, Delete, Param, Body, Query } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Put,
+  Delete,
+  Param,
+  Body,
+  Query,
+} from '@nestjs/common';
 import { CreateBookDTO, UpdateBookDTO } from './DTOs/booksDTO';
 import { BooksService } from './Services/books.service';
-
 
 @Controller('books')
 export class BooksController {
@@ -11,7 +19,7 @@ export class BooksController {
   async addBook(@Body() createBookDTO: CreateBookDTO) {
     try {
       const newBook = await this.booksService.addBook(createBookDTO);
-      return newBook ;
+      return newBook;
     } catch (error) {
       throw new Error(`Error in adding book: ${error.message}`);
     }
@@ -57,7 +65,7 @@ export class BooksController {
   async deleteBook(@Param('id') id: string) {
     try {
       const result = await this.booksService.deleteBook(id);
-      return result; 
+      return result;
     } catch (error) {
       throw new Error(`Error in deleting book: ${error.message}`);
     }
@@ -74,17 +82,22 @@ export class BooksController {
   }
 
   @Put(':id/bookmark')
-  async toggleBookmark(@Param('id') id: string, @Body() body: { toggleBookmarked: boolean }) {
+  async toggleBookmark(
+    @Param('id') id: string,
+    @Body() body: { toggleBookmarked: boolean },
+  ) {
     if (!id) {
       throw new Error('Invalid book ID');
     }
 
     try {
-      const updatedBook = await this.booksService.toggleBookmark(id, body.toggleBookmarked);
+      const updatedBook = await this.booksService.toggleBookmark(
+        id,
+        body.toggleBookmarked,
+      );
       return { message: 'Bookmark toggled successfully', book: updatedBook };
     } catch (error) {
       throw new Error(`Error in toggling bookmark: ${error.message}`);
     }
   }
-
 }

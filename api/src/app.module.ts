@@ -10,8 +10,6 @@ import { BookDetailsModule } from './Modules/BooksDetails/book-detail.module';
 import { GeminiController } from './gemini/gemini.controller';
 import { GeminiService } from './gemini/gemini.service';
 
-
-
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -19,9 +17,9 @@ import { GeminiService } from './gemini/gemini.service';
     AuthModule,
     BooksModule,
     UserModule,
-    BookDetailsModule
+    BookDetailsModule,
   ],
-  controllers: [AppController,GeminiController],
-  providers: [AppService,GeminiService],
+  controllers: [AppController, GeminiController],
+  providers: [AppService, GeminiService],
 })
 export class AppModule {}

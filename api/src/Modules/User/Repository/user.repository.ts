@@ -5,7 +5,6 @@ import { User, UserDocument } from 'src/Entities/User/user.schema';
 import { IUserRepository } from './user.interface';
 import { UpdateUserDTO } from '../DTOs/updateUserDTO';
 
-
 @Injectable()
 export class UserRepository implements IUserRepository {
   constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
@@ -23,7 +22,9 @@ export class UserRepository implements IUserRepository {
   }
 
   async updateUser(id: string, updateUserDTO: UpdateUserDTO) {
-    return await this.userModel.findByIdAndUpdate(id, updateUserDTO, { new: true });
+    return await this.userModel.findByIdAndUpdate(id, updateUserDTO, {
+      new: true,
+    });
   }
 
   async findById(id: string) {
@@ -34,9 +35,7 @@ export class UserRepository implements IUserRepository {
     return this.userModel.findOne(query).exec();
   }
 
- 
   async updateOne(query: object, update: object) {
     return this.userModel.updateOne(query, update).exec();
   }
-
 }

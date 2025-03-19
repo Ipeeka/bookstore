@@ -1,5 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsNotEmpty, IsNumber, IsBoolean, IsEnum } from 'class-validator';
+import {
+  IsString,
+  IsNotEmpty,
+  IsNumber,
+  IsBoolean,
+  IsEnum,
+} from 'class-validator';
 
 export class CreateBookDTO {
   @IsString()
@@ -11,35 +17,32 @@ export class CreateBookDTO {
   @ApiProperty()
   @IsNotEmpty()
   author: string;
- 
-  @IsString()
-@ApiProperty()
-publicationYear: string;
 
-  
+  @IsString()
+  @ApiProperty()
+  publicationYear: string;
+
   @IsNumber()
   @ApiProperty()
   price: number;
 
   @IsNumber()
   @ApiProperty()
-  quantity: number;  
+  quantity: number;
 
   @IsString()
   @ApiProperty()
   @IsNotEmpty()
-  description: string; 
+  description: string;
 
   @IsEnum(['inStock', 'lowStock', 'preOrder', 'outOfStock'])
   @ApiProperty({ enum: ['inStock', 'lowStock', 'preOrder', 'outOfStock'] })
-  inventoryStatus: string;  
-
- 
+  inventoryStatus: string;
 
   @IsString()
   @ApiProperty()
   @IsNotEmpty()
-  publisher: string; 
+  publisher: string;
 
   @IsString()
   @ApiProperty()
@@ -66,7 +69,6 @@ export class UpdateBookDTO {
   @ApiProperty()
   price: number;
 
-
   @IsString()
   @ApiProperty()
   @IsNotEmpty()
@@ -74,20 +76,19 @@ export class UpdateBookDTO {
 
   @IsNumber()
   @ApiProperty()
-  quantity: number; 
+  quantity: number;
 
   @IsString()
   @ApiProperty()
   @IsNotEmpty()
-  description: string;  
+  description: string;
 
   @IsEnum(['inStock', 'lowStock', 'preOrder', 'outOfStock'])
   @ApiProperty({ enum: ['inStock', 'lowStock', 'preOrder', 'outOfStock'] })
-  inventoryStatus: string;  
-
+  inventoryStatus: string;
 
   @IsString()
   @ApiProperty()
   @IsNotEmpty()
-  publisher: string;  
+  publisher: string;
 }

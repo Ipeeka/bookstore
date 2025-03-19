@@ -1,14 +1,13 @@
-import { UpdateUserDTO } from "../DTOs/updateUserDTO";
+import { UpdateUserDTO } from '../DTOs/updateUserDTO';
 
+export interface IUserRepository {
+  updateUser(id: string, updateUserDTO: UpdateUserDTO);
 
-export interface IUserRepository{
-    updateUser(id:string, updateUserDTO: UpdateUserDTO);
+  findById(id: string);
 
-    findById(id:string);
+  findByEmail(email: string);
 
-    findByEmail(email: string);
+  findAll();
 
-    findAll();
-
-    deleteUser(id:string);
+  deleteUser(id: string);
 }

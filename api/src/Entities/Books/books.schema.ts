@@ -11,7 +11,6 @@ export class Book extends Document {
 
   @Prop({ required: true })
   publicationYear: string;
-  
 
   @Prop({ required: true })
   genre: string;
@@ -20,30 +19,27 @@ export class Book extends Document {
   price: number;
 
   @Prop({ required: true })
-  quantity: number;  
+  quantity: number;
 
   @Prop({ required: true })
-  description: string;  
+  description: string;
 
   @Prop({ default: Date.now })
-  dateAdded: Date;  
+  dateAdded: Date;
 
-  @Prop({ 
-    type: String, 
-    enum: ['inStock', 'lowStock', 'preOrder', 'outOfStock'], 
-    default: 'inStock' 
+  @Prop({
+    type: String,
+    enum: ['inStock', 'lowStock', 'preOrder', 'outOfStock'],
+    default: 'inStock',
   })
   inventoryStatus: string;
 
-  @Prop({ default: false })  
-  bookmarked: boolean; 
+  @Prop({ default: false })
+  bookmarked: boolean;
 
   @Prop({ required: true })
-  publisher: string; 
-
+  publisher: string;
 }
-
-
 
 export type BookDocument = Book & Document;
 
