@@ -3,12 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { PartialsRoutingModule } from './partials-routing.module';
 
-
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule,
-    PartialsRoutingModule
-  ]
+  imports: [CommonModule, PartialsRoutingModule],
 })
-export class PartialsModule { }
+export class PartialsModule {}

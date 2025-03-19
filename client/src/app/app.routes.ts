@@ -28,7 +28,7 @@ export const routes: Routes = [
   {
     path: '**',
     component: NotFoundComponent,
-    canActivate: [authGuard], // Ensures only logged-in users see this page
+    canActivate: [authGuard],
   },
   {
     path: 'component',
@@ -38,6 +38,6 @@ export const routes: Routes = [
   {
     path: 'cart',
     component: CartComponent,
-    canActivate: [authGuard], // Ensures only logged-in users see this page
+    canActivate: [authGuard],
   },
 ];

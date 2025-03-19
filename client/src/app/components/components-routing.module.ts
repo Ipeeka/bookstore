@@ -7,25 +7,25 @@ import { ChatBotComponent } from './chat-bot/chat-bot.component';
 
 const routes: Routes = [
   {
-    path: 'notifications',  
-    component: NotificationComponent
+    path: 'notifications',
+    component: NotificationComponent,
   },
   {
-    path: 'report',  
-    component: ReportComponent
+    path: 'report',
+    component: ReportComponent,
   },
   {
-    path: 'cart',  
-    component: CartComponent
+    path: 'cart',
+    component: CartComponent,
   },
   {
-    path: 'chat-bot',  
-    component: ChatBotComponent
-  }
+    path: 'chat-bot',
+    component: ChatBotComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class ComponentsRoutingModule { }
+export class ComponentsRoutingModule {}

@@ -36,13 +36,12 @@
   width: 50px;
   height: 50px;
   text-align: center;
-  line-height: 50px;
+  /* line-height: 50px; */
   color: #050505 !important;
- 
+
   border-color: #eef6ff !important;
   border-radius: 50%;
   margin: 0px 0px 0px 10px;
-
 }
 
 .profile-menu {
@@ -107,9 +106,6 @@
 
   transition: background-color 0.3s, transform 0.3s;
 }
-
-
-
 
 .fa-btn:hover {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);

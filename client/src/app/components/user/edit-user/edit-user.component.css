@@ -31,12 +31,12 @@ button {
   width: auto;
 }
 
-.cancel-button:hover{
+.cancel-button:hover {
   color: white;
-  background-color:  rgb(235, 23, 23);
+  background-color: rgb(235, 23, 23);
 }
 
-.save-button:hover{
+.save-button:hover {
   color: white;
   background-color: blue;
 }
@@ -49,8 +49,6 @@ button-container {
   margin-left: 50px;
 }
 
-
-
 h2 {
   text-align: center;
   font-size: 28px;
@@ -58,7 +56,8 @@ h2 {
   margin-bottom: 20px;
 }
 
-h2, mat-form-field {
+h2,
+mat-form-field {
   margin-top: 10px;
 }
 

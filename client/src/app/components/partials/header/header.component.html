@@ -6,18 +6,22 @@
   <span class="right">
     <p-button *ngIf="!isLoggedIn" label="Login" icon="pi pi-user"></p-button>
 
-    <div class="nav-btn" style="margin-right: 10px"  routerLinkActive="active">
+    <div class="nav-btn" style="margin-right: 10px" routerLinkActive="active">
       <button
         class="cart fa-btn"
         style="border: none"
         [matTooltip]="'cart'"
         routerLink="/component/cart"
       >
-        <i class="pi pi-shopping-cart" ></i>
+        <i class="pi pi-shopping-cart text-2xl"></i>
       </button>
 
-      <button class="notification fa-btn" [matTooltip]="'notification'" (click)="openNotificationDialog()">
-        <i class="pi pi-bell"></i>
+      <button
+        class="notification fa-btn"
+        [matTooltip]="'notification'"
+        (click)="openNotificationDialog()"
+      >
+        <i class="pi pi-bell text-2xl" pBadge value="2"></i>
       </button>
     </div>
 
@@ -49,8 +53,13 @@
   [(visible)]="notificationDialogVisible"
   [closable]="true"
   [modal]="true"
-  [style]="{ 'position': 'fixed', 'top': '100px', 'right': '20px', 'width': '450px', 'height': '550px' }"
+  [style]="{
+    position: 'fixed',
+    top: '100px',
+    right: '20px',
+    width: '450px',
+    height: '550px'
+  }"
 >
   <app-notification></app-notification>
 </p-dialog>
-

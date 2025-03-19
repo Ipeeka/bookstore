@@ -54,9 +54,7 @@ export class AuthService {
   }
 
   verifyEmail(token: string): Observable<any> {
-
     const params = new HttpParams().set('token', token);
     return this.http.get<any>(`${this.apiUrl}/auth/verify-email`, { params });
   }
- 
 }

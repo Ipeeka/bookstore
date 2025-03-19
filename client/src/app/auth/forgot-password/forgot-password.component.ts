@@ -1,5 +1,18 @@
-import { Component, OnInit, OnDestroy, ChangeDetectorRef, inject, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ChangeDetectorRef,
+  inject,
+  Output,
+  EventEmitter,
+} from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputOtpModule } from 'primeng/inputotp';
@@ -13,7 +26,15 @@ import { ToastModule } from 'primeng/toast';
 @Component({
   selector: 'app-forgot-password',
   standalone: true,
-  imports: [CommonModule, FloatLabelModule, ReactiveFormsModule, ButtonModule, InputOtpModule, PasswordModule,ToastModule],
+  imports: [
+    CommonModule,
+    FloatLabelModule,
+    ReactiveFormsModule,
+    ButtonModule,
+    InputOtpModule,
+    PasswordModule,
+    ToastModule,
+  ],
   templateUrl: './forgot-password.component.html',
   styleUrls: ['./forgot-password.component.css'],
   providers: [MessageService],
@@ -32,7 +53,11 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
   private route = inject(Router);
   private messageService = inject(MessageService);
 
-  constructor(private fb: FormBuilder, private userService: UserService, private cdRef: ChangeDetectorRef) {}
+  constructor(
+    private fb: FormBuilder,
+    private userService: UserService,
+    private cdRef: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     this.forgotPasswordForm = this.fb.group({
@@ -50,7 +75,7 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
       } else if (this.otpSent && !this.otpVerified) {
         this.verifyOtp();
       } else if (!this.otpSent) {
-        this.sendOtp(); 
+        this.sendOtp();
       }
     }
   }
@@ -61,7 +86,13 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
       () => {
         this.otpSent = true;
         this.startOtpTimer();
-        this.forgotPasswordForm.addControl('otp', this.fb.control('', [Validators.required, Validators.pattern(/^\d{4}$/)]));
+        this.forgotPasswordForm.addControl(
+          'otp',
+          this.fb.control('', [
+            Validators.required,
+            Validators.pattern(/^\d{4}$/),
+          ])
+        );
         this.cdRef.detectChanges();
         this.messageService.add({
           severity: 'success',
@@ -119,7 +150,8 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
         this.messageService.add({
           severity: 'success',
           summary: 'Password Updated',
-          detail: 'Your password has been successfully updated . You can login now..',
+          detail:
+            'Your password has been successfully updated . You can login now..',
           life: 2000,
         });
         this.otpSent = false;
@@ -133,7 +165,8 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
         this.messageService.add({
           severity: 'error',
           summary: 'Error Updating Password',
-          detail: 'There was an error updating your password. Please try again.',
+          detail:
+            'There was an error updating your password. Please try again.',
         });
       }
     );
@@ -154,8 +187,7 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
     }
   }
 
-
   backToLogin() {
-    this.backToLoginEvent.emit(); 
+    this.backToLoginEvent.emit();
   }
 }

@@ -8,7 +8,13 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideStore } from '@ngrx/store';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes),
-    provideAnimationsAsync(), provideAnimationsAsync(),
-    provideHttpClient(withInterceptors([httpInterceptor])), provideAnimationsAsync(), provideStore()]
+  providers: [
+    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideRouter(routes),
+    provideAnimationsAsync(),
+    provideAnimationsAsync(),
+    provideHttpClient(withInterceptors([httpInterceptor])),
+    provideAnimationsAsync(),
+    provideStore(),
+  ],
 };

@@ -27,7 +27,6 @@ import { Dialog, DialogModule } from 'primeng/dialog';
     FormsModule,
     ReactiveFormsModule,
     RouterLink,
-
     BadgeModule,
     CardModule,
     InputTextModule,
@@ -38,7 +37,7 @@ import { Dialog, DialogModule } from 'primeng/dialog';
   ],
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.css'],
-  encapsulation: ViewEncapsulation.Emulated 
+  encapsulation: ViewEncapsulation.Emulated,
 })
 export class LayoutComponent {
   isLoggedIn: boolean = false;

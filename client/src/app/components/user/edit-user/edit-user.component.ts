@@ -1,4 +1,10 @@
-import { Component, inject, OnInit, Inject, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import {
+  Component,
+  inject,
+  OnInit,
+  Inject,
+  CUSTOM_ELEMENTS_SCHEMA,
+} from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 import {
@@ -19,11 +25,19 @@ import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'edit-user',
-  standalone:true,
-  imports: [MatFormFieldModule, CommonModule, FormsModule, ReactiveFormsModule,MatInputModule,ConfirmDialogModule,
-      ToastModule,MatButtonModule],
-   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    providers: [ConfirmationService, MessageService],
+  standalone: true,
+  imports: [
+    MatFormFieldModule,
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    ConfirmDialogModule,
+    ToastModule,
+    MatButtonModule,
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  providers: [ConfirmationService, MessageService],
   templateUrl: './edit-user.component.html',
   styleUrl: './edit-user.component.css',
 })
@@ -43,7 +57,6 @@ export class EditUserComponent implements OnInit {
   }
 
   loadUserData(): void {
-   
     this.userService.getUserById(this.data.userId).subscribe({
       next: (res) => {
         this.userForm = new FormGroup({
@@ -57,27 +70,45 @@ export class EditUserComponent implements OnInit {
         });
       },
       error: () => {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to load user data' });
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Failed to load user data',
+        });
       },
     });
   }
 
   saveProfile(): void {
     if (this.userForm.valid) {
-      this.userService.updateUser(this.data.userId, this.userForm.value).subscribe({
-        next: () => {
-          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Profile updated successfully' });
-          this.dialogRef.close(true);
-        },
-        error: () => {
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to update profile' });
-        },
-      });
+      this.userService
+        .updateUser(this.data.userId, this.userForm.value)
+        .subscribe({
+          next: () => {
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Success',
+              detail: 'Profile updated successfully',
+            });
+            this.dialogRef.close(true);
+          },
+          error: () => {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: 'Failed to update profile',
+            });
+          },
+        });
     }
   }
 
   close(): void {
-    this.messageService.add({ severity: 'info', summary: 'Discarded', detail: 'Changes discarded successfully' });
+    this.messageService.add({
+      severity: 'info',
+      summary: 'Discarded',
+      detail: 'Changes discarded successfully',
+    });
     this.dialogRef.close();
   }
 }

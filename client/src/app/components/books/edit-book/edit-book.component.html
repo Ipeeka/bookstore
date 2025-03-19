@@ -8,7 +8,7 @@
   </button>
 </div>
 
-<form [formGroup]="editBookForm"  *ngIf="editBookForm">
+<form [formGroup]="editBookForm" *ngIf="editBookForm">
   <div class="p-fluid">
     <div *ngIf="currentStep === 1">
       <div class="p-field">
@@ -17,7 +17,7 @@
         <small
           *ngIf="
             (editBookForm.get('title')?.dirty ||
-            editBookForm.get('title')?.touched) &&
+              editBookForm.get('title')?.touched) &&
             editBookForm.get('title')?.hasError('required')
           "
           class="p-error"
@@ -32,7 +32,7 @@
         <small
           *ngIf="
             (editBookForm.get('author')?.dirty ||
-            editBookForm.get('author')?.touched) &&
+              editBookForm.get('author')?.touched) &&
             editBookForm.get('author')?.hasError('required')
           "
           class="p-error"
@@ -58,7 +58,7 @@
         <small
           *ngIf="
             (editBookForm.get('publicationYear')?.dirty ||
-            editBookForm.get('publicationYear')?.touched) &&
+              editBookForm.get('publicationYear')?.touched) &&
             editBookForm.get('publicationYear')?.hasError('required')
           "
           class="p-error"
@@ -73,7 +73,7 @@
         <small
           *ngIf="
             (editBookForm.get('price')?.dirty ||
-            editBookForm.get('price')?.touched) &&
+              editBookForm.get('price')?.touched) &&
             editBookForm.get('price')?.hasError('required')
           "
           class="p-error"
@@ -83,7 +83,7 @@
         <small
           *ngIf="
             (editBookForm.get('price')?.dirty ||
-            editBookForm.get('price')?.touched) &&
+              editBookForm.get('price')?.touched) &&
             editBookForm.get('price')?.hasError('pattern')
           "
           class="p-error"
@@ -127,7 +127,7 @@
         <small
           *ngIf="
             (editBookForm.get('genre')?.dirty ||
-            editBookForm.get('genre')?.touched) &&
+              editBookForm.get('genre')?.touched) &&
             editBookForm.get('genre')?.hasError('required')
           "
           class="p-error"
@@ -150,7 +150,7 @@
         <small
           *ngIf="
             (editBookForm.get('inventoryStatus')?.dirty ||
-            editBookForm.get('inventoryStatus')?.touched) &&
+              editBookForm.get('inventoryStatus')?.touched) &&
             editBookForm.get('inventoryStatus')?.hasError('required')
           "
           class="p-error"
@@ -165,7 +165,7 @@
         <small
           *ngIf="
             (editBookForm.get('publisher')?.dirty ||
-            editBookForm.get('publisher')?.touched) &&
+              editBookForm.get('publisher')?.touched) &&
             editBookForm.get('publisher')?.hasError('required')
           "
           class="p-error"
@@ -186,7 +186,7 @@
         <small
           *ngIf="
             (editBookForm.get('quantity')?.dirty ||
-            editBookForm.get('quantity')?.touched) &&
+              editBookForm.get('quantity')?.touched) &&
             editBookForm.get('quantity')?.hasError('required')
           "
           class="p-error"
@@ -207,7 +207,7 @@
         <small
           *ngIf="
             (editBookForm.get('description')?.dirty ||
-            editBookForm.get('description')?.touched) &&
+              editBookForm.get('description')?.touched) &&
             editBookForm.get('description')?.hasError('required')
           "
           class="p-error"
@@ -227,8 +227,6 @@
     </button>
   </div>
 </form>
-
-
 
 <div class="card flex justify-center">
   <p-toast></p-toast>

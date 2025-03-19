@@ -1,10 +1,10 @@
-/* Container & Table */
 .h-custom {
   height: 100vh !important;
 }
 
-.table th {
-  font-size: 18px;
+.table th,
+.table td {
+  vertical-align: middle;
 }
 
 .table img {
@@ -13,21 +13,6 @@
   border-radius: 8px;
 }
 
-.table td, .table th {
-  vertical-align: middle;
-}
-
-/* Buttons */
-.btn-link {
-  font-size: 18px;
-  color: #007bff;
-}
-
-.btn-link:hover {
-  color: #0056b3;
-}
-
-/* Card Styling */
 .card {
   border-radius: 16px;
 }
@@ -36,32 +21,6 @@
   padding: 20px;
 }
 
-/* Payment Section */
-.form-check {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.form-check-input {
-  margin-top: 0;
-}
-
-.payment-option {
-  border: 1px solid #ddd;
-  padding: 10px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  cursor: pointer;
-}
-
-.payment-option:hover {
-  background-color: #f8f9fa;
-}
-
-/* Checkout Button */
 .btn-primary {
   background-color: #007bff;
   border: none;
@@ -75,9 +34,41 @@
   background-color: #0056b3;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   .table img {
     width: 80px;
+  }
+
+  .table th,
+  .table td {
+    font-size: 14px;
+  }
+
+  .card-body {
+    padding: 15px;
+  }
+
+  .btn-primary {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .col-md-3 {
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 576px) {
+  .card-body {
+    padding: 10px;
+  }
+
+  .btn-primary {
+    font-size: 12px;
+    padding: 8px;
+  }
+
+  .col-md-3 {
+    margin-bottom: 5px;
   }
 }

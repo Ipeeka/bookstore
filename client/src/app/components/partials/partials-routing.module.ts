@@ -4,38 +4,38 @@ import { LayoutComponent } from './layout/layout.component';
 
 const routes: Routes = [
   {
-    path: "",
-    component: LayoutComponent ,
+    path: '',
+    component: LayoutComponent,
     children: [
       {
-        path: "book",
-        loadChildren: () => import("../books/books.module").then(m => m.BooksModule),
+        path: 'book',
+        loadChildren: () =>
+          import('../books/books.module').then((m) => m.BooksModule),
       },
-      // {
-      //   path: "search",
-      //   loadChildren: () => import("../sea/booking.module").then(m => m.BookingModule),
-      // },
+
       {
         path: 'user',
-        loadChildren: () => import("../user/user.module").then(m => m.UserModule),
+        loadChildren: () =>
+          import('../user/user.module').then((m) => m.UserModule),
       },
       {
         path: 'layout',
-        loadChildren: () => import("../user/user.module").then(m => m.UserModule),
+        loadChildren: () =>
+          import('../user/user.module').then((m) => m.UserModule),
       },
       {
-        path: 'component',  
-        loadChildren: () => import('../../components/components.module').then(m => m.ComponentsModule),
-      
-    },
-      
-    ]
-  }
+        path: 'component',
+        loadChildren: () =>
+          import('../../components/components.module').then(
+            (m) => m.ComponentsModule
+          ),
+      },
+    ],
+  },
 ];
-
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class PartialsRoutingModule { }
+export class PartialsRoutingModule {}

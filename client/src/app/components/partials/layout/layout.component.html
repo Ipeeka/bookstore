@@ -64,7 +64,7 @@
   </div>
 </div>
 <p-dialog
-  class="custom-dialog" 
+  class="custom-dialog"
   [modal]="true"
   [(visible)]="visible"
   [position]="'bottomright'"
@@ -76,14 +76,18 @@
     padding: '0px '
   }"
 >
-  <ng-template pTemplate="header">
+  <!-- <ng-template pTemplate="header">
     <div>
       <i class="fas fa-comments" style="margin-right: 10px"></i> 
     </div>
-  </ng-template>
+  </ng-template> -->
 
   <div
-    style="background: linear-gradient(to top, #ffffff, #87cefa); height: calc(100% - 30px); padding: 10px;"
+    style="
+      background: linear-gradient(to top, #ffffff, #87cefa);
+      height: calc(100% - 30px);
+      padding: 10px;
+    "
   >
     <app-chat-bot></app-chat-bot>
   </div>
@@ -92,4 +96,3 @@
     <h3 style="text-align: center">Powered By BookStore.com</h3>
   </ng-template>
 </p-dialog>
-

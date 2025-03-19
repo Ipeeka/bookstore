@@ -9,17 +9,17 @@
   border-collapse: collapse;
 }
 
-.delete-btn{
-  color: #F1416C !important;
+.delete-btn {
+  color: #f1416c !important;
 }
 
 .delete-btn:hover {
   color: white !important;
-  background-color:  rgb(235, 23, 23);
+  background-color: rgb(235, 23, 23);
 }
 
-.edit-btn{
-  color: #3E97FF !important;
+.edit-btn {
+  color: #3e97ff !important;
 }
 
 .edit-btn:hover {
@@ -142,7 +142,6 @@ mat-paginator {
   display: flex;
   align-items: center;
 }
-
 
 h1 {
   font-size: 24px;

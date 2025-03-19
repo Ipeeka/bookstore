@@ -1,4 +1,10 @@
-import { Component, OnInit, OnDestroy, CUSTOM_ELEMENTS_SCHEMA, HostListener } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  CUSTOM_ELEMENTS_SCHEMA,
+  HostListener,
+} from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../../shared/services/auth.service';
@@ -13,9 +19,9 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { DialogModule } from 'primeng/dialog';
-import { NotificationComponent } from "../../notification/notification.component";
+import { NotificationComponent } from '../../notification/notification.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
-
+import { BadgeModule } from 'primeng/badge';
 
 @Component({
   selector: 'app-header',
@@ -30,12 +36,13 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     ReactiveFormsModule,
     ConfirmDialogModule,
     ToastModule,
-   MatTooltipModule,
+    MatTooltipModule,
     DialogModule,
-    NotificationComponent
-],
+    NotificationComponent,
+    BadgeModule,
+  ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  providers: [ConfirmationService,MessageService]  ,
+  providers: [ConfirmationService, MessageService],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
 })
@@ -46,7 +53,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   isAdmin: boolean = false;
   searchQuery: string = '';
   profileItems: any[] = [];
-  profileMenuVisible: boolean = false; 
+  profileMenuVisible: boolean = false;
   private userSubscription: Subscription = new Subscription();
   notificationDialogVisible: boolean = false;
 
@@ -57,7 +64,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private confirmationService: ConfirmationService,
     private messageService: MessageService
   ) {}
-
 
   openNotificationDialog() {
     this.notificationDialogVisible = true;
@@ -72,8 +78,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.isAdmin = currentUser.role === 'admin';
 
       this.profileItems = [
-        { label: 'Edit Profile', icon: 'pi pi-user-edit me-2', routerLink: '/user/edit-profile' },
-        { label: 'Logout', icon: 'pi pi-sign-out', command: () => this.onLogout() },
+        {
+          label: 'Edit Profile',
+          icon: 'pi pi-user-edit me-2',
+          routerLink: '/user/edit-profile',
+        },
+        {
+          label: 'Logout',
+          icon: 'pi pi-sign-out',
+          command: () => this.onLogout(),
+        },
       ];
     }
   }
@@ -83,21 +97,30 @@ export class HeaderComponent implements OnInit, OnDestroy {
       message: 'Are you sure you want to log out?',
       header: 'Logout Confirmation',
       icon: 'pi pi-exclamation-triangle',
-   
+
       accept: () => {
-    
         this.authService.logout();
         this.isLoggedIn = false;
         this.userProfileVisible = false;
         this.router.navigate(['/login']);
-        this.messageService.add({ severity: 'success', summary: 'Logged Out', detail: 'You have successfully logged out', life: 3000 });
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Logged Out',
+          detail: 'You have successfully logged out',
+          life: 3000,
+        });
       },
       reject: () => {
-      
-        this.messageService.add({ severity: 'info', summary: 'Logout Canceled', detail: 'You chose to stay logged in', life: 3000 ,styleClass: 'p-button-danger'});
+        this.messageService.add({
+          severity: 'info',
+          summary: 'Logout Canceled',
+          detail: 'You chose to stay logged in',
+          life: 3000,
+          styleClass: 'p-button-danger',
+        });
       },
-      acceptButtonStyleClass: 'p-button-danger', 
-    rejectButtonStyleClass: 'p-button-info'  
+      acceptButtonStyleClass: 'p-button-danger',
+      rejectButtonStyleClass: 'p-button-info',
     });
   }
 
@@ -116,7 +139,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
         if (data.message) {
           alert(data.message);
         } else {
-          this.router.navigate(['/search'], { queryParams: { query: this.searchQuery } });
+          this.router.navigate(['/search'], {
+            queryParams: { query: this.searchQuery },
+          });
         }
       },
       (error) => {
@@ -125,20 +150,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
     );
   }
 
-  
   toggleProfileMenu(): void {
     this.profileMenuVisible = !this.profileMenuVisible;
   }
 
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent): void {
-    const clickedInside = (event.target as HTMLElement).closest('.user-profile');
+    const clickedInside = (event.target as HTMLElement).closest(
+      '.user-profile'
+    );
     if (!clickedInside && this.profileMenuVisible) {
       this.profileMenuVisible = false;
     }
   }
-
-
-  
 }
-

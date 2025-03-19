@@ -16,7 +16,6 @@ export class BookService {
     available?: boolean;
     price?: number;
   }): Observable<any[]> {
-   
     let params = new HttpParams();
     if (filters.genre) {
       params = params.set('genre', filters.genre);
@@ -26,7 +25,6 @@ export class BookService {
     }
 
     if (filters.price !== undefined) {
-      
       params = params.set('price', filters.price);
     }
 
@@ -34,7 +32,6 @@ export class BookService {
   }
 
   addBook(book: any): Observable<any> {
-
     return this.http.post<any>(`${this.apiUrl}/add`, book);
   }
   getAllBooks(filter?: {
@@ -52,7 +49,7 @@ export class BookService {
   }
 
   updateBook(id: string, book: any): Observable<any> {
-    debugger
+    debugger;
     return this.http.put<any>(`${this.apiUrl}/${id}`, book);
   }
 
@@ -75,7 +72,6 @@ export class BookService {
   }
 
   addBookDetails(bookDetail: any): Observable<any> {
-  
     return this.http.post<any>(`${this.apiUrls}`, bookDetail);
   }
 

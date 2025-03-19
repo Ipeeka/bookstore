@@ -1,16 +1,16 @@
 import { bootstrapApplication } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import {  provideLottieOptions } from 'ngx-lottie';
+import { provideLottieOptions } from 'ngx-lottie';
 import { AppComponent } from './app/app.component';
 import { appConfig } from './app/app.config';
 
 bootstrapApplication(AppComponent, {
-  ...appConfig, // Spread your appConfig correctly
+  ...appConfig,
   providers: [
-    ...appConfig.providers, // Ensure existing providers are included
+    ...appConfig.providers,
     provideAnimations(),
     provideLottieOptions({
-      player: () => import('lottie-web') // Lazy-load lottie-web
+      player: () => import('lottie-web'),
     }),
   ],
 }).catch((err) => console.error(err));

@@ -55,10 +55,10 @@ export interface Book {
   availability: boolean;
   genre: string;
   bookmarked: boolean;
-  quantity: number;  
-  description: string;  
-  inventoryStatus: 'inStock' | 'lowStock' | 'preOrder' | 'outOfStock';  
-  publisher: string; 
+  quantity: number;
+  description: string;
+  inventoryStatus: 'inStock' | 'lowStock' | 'preOrder' | 'outOfStock';
+  publisher: string;
 }
 
 interface Comment {
@@ -153,35 +153,59 @@ export class BookListComponent implements AfterViewInit, OnInit {
   comments: Comment[] = [];
   bookmarkedBooks: Book[] = [];
   statuses: any[] = [
-    { label: 'In Stock', value: 'inStock', bgColor: '#DCFCE7', textColor: '#208646' },
-    { label: 'Low Stock', value: 'lowStock', bgColor: '#FFEDD5', textColor: '#C2440F' },
-    { label: 'Pre-order', value: 'preOrder', bgColor: 'lightblue', textColor: 'black' },
-    { label: 'Out of Stock', value: 'outOfStock', bgColor: '#FEE2E2', textColor: '#B91C1C' },
+    {
+      label: 'In Stock',
+      value: 'inStock',
+      bgColor: '#DCFCE7',
+      textColor: '#208646',
+    },
+    {
+      label: 'Low Stock',
+      value: 'lowStock',
+      bgColor: '#FFEDD5',
+      textColor: '#C2440F',
+    },
+    {
+      label: 'Pre-order',
+      value: 'preOrder',
+      bgColor: 'lightblue',
+      textColor: 'black',
+    },
+    {
+      label: 'Out of Stock',
+      value: 'outOfStock',
+      bgColor: '#FEE2E2',
+      textColor: '#B91C1C',
+    },
   ];
   viewMode: 'table' | 'grid' = 'table';
   options = ['table', 'grid'];
 
   getStatusLabel(status: string): string {
-    const found = this.statuses.find(s => s.value.toLowerCase() === status?.toLowerCase().trim());
+    const found = this.statuses.find(
+      (s) => s.value.toLowerCase() === status?.toLowerCase().trim()
+    );
     return found ? found.label : 'Unknown';
   }
-  
+
   getStatusStyle(status: string): any {
-    const found = this.statuses.find(s => s.value.toLowerCase() === status?.toLowerCase().trim());
-    return found ? { 
-      'background-color': found.bgColor,
-      'color': found.textColor,
-      'padding': '5px 10px',
-      'border-radius': '10px',
-      'font-weight': 'bold',
-      'display': 'inline-block',
-      'min-width': '90px',
-      'text-align': 'center'
-    } : {};
+    const found = this.statuses.find(
+      (s) => s.value.toLowerCase() === status?.toLowerCase().trim()
+    );
+    return found
+      ? {
+          'background-color': found.bgColor,
+          color: found.textColor,
+          padding: '5px 10px',
+          'border-radius': '10px',
+          'font-weight': 'bold',
+          display: 'inline-block',
+          'min-width': '90px',
+          'text-align': 'center',
+        }
+      : {};
   }
-  
-  
-  
+
   toggleCommentSection(bookId: string): void {
     this.isCommentSectionVisible = !this.isCommentSectionVisible;
 
@@ -292,19 +316,19 @@ export class BookListComponent implements AfterViewInit, OnInit {
 
   openAddBookDialog(): void {
     this.isEditMode = false;
-    this.selectedBook = null; 
+    this.selectedBook = null;
     this.displayDialog = true;
   }
 
   openEditDialog(book: Book): void {
     this.isEditMode = true;
-    this.selectedBook = book; 
+    this.selectedBook = book;
     this.displayDialog = true;
   }
 
   onDialogHide(): void {
     this.displayDialog = false;
-    this.selectedBook = null; 
+    this.selectedBook = null;
   }
   onBookSaved(newBook: any): void {
     console.log('New Book Added:', newBook);
@@ -365,8 +389,6 @@ export class BookListComponent implements AfterViewInit, OnInit {
     this.selectedAvailability = 'all';
     this.selectedPrice = 1000;
   }
-
-  
 
   deleteBook(id: string): void {
     this.confirmationService.confirm({

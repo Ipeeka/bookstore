@@ -3,23 +3,19 @@ import { RouterModule, Routes } from '@angular/router';
 import { UserListComponent } from './user-list/user-list.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
-
-
 const routes: Routes = [
   {
-    path: "list",
-    component: UserListComponent
+    path: 'list',
+    component: UserListComponent,
   },
   {
-    path:"edit-profile",
-    component:EditProfileComponent
-  }
- 
-  
+    path: 'edit-profile',
+    component: EditProfileComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class UserRoutingModule { }
+export class UserRoutingModule {}

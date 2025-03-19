@@ -28,20 +28,20 @@
   padding: 10px;
   z-index: 10;
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
   align-items: center;
 }
 
 .top-card-content {
   display: flex;
-  justify-content: center; 
+  justify-content: center;
   align-items: center;
   width: 100%;
 }
 
 .avatar {
   margin-right: 25px;
-  font-size: 3rem; 
+  font-size: 3rem;
 }
 
 .agent-info {
@@ -52,12 +52,9 @@
 .button-container {
   width: 100%;
   display: flex;
-  justify-content: center; 
+  justify-content: center;
   margin: 10px;
 }
-
-
-
 
 .bottom-card-content {
   display: flex;

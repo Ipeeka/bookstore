@@ -2,7 +2,18 @@
 
 <div *ngIf="loading" class="lds-spinner-overlay">
   <div class="lds-spinner">
-    <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
   </div>
 </div>
 
@@ -30,13 +41,19 @@
               />
               <label for="email">Email</label>
               <p
-                *ngIf="registerForm.get('email')?.hasError('required') && registerForm.get('email')?.touched"
+                *ngIf="
+                  registerForm.get('email')?.hasError('required') &&
+                  registerForm.get('email')?.touched
+                "
                 class="error-message"
               >
                 Email is required.
               </p>
               <p
-                *ngIf="registerForm.get('email')?.hasError('email') && registerForm.get('email')?.touched"
+                *ngIf="
+                  registerForm.get('email')?.hasError('email') &&
+                  registerForm.get('email')?.touched
+                "
                 class="error-message"
               >
                 Please enter a valid email address.
@@ -56,7 +73,10 @@
                 />
                 <label for="firstName">First Name</label>
                 <p
-                  *ngIf="registerForm.get('firstName')?.hasError('required') && registerForm.get('firstName')?.touched"
+                  *ngIf="
+                    registerForm.get('firstName')?.hasError('required') &&
+                    registerForm.get('firstName')?.touched
+                  "
                   class="error-message"
                 >
                   First Name is required.
@@ -75,7 +95,10 @@
                 />
                 <label for="lastName">Last Name</label>
                 <p
-                  *ngIf="registerForm.get('lastName')?.hasError('required') && registerForm.get('lastName')?.touched"
+                  *ngIf="
+                    registerForm.get('lastName')?.hasError('required') &&
+                    registerForm.get('lastName')?.touched
+                  "
                   class="error-message"
                 >
                   Last Name is required.
@@ -95,7 +118,10 @@
               />
               <label for="userName">Username</label>
               <p
-                *ngIf="registerForm.get('userName')?.hasError('required') && registerForm.get('userName')?.touched"
+                *ngIf="
+                  registerForm.get('userName')?.hasError('required') &&
+                  registerForm.get('userName')?.touched
+                "
                 class="error-message"
               >
                 Username is required.
@@ -112,7 +138,10 @@
               [style]="{ width: '100%' }"
             ></p-dropdown>
             <p
-              *ngIf="registerForm.get('role')?.hasError('required') && registerForm.get('role')?.touched"
+              *ngIf="
+                registerForm.get('role')?.hasError('required') &&
+                registerForm.get('role')?.touched
+              "
               class="error-message"
             >
               Role is required.
@@ -132,7 +161,10 @@
               ></p-password>
               <label for="password">Password</label>
               <p
-                *ngIf="registerForm.get('password')?.hasError('required') && registerForm.get('password')?.touched"
+                *ngIf="
+                  registerForm.get('password')?.hasError('required') &&
+                  registerForm.get('password')?.touched
+                "
                 class="error-message"
               >
                 Password is required.
@@ -160,6 +192,4 @@
       </p-card>
     </div>
   </div>
-
-  
 </div>

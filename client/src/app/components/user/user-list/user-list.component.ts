@@ -4,9 +4,9 @@ import {
   inject,
   OnInit,
 } from '@angular/core';
-import {  MatTableModule } from '@angular/material/table';
+import { MatTableModule } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
-import {  MatIconModule } from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 import { EditUserComponent } from '../edit-user/edit-user.component';
 import { Subscription } from 'rxjs';
 import { MatCardModule } from '@angular/material/card';
@@ -73,7 +73,7 @@ export class UserListComponent implements OnInit {
   getAllUsers(): void {
     this.userService.getAllUsers().subscribe({
       next: (res) => {
-        debugger
+        debugger;
         this.users = res.data;
       },
       error: (err) => {

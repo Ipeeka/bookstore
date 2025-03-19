@@ -88,7 +88,7 @@ export interface Book {
     PanelModule,
     StepperModule,
     InputNumberModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [ConfirmationService, MessageService],
@@ -99,8 +99,8 @@ export class EditBookComponent implements OnInit {
   editBookForm!: FormGroup;
   currentStep: number = 1;
 
-  displayDialog: boolean = false; 
-  bookData: any = {};  
+  displayDialog: boolean = false;
+  bookData: any = {};
   @Output() updateBook = new EventEmitter<boolean>();
 
   statuses: any[] = [
@@ -144,7 +144,7 @@ export class EditBookComponent implements OnInit {
   }
 
   openEditBookDialog(book: any) {
-    this.bookData = { ...book };  
+    this.bookData = { ...book };
     this.displayDialog = true;
   }
 
@@ -153,12 +153,12 @@ export class EditBookComponent implements OnInit {
   }
 
   saveBook() {
-    console.log("Saving Book:", this.bookData);
+    console.log('Saving Book:', this.bookData);
     this.displayDialog = false;
   }
 
   update(): void {
-    debugger
+    debugger;
     if (this.editBookForm.invalid) {
       this.messageService.add({
         severity: 'error',
@@ -200,7 +200,6 @@ export class EditBookComponent implements OnInit {
     });
   }
 
-
   onCancel(): void {
     this.messageService.add({
       severity: 'info',
@@ -213,7 +212,7 @@ export class EditBookComponent implements OnInit {
   }
 
   onNextClick() {
-    debugger
+    debugger;
     if (this.currentStep === 1) {
       this.currentStep = 2;
     } else {

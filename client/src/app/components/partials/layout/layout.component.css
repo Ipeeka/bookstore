@@ -38,7 +38,6 @@
   transition: margin-left 0.3s ease-in-out;
   height: calc(100vh - 50px);
   flex-grow: 1;
-
 }
 
 .side-nav-button {
@@ -110,25 +109,22 @@
   }
 }
 
-
 .floating-btn {
   position: absolute;
-  bottom: 20px;  
-  right: 20px;   
+  bottom: 20px;
+  right: 20px;
   z-index: 2000;
-  border-radius: 50%; 
+  border-radius: 50%;
 }
 
-
 .floating-btn p-button {
-  width: 60px;  
-  height: 60px; 
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-
 
 :host ::ng-deep .custom-dialog .p-dialog-header {
   background-color: #87cefa !important;

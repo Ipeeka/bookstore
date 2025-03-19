@@ -7,11 +7,11 @@ import { environment } from '../../../environments/environments';
   providedIn: 'root',
 })
 export class ChatbotService {
-  private apiUrl = `${environment.apiUrl}/gemini/ask`; 
+  private apiUrl = `${environment.apiUrl}/gemini/ask`;
 
   constructor(private http: HttpClient) {}
 
   askGemini(query: string): Observable<any> {
-    return this.http.post(this.apiUrl, { query });  
+    return this.http.post(this.apiUrl, { query });
   }
 }

@@ -1,98 +1,77 @@
 <section class="h-100 h-custom">
   <div class="container h-100 py-5">
     <div class="row d-flex justify-content-center align-items-center h-100">
-      <div class="col">
-        
-        <!-- Shopping Cart Table -->
-        <div class="table-responsive">
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th scope="col" class="h5">Shopping Bag</th>
-                <th scope="col">Language</th>
-                <th scope="col">Quantity</th>
-                <th scope="col">Price</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let item of cartItems">
-                <th scope="row">
-                  <div class="d-flex align-items-center">
-                    <img [src]="item.img" class="img-fluid rounded-3" style="width: 120px;" alt="Book">
-                    <div class="flex-column ms-4">
-                      <p class="mb-2">{{ item.name }}</p>
-                      <p class="mb-0">{{ item.author }}</p>
+      <div class="col-md-12">
+        <h2 class="mb-4">Shopping Bag</h2>
+
+        <div class="row">
+          <div class="col-12 mb-4" *ngFor="let item of cartItems">
+            <p-card class="w-100">
+              <div class="card-body">
+                <div class="row align-items-center">
+                  <div class="col-md-3 d-flex justify-content-center">
+                    <img
+                      [src]="item.img"
+                      class="img-fluid rounded-3"
+                      style="width: 120px"
+                      alt="Book"
+                    />
+                  </div>
+
+                  <div class="col-md-8">
+                    <div class="row">
+                      <div class="col-md-1">
+                        <strong>Name:</strong> {{ item.name }}
+                      </div>
+                      <div class="col-md-1">
+                        <strong>Author:</strong> {{ item.author }}
+                      </div>
+                      <div class="col-md-1">
+                        <strong>Genre:</strong> {{ item.genre }}
+                      </div>
+                      <div class="col-md-1">
+                        <strong>Availability:</strong>
+                        <span
+                          [ngClass]="{
+                            'text-success': item.availability === 'In Stock',
+                            'text-danger': item.availability === 'Out of Stock'
+                          }"
+                          >{{ item.availability }}</span
+                        >
+                      </div>
+                      <div class="col-md-3">
+                        <strong>Price:</strong> {{ item.price | currency }}
+                      </div>
                     </div>
                   </div>
-                </th>
-                <td class="align-middle">
-                  <p class="mb-0 fw-bold">{{ item.format }}</p>
-                </td>
-                <td class="align-middle">
-                  <div class="d-flex flex-row">
-                    <button class="btn btn-link px-2" (click)="decreaseQuantity(item)">
-                      <i class="fas fa-minus"></i>
-                    </button>
-                    <input type="number" [(ngModel)]="item.quantity" class="form-control form-control-sm text-center" style="width: 50px;" min="1">
-                    <button class="btn btn-link px-2" (click)="increaseQuantity(item)">
-                      <i class="fas fa-plus"></i>
-                    </button>
-                  </div>
-                </td>
-                <td class="align-middle">
-                  <p class="mb-0 fw-bold">${{ item.price }}</p>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+                </div>
+              </div>
+            </p-card>
+          </div>
         </div>
 
-        <!-- Payment and Summary Card -->
-        <div class="card shadow-2-strong mb-5" style="border-radius: 16px;">
+        <div
+          class="card shadow-2-strong mb-5 w-100"
+          style="border-radius: 16px"
+        >
           <div class="card-body p-4">
-            <div class="row">
-              <div class="col-lg-6">
-                <h5 class="mb-3">Payment Method</h5>
-                <div class="form-check mb-2">
-                  <input class="form-check-input" type="radio" name="payment" id="creditCard" checked>
-                  <label class="form-check-label" for="creditCard">
-                    <i class="fab fa-cc-mastercard fa-lg pe-2"></i> Credit Card
-                  </label>
-                </div>
-                <div class="form-check mb-2">
-                  <input class="form-check-input" type="radio" name="payment" id="debitCard">
-                  <label class="form-check-label" for="debitCard">
-                    <i class="fab fa-cc-visa fa-lg pe-2"></i> Debit Card
-                  </label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="payment" id="paypal">
-                  <label class="form-check-label" for="paypal">
-                    <i class="fab fa-cc-paypal fa-lg pe-2"></i> PayPal
-                  </label>
-                </div>
-              </div>
-              
-              <div class="col-lg-6">
-                <h5 class="mb-3">Order Summary</h5>
-                <div class="d-flex justify-content-between">
-                  <p>Subtotal</p>
-                  <p>${{ subtotal }}</p>
-                </div>
-                <div class="d-flex justify-content-between">
-                  <p>Shipping</p>
-                  
-                </div>
-                <hr>
-                <div class="d-flex justify-content-between fw-bold">
-                  <p>Total</p>
-                  <p>${{ total }}</p>
-                </div>
-                <button class="btn btn-primary btn-lg btn-block mt-3">
-                  <span>Checkout</span> <span>${{ total }}</span>
-                </button>
-              </div>
+            <h5 class="mb-3">Order Summary</h5>
+            <div class="d-flex justify-content-between">
+              <p>Subtotal</p>
+              <p>${{ subtotal | number : "1.2-2" }}</p>
             </div>
+            <div class="d-flex justify-content-between">
+              <p>Shipping</p>
+              <p>${{ shippingCost | number : "1.2-2" }}</p>
+            </div>
+            <hr />
+            <div class="d-flex justify-content-between fw-bold">
+              <p>Total</p>
+              <p>${{ total | number : "1.2-2" }}</p>
+            </div>
+            <button class="btn btn-primary btn-lg btn-block mt-3">
+              <span>Checkout</span> <span>${{ total | number : "1.2-2" }}</span>
+            </button>
           </div>
         </div>
       </div>

@@ -9,16 +9,23 @@ import { ChatbotService } from './chat-bot.service';
 @Component({
   selector: 'app-chat-bot',
   standalone: true,
-  imports: [CommonModule,ReactiveFormsModule,FormsModule,DialogModule,ButtonModule, InputTextModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
+    DialogModule,
+    ButtonModule,
+    InputTextModule,
+  ],
   templateUrl: './chat-bot.component.html',
-  styleUrl: './chat-bot.component.css'
+  styleUrl: './chat-bot.component.css',
 })
 export class ChatBotComponent {
   isChatOpened = false;
   @Output() chatOpened = new EventEmitter<boolean>();
   messages: Array<{ user: string; text: string; sent: boolean }> = [];
   userMessage: string = '';
-  dropdownOpen = false; 
+  dropdownOpen = false;
   constructor(private chatbotService: ChatbotService) {}
 
   openChat() {
@@ -26,28 +33,25 @@ export class ChatBotComponent {
     this.chatOpened.emit(this.isChatOpened);
   }
 
-  
   closeChat() {
     this.isChatOpened = false;
-    this.chatOpened.emit(this.isChatOpened); 
+    this.chatOpened.emit(this.isChatOpened);
   }
-
 
   sendMessage() {
     const message = this.userMessage.trim();
     if (message) {
       this.messages.push({ user: 'User', text: message, sent: true });
-      this.userMessage = ''; 
+      this.userMessage = '';
 
-     
       this.chatbotService.askGemini(message).subscribe(
         (response) => {
           this.messages.push({
             user: 'Gemini',
-            text: response.candidates[0].content.parts[0].text, 
+            text: response.candidates[0].content.parts[0].text,
             sent: false,
           });
-          console.log("response", response.candidates[0].content.parts[0].text)
+          console.log('response', response.candidates[0].content.parts[0].text);
         },
         (error) => {
           this.messages.push({
@@ -61,14 +65,12 @@ export class ChatBotComponent {
     }
   }
 
- 
   toggleDropdown() {
     this.dropdownOpen = !this.dropdownOpen;
   }
 
-  
   clearChat() {
-    this.messages = []; 
-    this.dropdownOpen = false; 
+    this.messages = [];
+    this.dropdownOpen = false;
   }
 }

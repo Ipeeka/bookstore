@@ -9,7 +9,7 @@
           <div class="card-body text-center">
             <h5 class="card-title">Profile Image</h5>
             <img
-            *ngIf="profileImage"
+              *ngIf="profileImage"
               [src]="profileImage"
               class="profile-image"
               type="profileImage"
@@ -31,7 +31,6 @@
               class="form-control-file mt-2"
               (change)="onImageChange($event)"
               accept="image/*"
-              
             />
           </div>
         </div>
