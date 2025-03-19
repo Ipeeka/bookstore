@@ -11,9 +11,9 @@
         class="cart fa-btn"
         style="border: none"
         [matTooltip]="'cart'"
-     
+        routerLink="/component/cart"
       >
-        <i class="pi pi-shopping-cart"></i>
+        <i class="pi pi-shopping-cart" ></i>
       </button>
 
       <button class="notification fa-btn" [matTooltip]="'notification'" (click)="openNotificationDialog()">
@@ -49,7 +49,7 @@
   [(visible)]="notificationDialogVisible"
   [closable]="true"
   [modal]="true"
-  [style]="{ 'position': 'fixed', 'top': '100px', 'right': '20px', 'width': '400px', 'height': '500px' }"
+  [style]="{ 'position': 'fixed', 'top': '100px', 'right': '20px', 'width': '450px', 'height': '550px' }"
 >
   <app-notification></app-notification>
 </p-dialog>

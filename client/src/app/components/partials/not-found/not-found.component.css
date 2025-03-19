@@ -38,6 +38,8 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
+  border: 0px;
+  margin: 0px 0px 0px 167px;
 }
 
 .back-btn:hover {

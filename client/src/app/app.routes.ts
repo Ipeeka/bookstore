@@ -35,4 +35,9 @@ export const routes: Routes = [
     loadChildren: () =>
       import('./components//components.module').then((m) => m.ComponentsModule),
   },
+  {
+    path: 'cart',
+    component: CartComponent,
+    canActivate: [authGuard], // Ensures only logged-in users see this page
+  },
 ];

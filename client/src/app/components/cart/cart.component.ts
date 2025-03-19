@@ -1,22 +1,51 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,FormsModule,ReactiveFormsModule],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css'
 })
 export class CartComponent {
-  cartItems: { name: string; quantity: number }[] = [];
+  cartItems = [
+    {
+      name: 'Thinking, Fast and Slow',
+      author: 'Daniel Kahneman',
+      format: 'Digital',
+      price: 9.99,
+      quantity: 2,
+      img: 'https://i.imgur.com/2DsA49b.webp',
+    },
+    {
+      name: 'Homo Deus: A Brief History of Tomorrow',
+      author: 'Yuval Noah Harari',
+      format: 'Paperback',
+      price: 13.50,
+      quantity: 1,
+      img: 'https://i.imgur.com/Oj1iQUX.webp',
+    },
+  ];
 
-  addToCart(itemName: string) {
-    const item = this.cartItems.find(item => item.name === itemName);
-    if (item) {
-      item.quantity++;
-    } else {
-      this.cartItems.push({ name: itemName, quantity: 1 });
+  shippingCost = 2.99;
+
+  get subtotal(): number {
+    return this.cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+  }
+
+  get total(): number {
+    return this.subtotal + this.shippingCost;
+  }
+
+  increaseQuantity(item: any) {
+    item.quantity++;
+  }
+
+  decreaseQuantity(item: any) {
+    if (item.quantity > 1) {
+      item.quantity--;
     }
   }
 

@@ -1,13 +1,82 @@
+<div class="notification-header">
+  <i class="pi pi-eye" matTooltip="Mark All As Read"></i>
+</div>
+
 <div class="notification-container">
-  <div class="notification-header"></div>
-  <div class="notification-list">
-    <div *ngFor="let notification of notifications" class="notification">
-      <div class="notification-type">
-        <strong>{{ notification.type }}:</strong>
-      </div>
-      <div class="notification-content">
-        {{ notification.content }}
+  
+  <div *ngIf="today.length">
+    <h3>Today</h3>
+    <div class="notification-list">
+      <div *ngFor="let notification of today" class="notification" 
+           (mouseenter)="notification.showDelete = true" 
+           (mouseleave)="notification.showDelete = false">
+        <div class="notification-header">
+          <span class="timestamp">{{ notification.date | date:'shortTime' }}</span>
+        </div>
+        <div class="notification-type">
+          <strong>{{ notification.type }}:</strong>
+        </div>
+        <div class="notification-content">
+          {{ notification.content }}
+        </div>
+        <div class="notification-footer">
+          <i class="pi pi-trash delete-icon" 
+             [ngClass]="{'visible': notification.showDelete}" 
+             (click)="notification.showDelete = true; deleteNotification(notification, 'today')" 
+             matTooltip="Delete"></i>
+        </div>
       </div>
     </div>
   </div>
+
+  <div *ngIf="yesterday.length">
+    <h3>Yesterday</h3>
+    <div class="notification-list">
+      <div *ngFor="let notification of yesterday" class="notification"
+           (mouseenter)="notification.showDelete = true" 
+           (mouseleave)="notification.showDelete = false">
+        <div class="notification-header">
+          <span class="timestamp">{{ notification.date | date:'shortTime' }}</span>
+        </div>
+        <div class="notification-type">
+          <strong>{{ notification.type }}:</strong>
+        </div>
+        <div class="notification-content">
+          {{ notification.content }}
+        </div>
+        <div class="notification-footer">
+          <i class="pi pi-trash delete-icon" 
+             [ngClass]="{'visible': notification.showDelete}" 
+             (click)="notification.showDelete = true; deleteNotification(notification, 'yesterday')" 
+             matTooltip="Delete"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="older.length">
+    <h3>Older</h3>
+    <div class="notification-list">
+      <div *ngFor="let notification of older" class="notification"
+           (mouseenter)="notification.showDelete = true" 
+           (mouseleave)="notification.showDelete = false">
+        <div class="notification-header">
+          <span class="timestamp">{{ notification.date | date:'shortTime' }}</span>
+        </div>
+        <div class="notification-type">
+          <strong>{{ notification.type }}:</strong>
+        </div>
+        <div class="notification-content">
+          {{ notification.content }}
+        </div>
+        <div class="notification-footer">
+          <i class="pi pi-trash delete-icon" 
+             [ngClass]="{'visible': notification.showDelete}" 
+             (click)="notification.showDelete = true; deleteNotification(notification, 'older')" 
+             matTooltip="Delete"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>

@@ -1,45 +1,79 @@
 .notification-container {
-    border: 1px solid #ddd;
-    padding: 20px;
-    max-width: 400px;
-    margin: 20px auto;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-  }
-  
-  .notification-header {
-    text-align: center;
-    font-size: 24px;
-    margin-bottom: 20px;
-  }
-  
-  .notification-list {
-    margin-bottom: 20px;
-  }
-  
-  .notification {
-    padding: 10px;
-    margin: 10px 0;
-    background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .notification-type {
-    font-weight: bold;
-  }
-  
-  button {
-    background-color: #007bff;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 100%;
-  }
-  
-  button:hover {
-    background-color: #0056b3;
-  }
-  
+  border: 1px solid #ddd;
+  padding: 20px;
+  max-width: 400px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+.notification-header {
+  text-align: end;
+  font-size: 24px;
+}
+
+.notification-list {
+  margin-bottom: 20px;
+}
+
+.notification {
+  padding: 15px;
+  margin: 15px 0;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.notification:hover {
+  background-color: #f1f1f1;
+}
+
+/* .notification-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+} */
+
+.timestamp {
+  font-size: 12px;
+  color: #777;
+  position: absolute;
+  top: 5px;
+  right: 10px;
+}
+
+.notification-footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 10px;
+  position: relative;
+}
+
+.delete-icon {
+  color: red;
+  cursor: pointer;
+  font-size: 16px;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.notification:hover .delete-icon {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.delete-icon.visible {
+  opacity: 1 !important;
+}
+
+.delete-icon:hover {
+  color: darkred;
+}
+h3 {
+  color: #333;
+  font-size: 18px;
+  margin: 15px 0 10px;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 5px;
+}
