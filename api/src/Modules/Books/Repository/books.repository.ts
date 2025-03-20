@@ -88,4 +88,27 @@ export class BooksRepository {
       );
     }
   }
+
+
+
+  async updateCartAdded(id: string, toggleCart: boolean): Promise<Book> {
+    try {
+      const updatedBook = await this.bookModel.findByIdAndUpdate(
+        id,
+        { cartAdded: toggleCart },
+        { new: true },
+      );
+      if (!updatedBook) {
+        throw new Error('Book not found');
+      }
+
+      return updatedBook;
+    } catch (error) {
+      throw new Error(
+        `Error while updating book in repository: ${error.message}`,
+      );
+    }
+  }
+
+  
 }

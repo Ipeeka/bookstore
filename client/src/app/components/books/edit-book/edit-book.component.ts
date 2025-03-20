@@ -121,12 +121,12 @@ export class EditBookComponent implements OnInit {
 
   ngOnInit(): void {
     console.log('Received Book Data:', this.data);
-
+  
     if (!this.data) {
       console.error('No book data received!');
       return;
     }
-
+  
     this.editBookForm = this.fb.group({
       title: [this.data.title, Validators.required],
       author: [this.data.author, Validators.required],
@@ -142,7 +142,6 @@ export class EditBookComponent implements OnInit {
       description: [this.data.description, Validators.required],
     });
   }
-
   openEditBookDialog(book: any) {
     this.bookData = { ...book };
     this.displayDialog = true;
@@ -158,7 +157,7 @@ export class EditBookComponent implements OnInit {
   }
 
   update(): void {
-    debugger;
+  
     if (this.editBookForm.invalid) {
       this.messageService.add({
         severity: 'error',
@@ -174,7 +173,7 @@ export class EditBookComponent implements OnInit {
       header: 'Confirm Update',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        debugger;
+       
         const updatedBook = { ...this.data, ...this.editBookForm.value };
 
         this.bookService.updateBook(updatedBook._id, updatedBook).subscribe(
@@ -212,7 +211,7 @@ export class EditBookComponent implements OnInit {
   }
 
   onNextClick() {
-    debugger;
+
     if (this.currentStep === 1) {
       this.currentStep = 2;
     } else {

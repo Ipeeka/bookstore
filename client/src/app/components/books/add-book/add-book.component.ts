@@ -108,10 +108,10 @@ export class AddBookComponent implements OnInit {
 
   ngOnInit() {}
   onSubmit() {
-    debugger;
+   
 
     if (this.addBookForm.valid) {
-      debugger;
+   
 
       const formValues = this.addBookForm.value;
       const book = {

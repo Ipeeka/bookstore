@@ -46,8 +46,10 @@ import { ChangeDetectorRef } from '@angular/core';
 import { DialogModule } from 'primeng/dialog';
 import { SelectButton, SelectButtonModule } from 'primeng/selectbutton';
 
+
 export interface Book {
-  id: string;
+  _id: string;
+  img: string;
   title: string;
   author: string;
   publicationYear: string;
@@ -55,11 +57,14 @@ export interface Book {
   availability: boolean;
   genre: string;
   bookmarked: boolean;
+  cartAdded: boolean;
   quantity: number;
   description: string;
   inventoryStatus: 'inStock' | 'lowStock' | 'preOrder' | 'outOfStock';
   publisher: string;
 }
+
+
 
 interface Comment {
   bookId: number;
@@ -107,6 +112,7 @@ interface Comment {
     MatButtonToggleModule,
     DialogModule,
     AddBookComponent,
+    EditBookComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [ConfirmationService, MessageService],
@@ -115,7 +121,19 @@ interface Comment {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BookListComponent implements AfterViewInit, OnInit {
+  constructor(
+    private bookService: BookService,
+    public dialog: MatDialog,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService,
+    private authService: AuthService,
+    private cdRef: ChangeDetectorRef,
+    
+  
+  ) {}
+
   books: Book[] = [];
+
   tableHeaderBgColor: string = '#dddddd';
   dataSource = new MatTableDataSource<Book>();
   columnsToDisplay: string[] = [
@@ -152,6 +170,7 @@ export class BookListComponent implements AfterViewInit, OnInit {
   bookDetails: any;
   comments: Comment[] = [];
   bookmarkedBooks: Book[] = [];
+  cartAdded: Book[] = [];
   statuses: any[] = [
     {
       label: 'In Stock',
@@ -227,6 +246,19 @@ export class BookListComponent implements AfterViewInit, OnInit {
     );
   }
 
+  // loadComment(bookId: string) {
+  //   this.bookService.getBookDetails().subscribe(
+  //     (bookDetail: any[]) => {
+  //       this.comments = bookDetail.filter((detail) => detail.bookId === bookId);
+  //       console.log(this.comments);
+  //       this.cdRef.detectChanges();
+  //     },
+  //     (error) => {
+  //       console.error('Error fetching books:', error);
+  //     }
+  //   );
+  // }
+
   submitComment(): void {
     console.log(this.newComment);
     this.newComment = '';
@@ -235,15 +267,6 @@ export class BookListComponent implements AfterViewInit, OnInit {
   isCommentSectionVisible = false;
 
   @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
-
-  constructor(
-    private bookService: BookService,
-    public dialog: MatDialog,
-    private confirmationService: ConfirmationService,
-    private messageService: MessageService,
-    private authService: AuthService,
-    private cdRef: ChangeDetectorRef
-  ) {}
 
   ngOnInit(): void {
     this.currentUser = this.authService.currentUserSubject();
@@ -259,13 +282,46 @@ export class BookListComponent implements AfterViewInit, OnInit {
     }
     this.bookService.getAllBooks().subscribe((books) => {
       this.dataSource.data = books;
-
       if (this.paginator) {
         this.dataSource.paginator = this.paginator;
       }
     });
+
+ 
+
     this.getBooks();
+    this.loadBooks();
   }
+
+ // book-list.component.ts
+toggleCart(bookId: string, currentCartStatus: boolean): void {
+  this.bookService.toggleCart(bookId, currentCartStatus).subscribe(
+    (response) => {
+      // Update the local state of the book
+      const book = this.books.find((b) => b._id === bookId);
+      if (book) {
+        book.cartAdded = !book.cartAdded; // Toggle the cart status
+      }
+
+      this.messageService.add({
+        severity: 'success',
+        summary: response.message,
+        detail: `Cart status toggled`,
+        life: 3000,
+      });
+    },
+    (error) => {
+      console.error('Error toggling cart:', error);
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Failed to toggle cart',
+        life: 3000,
+      });
+    }
+  );
+}
+ 
 
   toggleBookmark(bookId: string, toggleBookmarked: boolean): void {
     this.bookService.toggleBookmark(bookId, toggleBookmarked).subscribe(
@@ -304,7 +360,7 @@ export class BookListComponent implements AfterViewInit, OnInit {
   getBooks(): void {
     this.bookService.getAllBooks().subscribe(
       (books) => {
-        debugger;
+    
         this.books = books;
         this.dataSource.data = books;
       },
@@ -395,6 +451,8 @@ export class BookListComponent implements AfterViewInit, OnInit {
       message: 'Are you sure you want to delete this book?',
       header: 'Delete Confirmation',
       icon: 'pi pi-exclamation-triangle',
+      acceptButtonStyleClass: 'p-button-danger',
+      rejectButtonStyleClass: 'p-button-info',
 
       accept: () => {
         this.bookService.deleteBook(id).subscribe({

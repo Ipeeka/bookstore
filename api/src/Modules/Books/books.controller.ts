@@ -100,4 +100,40 @@ export class BooksController {
       throw new Error(`Error in toggling bookmark: ${error.message}`);
     }
   }
+
+
+  @Put(':id/addToCart')
+  async toggleCart(
+    @Param('id') id: string,
+    @Body() body: { toggleCart: boolean },
+  ) {
+    if (!id) {
+      throw new Error('Invalid book ID');
+    }
+
+    try {
+      const updatedBook = await this.booksService.addToCart(
+        id,
+        body.toggleCart,
+      );
+      return { message: 'Added to Cart successfully', book: updatedBook };
+    } catch (error) {
+      throw new Error(`Error in Adding to Cart : ${error.message}`);
+    }
+  }
+
+// books.controller.ts
+@Delete(':id/removeFromCart')
+async removeFromCart(@Param('id') id: string) {
+  if (!id) {
+    throw new Error('Invalid book ID');
+  }
+
+  try {
+    const updatedBook = await this.booksService.removeFromCart(id);
+    return { message: 'Removed from Cart successfully', book: updatedBook };
+  } catch (error) {
+    throw new Error(`Error in Removing from Cart: ${error.message}`);
+  }
+}
 }

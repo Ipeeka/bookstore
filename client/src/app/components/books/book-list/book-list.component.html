@@ -220,7 +220,7 @@
               <button
                 mat-button
                 class="edit-btn"
-                (click)="openEditDialog(book)"
+                (click)="openEditDialog(book._id)"
               >
                 <i class="pi pi-pen-to-square"></i>
               </button>
@@ -359,14 +359,24 @@
                         }}</mat-icon>
                       </button>
 
+                      <!-- book-list.component.html -->
                       <button
                         mat-icon-button
                         aria-label="cart"
-                        matTooltip="add to cart"
+                        matTooltip="{{
+                          element.cartAdded ? 'Remove from Cart' : 'Add to Cart'
+                        }}"
+                        (click)="toggleCart(element._id, element.cartAdded)"
                       >
-                        <mat-icon style="color: #888">shopping_cart</mat-icon>
+                        <mat-icon>
+                          {{
+                            element.cartAdded
+                              ? "remove_shopping_cart"
+                              : "add_shopping_cart"
+                          }}
+                        </mat-icon>
                       </button>
-                      <span>{{ element.download }}</span>
+                      <!-- <span>{{ element.download }}</span> -->
 
                       <div
                         class="comment-toggle-container"

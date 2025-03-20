@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environments';
+import { Book } from '../../components/books/book-list/book-list.component';
 
 @Injectable({
   providedIn: 'root',
@@ -49,7 +50,7 @@ export class BookService {
   }
 
   updateBook(id: string, book: any): Observable<any> {
-    debugger;
+  
     return this.http.put<any>(`${this.apiUrl}/${id}`, book);
   }
 
@@ -86,7 +87,28 @@ export class BookService {
     });
   }
 
+
   getBookmarkedBooks(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/bookmarked`);
   }
+
+
+  toggleCart(id: string, currentCartStatus: boolean): Observable<any> {
+    const newCartStatus = !currentCartStatus;
+  
+    return this.http.put<any>(`${this.apiUrl}/${id}/addToCart`, {
+      toggleCart: newCartStatus,
+    });
+  }
+
+
+  getCartBooks(): Observable<Book[]> {
+    return this.http.get<Book[]>(`${this.apiUrl}/cartBooks`);
+  }
+
+ 
+removeFromCart(id: string): Observable<any> {
+  return this.http.delete<any>(`${this.apiUrl}/${id}/removeFromCart`);
+}
+  
 }

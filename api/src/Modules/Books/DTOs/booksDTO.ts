@@ -5,6 +5,7 @@ import {
   IsNumber,
   IsBoolean,
   IsEnum,
+  IsOptional,
 } from 'class-validator';
 
 export class CreateBookDTO {
@@ -12,6 +13,11 @@ export class CreateBookDTO {
   @ApiProperty()
   @IsNotEmpty()
   title: string;
+
+  @IsString()
+  @ApiProperty()
+  @IsOptional() 
+  img?: string;
 
   @IsString()
   @ApiProperty()
@@ -55,6 +61,11 @@ export class UpdateBookDTO {
   @ApiProperty()
   @IsNotEmpty()
   title: string;
+
+  @IsString()
+  @ApiProperty()
+  @IsOptional() 
+  img?: string;
 
   @IsString()
   @ApiProperty()

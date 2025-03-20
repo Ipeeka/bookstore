@@ -64,4 +64,26 @@ export class BooksService {
     book.bookmarked = !book.bookmarked;
     return this.booksRepository.updateBookmarked(id, toggleBookmarked);
   }
+
+
+  async addToCart(
+    id: string,
+    toggleCart: boolean,
+  ): Promise<BookDocument> {
+    const book = await this.booksRepository.findBookById(id);
+    if (!book) {
+      throw new Error('Book not found');
+    }
+    book.cartAdded = !book.cartAdded;
+    return this.booksRepository.updateCartAdded(id, toggleCart);
+  }
+
+  async removeFromCart(id: string): Promise<BookDocument> {
+    const book = await this.booksRepository.findBookById(id);
+    if (!book) {
+      throw new Error('Book not found');
+    }
+    book.cartAdded = false; // Set cartAdded to false
+    return this.booksRepository.updateCartAdded(id, false);
+  }
 }

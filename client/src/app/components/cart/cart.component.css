@@ -2,23 +2,96 @@
   height: 100vh !important;
 }
 
-.table th,
-.table td {
-  vertical-align: middle;
-}
-
-.table img {
-  width: 100px;
-  height: auto;
-  border-radius: 8px;
-}
-
 .card {
   border-radius: 16px;
 }
 
 .card-body {
   padding: 20px;
+}
+
+.card-body .row {
+  margin-bottom: 15px;
+}
+
+.card-body .row .col-md-12 {
+  margin-bottom: 10px;
+}
+
+.card-body .row .col-md-12:last-child {
+  margin-bottom: 0;
+}
+
+.card-body .row .col-md-12 strong {
+  font-size: 14px;
+  color: #343a40; /* Dark text for labels */
+}
+
+.card-body .row .col-md-12 p {
+  font-size: 14px;
+  color: #6c757d; /* Muted text for item details */
+}
+
+.card-body .d-flex {
+  display: flex;
+}
+
+.card-body .d-flex img {
+  width: 100%;
+  max-width: 120px;
+  height: auto;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card-body .col-md-3 {
+  flex: 0 0 25%; /* 25% width for the image section */
+  padding-right: 15px;
+}
+
+.card-body .col-md-9 {
+  flex: 0 0 75%; /* 75% width for the details section */
+  padding-left: 15px;
+}
+
+.card-body h6.text-muted {
+  font-size: 12px;
+  font-weight: 600;
+  color: #6c757d; /* Lighter color for the headers */
+}
+
+.card-body .row .col-md-12 p.text-dark {
+  font-size: 14px;
+  color: #343a40; /* Dark text for details */
+}
+
+.card-body .row .col-md-12 p.text-success {
+  color: #28a745; /* Green color for "In Stock" */
+}
+
+.card-body .row .col-md-12 p.text-danger {
+  color: #dc3545; /* Red color for "Out of Stock" */
+}
+
+.card-body .btn-outline-danger {
+  border-radius: 8px;
+  padding: 10px;
+  background-color: transparent;
+  border: 1px solid #dc3545;
+  color: #dc3545;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.card-body .btn-outline-danger:hover {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.card-body .btn-outline-danger:focus {
+  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.5);
 }
 
 .btn-primary {
@@ -34,41 +107,5 @@
   background-color: #0056b3;
 }
 
-@media (max-width: 768px) {
-  .table img {
-    width: 80px;
-  }
 
-  .table th,
-  .table td {
-    font-size: 14px;
-  }
 
-  .card-body {
-    padding: 15px;
-  }
-
-  .btn-primary {
-    padding: 10px;
-    font-size: 14px;
-  }
-
-  .col-md-3 {
-    margin-bottom: 10px;
-  }
-}
-
-@media (max-width: 576px) {
-  .card-body {
-    padding: 10px;
-  }
-
-  .btn-primary {
-    font-size: 12px;
-    padding: 8px;
-  }
-
-  .col-md-3 {
-    margin-bottom: 5px;
-  }
-}

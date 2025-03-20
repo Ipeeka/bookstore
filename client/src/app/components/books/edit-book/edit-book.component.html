@@ -1,13 +1,3 @@
-<div class="header-container">
-  <button
-    *ngIf="currentStep === 2"
-    (click)="onPreviousClick()"
-    class="previous-button"
-  >
-    <i class="pi pi-chevron-left"></i> Previous
-  </button>
-</div>
-
 <form [formGroup]="editBookForm" *ngIf="editBookForm">
   <div class="p-fluid">
     <div *ngIf="currentStep === 1">
@@ -227,9 +217,3 @@
     </button>
   </div>
 </form>
-
-<div class="card flex justify-center">
-  <p-toast></p-toast>
-
-  <p-confirmDialog></p-confirmDialog>
-</div>
