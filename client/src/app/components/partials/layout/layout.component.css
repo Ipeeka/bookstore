@@ -14,7 +14,7 @@
 }
 
 .main-wrapper {
-  margin-top: 50px;
+  margin-top: 42px;
   display: flex;
   flex-grow: 1;
   height: calc(100vh - 50px);
@@ -38,6 +38,7 @@
   transition: margin-left 0.3s ease-in-out;
   height: calc(100vh - 50px);
   flex-grow: 1;
+  scroll-behavior: smooth;
 }
 
 .side-nav-button {

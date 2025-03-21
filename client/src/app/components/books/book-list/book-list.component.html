@@ -606,17 +606,19 @@
     (onHide)="onDialogHide()"
     [resizable]="false"
   >
-    <ng-container *ngIf="isEditMode; else addBookTemplate">
+    @if(isEditMode){
       <edit-book
-        *ngIf="selectedBook"
         [book]="selectedBook"
         (saveBook)="onBookUpdate($event)"
       ></edit-book>
-    </ng-container>
-
+    }
+    @else {
+      <add-book (saveBook)="onBookSaved($event)"></add-book>
+    }
+<!-- 
     <ng-template #addBookTemplate>
       <add-book (saveBook)="onBookSaved($event)"></add-book>
-    </ng-template>
+    </ng-template> -->
   </p-dialog>
 
   <div class="card flex justify-center">

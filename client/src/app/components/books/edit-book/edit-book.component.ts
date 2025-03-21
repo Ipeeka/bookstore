@@ -3,8 +3,6 @@ import {
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
   EventEmitter,
-  Inject,
-  inject,
   Input,
   OnInit,
   Output,
@@ -27,12 +25,6 @@ import { InputTextModule } from 'primeng/inputtext';
 import { CheckboxModule } from 'primeng/checkbox';
 import { DropdownModule } from 'primeng/dropdown';
 import { MessagesModule } from 'primeng/messages';
-import {
-  MAT_DIALOG_DATA,
-  MatDialog,
-  MatDialogModule,
-  MatDialogRef,
-} from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -47,17 +39,20 @@ import { CalendarModule } from 'primeng/calendar';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 export interface Book {
-  id: string;
+  _id: string;
+  img: string;
   title: string;
   author: string;
-  genre: string;
+  publicationYear: string;
   price: number;
-  available: boolean;
-  publicationYear?: string;
-  inventoryStatus?: string;
-  publisher?: string;
-  quantity?: number;
-  description?: string;
+  availability: boolean;
+  genre: string;
+  bookmarked: boolean;
+  cartAdded: boolean;
+  quantity: number;
+  description: string;
+  inventoryStatus: 'inStock' | 'lowStock' | 'preOrder' | 'outOfStock';
+  publisher: string;
 }
 
 @Component({
@@ -77,12 +72,10 @@ export interface Book {
     DropdownModule,
     MessagesModule,
     FormsModule,
-    MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
     MatCheckboxModule,
-    MatDialogModule,
     MatSelectModule,
     StepsModule,
     PanelModule,
@@ -98,10 +91,11 @@ export interface Book {
 export class EditBookComponent implements OnInit {
   editBookForm!: FormGroup;
   currentStep: number = 1;
+  @Input() data!: Book;
 
   displayDialog: boolean = false;
   bookData: any = {};
-  @Output() updateBook = new EventEmitter<boolean>();
+  @Output() saveBook = new EventEmitter<any>();
 
   statuses: any[] = [
     { label: 'In Stock', value: 'inStock' },
@@ -111,8 +105,6 @@ export class EditBookComponent implements OnInit {
   ];
 
   constructor(
-    public dialogRef: MatDialogRef<EditBookComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Book,
     private fb: FormBuilder,
     private bookService: BookService,
     private confirmationService: ConfirmationService,
@@ -142,22 +134,8 @@ export class EditBookComponent implements OnInit {
       description: [this.data.description, Validators.required],
     });
   }
-  openEditBookDialog(book: any) {
-    this.bookData = { ...book };
-    this.displayDialog = true;
-  }
-
-  closeDialog() {
-    this.displayDialog = false;
-  }
-
-  saveBook() {
-    console.log('Saving Book:', this.bookData);
-    this.displayDialog = false;
-  }
 
   update(): void {
-  
     if (this.editBookForm.invalid) {
       this.messageService.add({
         severity: 'error',
@@ -173,12 +151,11 @@ export class EditBookComponent implements OnInit {
       header: 'Confirm Update',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-       
         const updatedBook = { ...this.data, ...this.editBookForm.value };
 
         this.bookService.updateBook(updatedBook._id, updatedBook).subscribe(
           (response) => {
-            this.dialogRef.close(response);
+            this.saveBook.emit(response);
             this.messageService.add({
               severity: 'success',
               summary: 'Success',
@@ -206,12 +183,9 @@ export class EditBookComponent implements OnInit {
       detail: 'You have canceled the update action.',
       life: 3000,
     });
-
-    this.dialogRef.close();
   }
 
   onNextClick() {
-
     if (this.currentStep === 1) {
       this.currentStep = 2;
     } else {

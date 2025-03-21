@@ -1,3 +1,16 @@
+/* General body styles */
+body {
+  background-color: #eee;
+  font-family: 'Calibri', sans-serif !important;
+}
+
+
+.no-scrollbar {
+  overflow: hidden;
+  height: 100vh;
+}
+
+
 .h-custom {
   height: 100vh !important;
 }
@@ -74,6 +87,7 @@
   color: #dc3545; /* Red color for "Out of Stock" */
 }
 
+/* Button styles */
 .card-body .btn-outline-danger {
   border-radius: 8px;
   padding: 10px;
@@ -107,5 +121,78 @@
   background-color: #0056b3;
 }
 
+/* Cart Empty State */
+.empty-cart-cls {
+  text-align: center;
+  margin-top: 100px;
+}
 
+.empty-cart-cls img {
+  width: 130px;
+  height: 130px;
+  margin-bottom: 20px;
+}
 
+.empty-cart-cls h3 {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.empty-cart-cls h4 {
+  font-size: 18px;
+}
+
+.cart-btn-transform {
+  margin-top: 20px;
+  padding: 10px 30px;
+  background-color: #4466f2;
+  color: white;
+  text-transform: uppercase;
+  border-radius: 8px;
+}
+
+.cart-btn-transform:hover {
+  background-color: #3653d0;
+  color: white;
+}
+
+/* Order Summary Section */
+.card.shadow-2-strong {
+  border-radius: 16px;
+}
+
+.card-body .d-flex.justify-content-between.mb-2 {
+  margin-bottom: 10px;
+}
+
+.card-body .font-weight-bold {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.card-body .fw-bold {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.card-body button.btn-primary.btn-lg {
+  background-color: #4466f2;
+  border-radius: 8px;
+  padding: 15px;
+  font-size: 18px;
+  width: 100%;
+}
+
+.card-body button.btn-primary.btn-lg:hover {
+  background-color: #3653d0;
+}
+
+/* Miscellaneous Styles */
+.container {
+  padding: 30px 0;
+}
+
+h2.text-primary {
+  /* font-size: 36px; */
+  font-weight: 600;
+}

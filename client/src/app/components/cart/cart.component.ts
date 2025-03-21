@@ -56,23 +56,25 @@ export class CartComponent implements OnInit {
     return this.subtotal + this.shippingCost;
   }
 
-  // increaseQuantity(item: CartItem) {
+  // increaseQuantity(item: cartBooks) {
   //   item.quantity++;
-  //   this.cartService.addToCart(item); // Update cart
+  //   this.bookService.addToCart(item); 
   // }
 
   // decreaseQuantity(item: CartItem) {
   //   if (item.quantity > 1) {
   //     item.quantity--;
-  //     this.bookService.addToCart(item); // Update cart
+  //     this.bookService.addToCart(item);
   //   } else {
   //     this.removeFromCart(item.id);
   //   }
   // }
 
-  // cart.component.ts
-  // cart.component.ts
-  // cart.component.ts
+  updateQuantity(bookId: string,hange: number) {
+   
+  }
+
+
   removeFromCart(bookId: string): void {
     console.log('Removing book with ID:', bookId);
     if (!bookId) {
