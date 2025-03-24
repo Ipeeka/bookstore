@@ -347,7 +347,7 @@ toggleCart(bookId: string, currentCartStatus: boolean): void {
   }
 
   loadBooks(): void {
-    debugger
+ 
     this.bookService.getAllBooks().subscribe((books) => {
       this.books = books;
       this.dataSource.data = books;
@@ -378,7 +378,7 @@ toggleCart(bookId: string, currentCartStatus: boolean): void {
   }
 
   openEditDialog(book: Book): void {
-    debugger
+
     this.isEditMode = true;
     this.selectedBook = book;
     this.displayDialog = true;
@@ -395,7 +395,7 @@ toggleCart(bookId: string, currentCartStatus: boolean): void {
   }
 
   onBookUpdate(updatedBook: any): void {
-    debugger
+  
     console.log('Updated Book:', updatedBook); 
     this.getBooks(); 
     this.displayDialog = false;  

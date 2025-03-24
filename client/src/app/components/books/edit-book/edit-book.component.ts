@@ -147,7 +147,7 @@ export class EditBookComponent implements OnInit {
   }
   
   update(): void {
-    debugger
+
     if (this.editBookForm.invalid) {
       this.messageService.add({
         severity: 'error',
