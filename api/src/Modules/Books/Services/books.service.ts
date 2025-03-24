@@ -3,10 +3,13 @@ import { BooksRepository } from '../Repository/books.repository';
 import { CreateBookDTO, UpdateBookDTO } from '../DTOs/booksDTO';
 import { Book } from '../Repository/books.interface';
 import { BookDocument } from 'src/Entities/Books/books.schema';
+import { NotificationService } from 'src/notification/notification.service';  
+
 
 @Injectable()
 export class BooksService {
-  constructor(private readonly booksRepository: BooksRepository) {}
+  constructor(private readonly booksRepository: BooksRepository, 
+     private readonly notificationService: NotificationService) {}
 
   async addBook(createBookDTO: CreateBookDTO) {
     return this.booksRepository.createBook(createBookDTO);
@@ -43,6 +46,16 @@ export class BooksService {
         throw new Error('Book not found');
       }
       await this.booksRepository.deleteBook(id);
+
+      this.notificationService.sendNotificationToAdmin({
+        type: 'You have removed the book.',
+        data: {
+          message: "Book deleted successfully",
+          bookName: book.title,
+        }
+      });
+
+
       return { message: 'Book deleted successfully' };
     } catch (error) {
       throw new Error(`Error in deleting book: ${error.message}`);

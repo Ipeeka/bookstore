@@ -5,10 +5,11 @@ import { AppService } from './app.service';
 import { AuthModule } from './Modules/Auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { UserModule } from './Modules/User/user.module';
-import { BooksModule } from './Modules/Books/Services/books.service.interface';
+import { BooksModule } from './Modules/Books/books.module';
 import { BookDetailsModule } from './Modules/BooksDetails/book-detail.module';
 import { GeminiController } from './gemini/gemini.controller';
 import { GeminiService } from './gemini/gemini.service';
+import { NotificationModule } from './notification/notification.module';
 
 @Module({
   imports: [
@@ -18,8 +19,10 @@ import { GeminiService } from './gemini/gemini.service';
     BooksModule,
     UserModule,
     BookDetailsModule,
+    NotificationModule
+   
   ],
   controllers: [AppController, GeminiController],
-  providers: [AppService, GeminiService],
+  providers: [AppService, GeminiService,],
 })
 export class AppModule {}

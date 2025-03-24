@@ -1,75 +1,60 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { Subscription } from 'rxjs';
+import { NotificationService } from '../../../shared/services/notification.service';
 
 @Component({
   selector: 'app-notification',
   standalone: true,
   imports: [CommonModule, MatTooltipModule],
   templateUrl: './notification.component.html',
-  styleUrl: './notification.component.css',
+  styleUrls: ['./notification.component.css'],
 })
 export class NotificationComponent {
-  notifications = [
-    {
-      type: 'Order',
-      content: 'Your order #1234 has been shipped.',
-      date: new Date(),
-    },
-    {
-      type: 'Offer',
-      content: 'Special offer: Get 20% off your next purchase!',
-      date: new Date(),
-    },
-    {
-      type: 'Activity',
-      content: 'Your account has been updated.',
-      date: new Date(new Date().setDate(new Date().getDate() - 1)),
-    },
-    {
-      type: 'Order',
-      content: 'Your order #5678 has been shipped.',
-      date: new Date(new Date().setDate(new Date().getDate() - 2)),
-    },
-    {
-      type: 'Offer',
-      content: 'Limited-time deal: Free shipping!',
-      date: new Date(new Date().setDate(new Date().getDate() - 5)),
-    },
-    {
-      type: 'Activity',
-      content: 'Password changed successfully.',
-      date: new Date(new Date().setDate(new Date().getDate() - 7)),
-    },
-  ];
+  notifications: any[] = [];
+  showNotifications: boolean = false;
+  private subscription!: Subscription;
 
-  today: any[] = [];
-  yesterday: any[] = [];
-  older: any[] = [];
+  constructor(private notificationService: NotificationService) {}
 
-  constructor() {
-    this.categorizeNotifications();
-  }
-
-  categorizeNotifications() {
-    const todayDate = new Date().setHours(0, 0, 0, 0);
-    const yesterdayDate = new Date(
-      new Date().setDate(new Date().getDate() - 1)
-    ).setHours(0, 0, 0, 0);
-
-    this.today = this.notifications.filter(
-      (n) => new Date(n.date).setHours(0, 0, 0, 0) === todayDate
-    );
-    this.yesterday = this.notifications.filter(
-      (n) => new Date(n.date).setHours(0, 0, 0, 0) === yesterdayDate
-    );
-    this.older = this.notifications.filter(
-      (n) => new Date(n.date).setHours(0, 0, 0, 0) < yesterdayDate
+  ngOnInit() {
+    this.subscription = this.notificationService.getNotifications().subscribe(
+      (notifications) => {
+        console.log(notifications);  // Check if date is correct
+        this.notifications = notifications.map(notification => {
+          notification.date = new Date(notification.date); // Ensure it's a Date object
+          return notification;
+        });
+      }
     );
   }
+  
 
-  deleteNotification(notification: any, category: string) {
-    this.notifications = this.notifications.filter((n) => n !== notification);
-    this.categorizeNotifications();
+  toggleNotifications() {
+    this.showNotifications = !this.showNotifications;
+  }
+
+  markAllAsRead() {
+    this.notificationService.markAllAsRead();
+    this.showNotifications = false;
+  }
+
+  get unreadCount(): number {
+    return this.notifications.filter((n) => !n.read).length;
+  }
+
+  deleteNotification(notification: any) {
+    // Handle notification deletion (remove from UI or notify the backend if necessary)
+    this.notifications = this.notifications.filter(
+      (n) => n !== notification
+    );
+    // You can also implement a service call to delete it from the backend if necessary
+  }
+
+  ngOnDestroy() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 }
