@@ -7,8 +7,8 @@ import {
 } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CardModule } from 'primeng/card';
-import { BookService } from '../../shared/services/book.service';
-import { Book } from '../books/book-list/book-list.component';
+import { BookService } from '../../../shared/services/book.service';
+import { Book } from '../../books/book-list/book-list.component';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { RouterLink } from '@angular/router';

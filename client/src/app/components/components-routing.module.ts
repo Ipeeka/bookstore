@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { NotificationComponent } from './notification/notification.component';
-import { ReportComponent } from './report/report.component';
-import { CartComponent } from './cart/cart.component';
-import { ChatBotComponent } from './chat-bot/chat-bot.component';
+import { NotificationComponent } from './common/notification/notification.component';
+import { ReportComponent } from './common/report/report.component';
+import { CartComponent } from './common/cart/cart.component';
+import { ChatBotComponent } from './common/chat-bot/chat-bot.component';
 
 const routes: Routes = [
   {

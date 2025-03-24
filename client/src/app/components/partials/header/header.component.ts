@@ -19,7 +19,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { DialogModule } from 'primeng/dialog';
-import { NotificationComponent } from '../../notification/notification.component';
+import { NotificationComponent } from '../../common/notification/notification.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { BadgeModule } from 'primeng/badge';
 

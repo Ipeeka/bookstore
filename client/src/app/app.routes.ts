@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './shared/guard/auth.guard';
-import { CartComponent } from './components/cart/cart.component';
+import { CartComponent } from './components/common/cart/cart.component';
 import { NotFoundComponent } from './components/partials/not-found/not-found.component';
 
 export const routes: Routes = [

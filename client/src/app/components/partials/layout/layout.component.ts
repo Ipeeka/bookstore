@@ -11,7 +11,7 @@ import { CdkDrag } from '@angular/cdk/drag-drop';
 import { BadgeModule } from 'primeng/badge';
 import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
-import { ChatBotComponent } from '../../chat-bot/chat-bot.component';
+import { ChatBotComponent } from '../../common/chat-bot/chat-bot.component';
 import { Dialog, DialogModule } from 'primeng/dialog';
 
 @Component({
