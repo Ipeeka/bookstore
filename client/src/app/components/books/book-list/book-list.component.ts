@@ -347,6 +347,7 @@ toggleCart(bookId: string, currentCartStatus: boolean): void {
   }
 
   loadBooks(): void {
+    debugger
     this.bookService.getAllBooks().subscribe((books) => {
       this.books = books;
       this.dataSource.data = books;
@@ -372,11 +373,12 @@ toggleCart(bookId: string, currentCartStatus: boolean): void {
 
   openAddBookDialog(): void {
     this.isEditMode = false;
-    this.selectedBook = null;
+    //this.selectedBook = null;
     this.displayDialog = true;
   }
 
   openEditDialog(book: Book): void {
+    debugger
     this.isEditMode = true;
     this.selectedBook = book;
     this.displayDialog = true;
@@ -384,7 +386,7 @@ toggleCart(bookId: string, currentCartStatus: boolean): void {
 
   onDialogHide(): void {
     this.displayDialog = false;
-    this.selectedBook = null;
+    //this.selectedBook = null;
   }
   onBookSaved(newBook: any): void {
     console.log('New Book Added:', newBook);
@@ -392,11 +394,13 @@ toggleCart(bookId: string, currentCartStatus: boolean): void {
     this.displayDialog = false;
   }
 
-  onBookUpdate(newBook: any): void {
-    console.log('New Book Added:', newBook);
-    this.getBooks();
-    this.displayDialog = false;
+  onBookUpdate(updatedBook: any): void {
+    debugger
+    console.log('Updated Book:', updatedBook); 
+    this.getBooks(); 
+    this.displayDialog = false;  
   }
+  
   toggleFilter(): void {
     this.isFilterVisible = !this.isFilterVisible;
   }

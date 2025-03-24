@@ -220,7 +220,7 @@
               <button
                 mat-button
                 class="edit-btn"
-                (click)="openEditDialog(book._id)"
+                (click)="openEditDialog(book)"
               >
                 <i class="pi pi-pen-to-square"></i>
               </button>
@@ -608,7 +608,7 @@
   >
     @if(isEditMode){
       <edit-book
-        [book]="selectedBook"
+        [data]="selectedBook"
         (saveBook)="onBookUpdate($event)"
       ></edit-book>
     }

@@ -11,6 +11,7 @@ import { BookService } from '../../shared/services/book.service';
 import { Book } from '../books/book-list/book-list.component';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -21,6 +22,7 @@ import { ToastModule } from 'primeng/toast';
     ReactiveFormsModule,
     CardModule,
     ToastModule,
+    RouterLink
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [MessageService],

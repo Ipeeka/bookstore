@@ -89,13 +89,15 @@ export interface Book {
   styleUrls: ['./edit-book.component.css'],
 })
 export class EditBookComponent implements OnInit {
-  editBookForm!: FormGroup;
+  editBookForm: FormGroup;
   currentStep: number = 1;
-  @Input() data!: Book;
+  @Input() data: Book | null = null; 
 
-  displayDialog: boolean = false;
+  displayDialog: boolean = true
+  genres: string[] = ['Fiction', 'Non-fiction', 'Science', 'Fantasy'];
+  @Output() saveBook = new EventEmitter<boolean>();
   bookData: any = {};
-  @Output() saveBook = new EventEmitter<any>();
+
 
   statuses: any[] = [
     { label: 'In Stock', value: 'inStock' },
@@ -104,38 +106,48 @@ export class EditBookComponent implements OnInit {
     { label: 'Out of Stock', value: 'outOfStock' },
   ];
 
-  constructor(
-    private fb: FormBuilder,
-    private bookService: BookService,
-    private confirmationService: ConfirmationService,
-    private messageService: MessageService
-  ) {}
+  constructor(private fb: FormBuilder, private messageService: MessageService , private bookService: BookService, private confirmationService: ConfirmationService) {
+    this.editBookForm = this.fb.group({
+      title: ['', Validators.required],
+      author: ['', Validators.required],
+      publicationYear: [null, Validators.required],
+      price: [
+        '',
+        [Validators.required, Validators.pattern(/^[0-9]+(\.[0-9]{1,2})?$/)],
+      ],
+      genre: ['', Validators.required],
+
+      inventoryStatus: ['', Validators.required],
+      publisher: ['', Validators.required],
+      description: ['', Validators.required],
+      quantity: [1, Validators.required],
+    });
+  }
 
   ngOnInit(): void {
     console.log('Received Book Data:', this.data);
   
-    if (!this.data) {
-      console.error('No book data received!');
-      return;
-    }
-  
-    this.editBookForm = this.fb.group({
-      title: [this.data.title, Validators.required],
-      author: [this.data.author, Validators.required],
-      publicationYear: [this.data.publicationYear, Validators.required],
-      price: [
-        this.data.price,
-        [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)],
-      ],
-      genre: [this.data.genre, Validators.required],
-      inventoryStatus: [this.data.inventoryStatus, Validators.required],
-      publisher: [this.data.publisher, Validators.required],
-      quantity: [this.data.quantity, [Validators.required, Validators.min(1)]],
-      description: [this.data.description, Validators.required],
-    });
-  }
 
+    if (this.data) {
+      this.editBookForm.patchValue({
+         title: this.data.title,
+         author: this.data.author,
+         publicationYear: this.data.publicationYear,
+         price: this.data.price,
+         genre: this.data.genre,
+         inventoryStatus: this.data.inventoryStatus,
+         publisher: this.data.publisher,
+         description: this.data.description,
+         quantity: this.data.quantity,
+      });
+   } else {
+      console.error('No book data received!');
+   }
+   
+  }
+  
   update(): void {
+    debugger
     if (this.editBookForm.invalid) {
       this.messageService.add({
         severity: 'error',
@@ -145,29 +157,35 @@ export class EditBookComponent implements OnInit {
       });
       return;
     }
-
+  
+    const updatedBook = { ...this.data, ...this.editBookForm.value };
+    console.log('Updated Book:', updatedBook); 
+  
+    if (!updatedBook._id) {
+      console.error('Book ID is missing!');
+      return;
+    }
+  
     this.confirmationService.confirm({
       message: 'Are you sure you want to save the changes?',
       header: 'Confirm Update',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        const updatedBook = { ...this.data, ...this.editBookForm.value };
-
         this.bookService.updateBook(updatedBook._id, updatedBook).subscribe(
           (response) => {
             this.saveBook.emit(response);
             this.messageService.add({
               severity: 'success',
-              summary: 'Success',
-              detail: 'Book updated successfully',
+              summary: 'Book Updated',
+              detail: 'The book has been successfully updated.',
               life: 3000,
             });
           },
-          () => {
+          (error) => {
             this.messageService.add({
               severity: 'error',
               summary: 'Update Failed',
-              detail: 'Error updating book',
+              detail: 'Error updating book: ' + (error?.message || 'Unknown error'),
               life: 3000,
             });
           }
@@ -175,6 +193,7 @@ export class EditBookComponent implements OnInit {
       },
     });
   }
+  
 
   onCancel(): void {
     this.messageService.add({
