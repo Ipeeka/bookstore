@@ -1,4 +1,4 @@
-import { UpdateUserDTO } from '../DTOs/updateUserDTO';
+import { UpdateUserDTO } from '../updateUserDTO';
 
 export interface IUserService {
   deleteUser(id: string);

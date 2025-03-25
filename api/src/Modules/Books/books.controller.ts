@@ -8,8 +8,8 @@ import {
   Body,
   Query,
 } from '@nestjs/common';
-import { CreateBookDTO, UpdateBookDTO } from './DTOs/booksDTO';
-import { BooksService } from './Services/books.service';
+import { CreateBookDTO, UpdateBookDTO } from './booksDTO';
+import { BooksService } from './books.service';
 
 @Controller('books')
 export class BooksController {
@@ -101,7 +101,6 @@ export class BooksController {
     }
   }
 
-
   @Put(':id/addToCart')
   async toggleCart(
     @Param('id') id: string,
@@ -122,18 +121,18 @@ export class BooksController {
     }
   }
 
-// books.controller.ts
-@Delete(':id/removeFromCart')
-async removeFromCart(@Param('id') id: string) {
-  if (!id) {
-    throw new Error('Invalid book ID');
-  }
+  // books.controller.ts
+  @Delete(':id/removeFromCart')
+  async removeFromCart(@Param('id') id: string) {
+    if (!id) {
+      throw new Error('Invalid book ID');
+    }
 
-  try {
-    const updatedBook = await this.booksService.removeFromCart(id);
-    return { message: 'Removed from Cart successfully', book: updatedBook };
-  } catch (error) {
-    throw new Error(`Error in Removing from Cart: ${error.message}`);
+    try {
+      const updatedBook = await this.booksService.removeFromCart(id);
+      return { message: 'Removed from Cart successfully', book: updatedBook };
+    } catch (error) {
+      throw new Error(`Error in Removing from Cart: ${error.message}`);
+    }
   }
-}
 }

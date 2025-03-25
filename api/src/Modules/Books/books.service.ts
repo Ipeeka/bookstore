@@ -1,18 +1,19 @@
 import { Injectable } from '@nestjs/common';
-import { BooksRepository } from '../Repository/books.repository';
-import { CreateBookDTO, UpdateBookDTO } from '../DTOs/booksDTO';
-import { Book } from '../Repository/books.interface';
-import { BookDocument } from 'src/Entities/Books/books.schema';
-import { NotificationService } from 'src/notification/notification.service';  
+import { BooksRepository } from './books.repository';
+import { CreateBookDTO, UpdateBookDTO } from './booksDTO';
+import { BookDocument } from 'src/Modules/Books/books.schema';
+import { NotificationService } from 'src/notification/notification.service';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 
-
 @Injectable()
 export class BooksService {
-  constructor(private readonly booksRepository: BooksRepository, 
-     private readonly notificationService: NotificationService,
-     @InjectModel('Notification') private readonly notificationModel: Model<Notification>) {}
+  constructor(
+    private readonly booksRepository: BooksRepository,
+    private readonly notificationService: NotificationService,
+    @InjectModel('Notification')
+    private readonly notificationModel: Model<Notification>,
+  ) {}
 
   async addBook(createBookDTO: CreateBookDTO) {
     return this.booksRepository.createBook(createBookDTO);
@@ -51,7 +52,6 @@ export class BooksService {
 
       await this.booksRepository.deleteBook(id);
 
-      // Create and save the notification to the database
       const notification = new this.notificationModel({
         type: 'BOOK_DELETED',
         data: {
@@ -63,7 +63,6 @@ export class BooksService {
 
       await notification.save();
 
-      // Send the notification to the frontend
       this.notificationService.sendNotificationToAdmin(notification);
 
       return { message: 'Book deleted successfully' };
@@ -88,11 +87,7 @@ export class BooksService {
     return this.booksRepository.updateBookmarked(id, toggleBookmarked);
   }
 
-
-  async addToCart(
-    id: string,
-    toggleCart: boolean,
-  ): Promise<BookDocument> {
+  async addToCart(id: string, toggleCart: boolean): Promise<BookDocument> {
     const book = await this.booksRepository.findBookById(id);
     if (!book) {
       throw new Error('Book not found');
@@ -106,7 +101,7 @@ export class BooksService {
     if (!book) {
       throw new Error('Book not found');
     }
-    book.cartAdded = false; // Set cartAdded to false
+    book.cartAdded = false;
     return this.booksRepository.updateCartAdded(id, false);
   }
 }

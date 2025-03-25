@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
-import { Book, BookDocument } from 'src/Entities/Books/books.schema';
-import { CreateBookDTO, UpdateBookDTO } from '../DTOs/booksDTO';
+import { Book, BookDocument } from 'src/Modules/Books/books.schema';
+import { CreateBookDTO, UpdateBookDTO } from './booksDTO';
 
 @Injectable()
 export class BooksRepository {
@@ -89,8 +89,6 @@ export class BooksRepository {
     }
   }
 
-
-
   async updateCartAdded(id: string, toggleCart: boolean): Promise<Book> {
     try {
       const updatedBook = await this.bookModel.findByIdAndUpdate(
@@ -109,6 +107,4 @@ export class BooksRepository {
       );
     }
   }
-
-  
 }

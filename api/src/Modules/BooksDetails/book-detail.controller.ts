@@ -7,12 +7,9 @@ import {
   Put,
   Delete,
 } from '@nestjs/common';
-import { BookDetailsService } from './Services/book-detail.service';
-import { bookDetails } from 'src/Entities/BookDetails/book-detail.schema';
-import {
-  CreateBookDetailDTO,
-  UpdateBookDetailDTO,
-} from './DTOs/book-detailDTO';
+import { BookDetailsService } from './book-detail.service';
+import { bookDetails } from 'src/Modules/BooksDetails/book-detail.schema';
+import { CreateBookDetailDTO, UpdateBookDetailDTO } from './book-detailDTO';
 
 @Controller('books-detail')
 export class BookDetailsController {

@@ -19,10 +19,9 @@ import { NotificationModule } from './notification/notification.module';
     BooksModule,
     UserModule,
     BookDetailsModule,
-    NotificationModule
-   
+    NotificationModule,
   ],
   controllers: [AppController, GeminiController],
-  providers: [AppService, GeminiService,],
+  providers: [AppService, GeminiService],
 })
 export class AppModule {}

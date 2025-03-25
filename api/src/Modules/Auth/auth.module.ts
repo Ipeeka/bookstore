@@ -3,13 +3,13 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule } from '@nestjs/config';
 import { AuthController } from './auth.controller';
-import { User, UserSchema } from 'src/Entities/User/user.schema';
+import { User, UserSchema } from 'src/Modules/User/user.schema';
 import { AuthService } from './auth.service';
 import { AuthRepository } from './Repository/auth.repository';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { EmailService } from './email.service';
 import { UserModule } from '../User/user.module';
-import { UserService } from '../User/Services/user.service';
+import { UserService } from '../User/user.service';
 
 @Module({
   imports: [

@@ -12,9 +12,9 @@ import {
   UploadedFile,
   Post,
 } from '@nestjs/common';
-import { UserService } from './Services/user.service';
+
 import { Types } from 'mongoose';
-import { UpdateUserDTO } from './DTOs/updateUserDTO';
+
 import { diskStorage } from 'multer';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Request } from 'express';
@@ -23,6 +23,8 @@ import {
   ResetPasswordDTO,
 } from '../Auth/DTOs/forgot-password.dto';
 import { AuthService } from '../Auth/auth.service';
+import { UserService } from './user.service';
+import { UpdateUserDTO } from './updateUserDTO';
 
 @Controller('user')
 export class UserController {

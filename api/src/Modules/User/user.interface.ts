@@ -1,4 +1,4 @@
-import { UpdateUserDTO } from '../updateUserDTO';
+import { UpdateUserDTO } from './updateUserDTO';
 
 export interface IUserRepository {
   updateUser(id: string, updateUserDTO: UpdateUserDTO);

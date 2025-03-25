@@ -1,14 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import mongoose, { Model, Types } from 'mongoose';
-import {
-  CreateBookDetailDTO,
-  UpdateBookDetailDTO,
-} from '../DTOs/book-detailDTO';
+
 import {
   bookDetails,
   BookDetailsDocument,
-} from 'src/Entities/BookDetails/book-detail.schema';
+} from 'src/Modules/BooksDetails/book-detail.schema';
+import { CreateBookDetailDTO, UpdateBookDetailDTO } from './book-detailDTO';
 
 @Injectable()
 export class BookDetailsRepository {

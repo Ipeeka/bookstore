@@ -5,7 +5,7 @@ import { RegisterDTO } from './DTOs/registerDTO';
 import { LoginDTO } from 'src/Modules/Auth/DTOs/loginDTO';
 import * as bcrypt from 'bcrypt';
 import { EmailService } from './email.service';
-import { UserService } from '../User/Services/user.service';
+import { UserService } from '../User/user.service';
 import { randomBytes } from 'crypto';
 
 @Injectable()

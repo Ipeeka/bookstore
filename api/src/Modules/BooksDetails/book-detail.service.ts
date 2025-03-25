@@ -1,10 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { bookDetails } from 'src/Entities/BookDetails/book-detail.schema';
-import {
-  CreateBookDetailDTO,
-  UpdateBookDetailDTO,
-} from '../DTOs/book-detailDTO';
-import { BookDetailsRepository } from '../Repository/book-detail.repository';
+import { bookDetails } from 'src/Modules/BooksDetails/book-detail.schema';
+import { CreateBookDetailDTO, UpdateBookDetailDTO } from './book-detailDTO';
+import { BookDetailsRepository } from './book-detail.repository';
 
 @Injectable()
 export class BookDetailsService {

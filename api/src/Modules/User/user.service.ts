@@ -3,10 +3,9 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { UserRepository } from '../Repository/user.repository';
-import { IUserService } from './user.service.interface';
-import { UpdateUserDTO } from '../DTOs/updateUserDTO';
-import { debug } from 'console';
+import { UserRepository } from './user.repository';
+import { UpdateUserDTO } from './updateUserDTO';
+import { IUserService } from './Repository/user.service.interface';
 
 @Injectable()
 export class UserService implements IUserService {
