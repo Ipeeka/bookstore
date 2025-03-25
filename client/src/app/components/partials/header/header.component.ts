@@ -22,6 +22,7 @@ import { DialogModule } from 'primeng/dialog';
 import { NotificationComponent } from '../../common/notification/notification.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { BadgeModule } from 'primeng/badge';
+import { NotificationService } from '../../../shared/services/notification.service';
 
 @Component({
   selector: 'app-header',
@@ -51,10 +52,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
   userName: string = '';
   isLoggedIn: boolean = false;
   isAdmin: boolean = false;
+  unreadCount: number = 0; 
   searchQuery: string = '';
   profileItems: any[] = [];
   profileMenuVisible: boolean = false;
   private userSubscription: Subscription = new Subscription();
+  private notificationSubscription: Subscription = new Subscription();
+  
   notificationDialogVisible: boolean = false;
 
   constructor(
@@ -62,7 +66,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private router: Router,
     private bookService: BookService,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private notificationService: NotificationService,
+   
+    
   ) {}
 
   openNotificationDialog() {
@@ -70,6 +77,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.notificationSubscription = this.notificationService.getNotifications().subscribe(
+      () => {
+        this.unreadCount = this.notificationService.getUnreadCount();
+      }
+    );
     const currentUser = this.authService.currentUserSubject();
     if (currentUser) {
       this.userName = currentUser.userName;
@@ -125,8 +137,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    // Properly unsubscribe to avoid memory leaks
     if (this.userSubscription) {
       this.userSubscription.unsubscribe();
+    }
+    if (this.notificationSubscription) {
+      this.notificationSubscription.unsubscribe();
     }
   }
 

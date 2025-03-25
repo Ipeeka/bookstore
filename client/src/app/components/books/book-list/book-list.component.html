@@ -444,12 +444,9 @@
                                 [(ngModel)]="addedComments"
                               ></textarea>
                               <p>pls . be respectful to others</p>
-                              <button
-                                mat-icon-button
-                                (click)="saveBookDetails(element._id)"
-                              >
-                                Test
-                              </button>
+                              
+                              <p-button  icon="pi pi-send" iconPos="right" styleClass="send-button"  (click)="saveBookDetails(element._id)"></p-button>
+
                             </div>
 
                             <div

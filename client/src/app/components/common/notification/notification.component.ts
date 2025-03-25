@@ -1,35 +1,37 @@
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Subscription } from 'rxjs';
 import { NotificationService } from '../../../shared/services/notification.service';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-notification',
   standalone: true,
-  imports: [CommonModule, MatTooltipModule],
+  imports: [MatTooltipModule,CommonModule,FormsModule],
   templateUrl: './notification.component.html',
   styleUrls: ['./notification.component.css'],
 })
-export class NotificationComponent {
+export class NotificationComponent implements OnInit, OnDestroy {
   notifications: any[] = [];
   showNotifications: boolean = false;
   private subscription!: Subscription;
+  
 
   constructor(private notificationService: NotificationService) {}
 
   ngOnInit() {
+    // Subscribe to notifications
     this.subscription = this.notificationService.getNotifications().subscribe(
       (notifications) => {
-        console.log(notifications);  // Check if date is correct
+        console.log(notifications);  // Debugging: Ensure the notifications are being emitted
         this.notifications = notifications.map(notification => {
-          notification.date = new Date(notification.date); // Ensure it's a Date object
+          notification.date = new Date(notification.date);  // Format date properly
           return notification;
         });
       }
     );
   }
-  
 
   toggleNotifications() {
     this.showNotifications = !this.showNotifications;
@@ -37,7 +39,7 @@ export class NotificationComponent {
 
   markAllAsRead() {
     this.notificationService.markAllAsRead();
-    this.showNotifications = false;
+    this.showNotifications = false;  // Hide the notifications after marking them as read
   }
 
   get unreadCount(): number {
@@ -46,10 +48,8 @@ export class NotificationComponent {
 
   deleteNotification(notification: any) {
     // Handle notification deletion (remove from UI or notify the backend if necessary)
-    this.notifications = this.notifications.filter(
-      (n) => n !== notification
-    );
-    // You can also implement a service call to delete it from the backend if necessary
+    this.notifications = this.notifications.filter((n) => n !== notification);
+    this.notificationService.deleteNotification(notification);  // Optional: Call backend to delete the notification
   }
 
   ngOnDestroy() {

@@ -8,7 +8,8 @@ import { environment } from '../../../environments/environment.development';  //
 })
 export class NotificationService {
   private socket: Socket;
-  private notificationsSubject = new BehaviorSubject<any[]>([]);
+  private notificationsSubject = new BehaviorSubject<any[]>([]);  // Store all notifications
+  private notifications: any[] = [];  // Store notifications in memory
 
   constructor() {
     this.socket = io(environment.wsUrl, {  // Ensure you're using correct WebSocket URL from environment
@@ -23,25 +24,24 @@ export class NotificationService {
   }
 
   private setupSocketListeners() {
-    // Listening for the adminNotification event
+    // Listen for new notifications
     this.socket.on('adminNotification', (notification: any) => {
-      const currentNotifications = this.notificationsSubject.value;
-      this.notificationsSubject.next([notification, ...currentNotifications]);
-    });
-
-    this.socket.on('connect_error', (error: any) => {
-      console.error('WebSocket connection error:', error);
+      this.notifications = [notification, ...this.notifications];  // Add the new notification to the beginning
+      this.notificationsSubject.next(this.notifications);  // Emit the updated list of notifications
     });
   }
 
+  // Get notifications observable
   getNotifications(): Observable<any[]> {
     return this.notificationsSubject.asObservable();
   }
 
-  clearNotifications() {
-    this.notificationsSubject.next([]);
+  // Get unread notifications count
+  getUnreadCount(): number {
+    return this.notifications.filter((n) => !n.read).length;
   }
 
+  // Mark all notifications as read
   markAllAsRead(): void {
     const currentNotifications = this.notificationsSubject.value;
     const updatedNotifications = currentNotifications.map(notification => ({
@@ -49,5 +49,11 @@ export class NotificationService {
       read: true,
     }));
     this.notificationsSubject.next(updatedNotifications);
+  }
+
+  // Delete notification
+  deleteNotification(notification: any) {
+    this.notifications = this.notifications.filter((n) => n !== notification);
+    this.notificationsSubject.next(this.notifications);
   }
 }

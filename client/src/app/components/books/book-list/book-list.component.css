@@ -10,6 +10,12 @@
   width: 100%;
 }
 
+
+.send-button {
+  float: right;
+
+}
+
 .page-container {
   display: flex;
   flex-direction: column;

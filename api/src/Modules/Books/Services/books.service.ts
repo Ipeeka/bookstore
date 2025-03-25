@@ -4,12 +4,15 @@ import { CreateBookDTO, UpdateBookDTO } from '../DTOs/booksDTO';
 import { Book } from '../Repository/books.interface';
 import { BookDocument } from 'src/Entities/Books/books.schema';
 import { NotificationService } from 'src/notification/notification.service';  
+import { Model } from 'mongoose';
+import { InjectModel } from '@nestjs/mongoose';
 
 
 @Injectable()
 export class BooksService {
   constructor(private readonly booksRepository: BooksRepository, 
-     private readonly notificationService: NotificationService) {}
+     private readonly notificationService: NotificationService,
+     @InjectModel('Notification') private readonly notificationModel: Model<Notification>) {}
 
   async addBook(createBookDTO: CreateBookDTO) {
     return this.booksRepository.createBook(createBookDTO);
@@ -45,16 +48,23 @@ export class BooksService {
       if (!book) {
         throw new Error('Book not found');
       }
+
       await this.booksRepository.deleteBook(id);
 
-      this.notificationService.sendNotificationToAdmin({
-        type: 'You have removed the book.',
+      // Create and save the notification to the database
+      const notification = new this.notificationModel({
+        type: 'BOOK_DELETED',
         data: {
-          message: "Book deleted successfully",
+          message: 'Book deleted successfully',
           bookName: book.title,
-        }
+        },
+        read: false,
       });
 
+      await notification.save();
+
+      // Send the notification to the frontend
+      this.notificationService.sendNotificationToAdmin(notification);
 
       return { message: 'Book deleted successfully' };
     } catch (error) {
