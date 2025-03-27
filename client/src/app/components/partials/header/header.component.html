@@ -1,4 +1,4 @@
-<p-toolbar [style]="{ backgroundColor: '#ddd' }">
+<p-toolbar [style]="{ backgroundColor: '#F4F4F4' }">
   <div class="header">
     <img src="assets/logo.png" alt="Cart" style="width: 160px; height: 80px" />
   </div>
@@ -21,7 +21,7 @@
         [matTooltip]="'notification'"
         (click)="openNotificationDialog()"
       >
-      <i class="pi pi-bell text-2xl" [pBadge]="unreadCount" ></i>
+      <i class="pi pi-bell text-2xl" pBadge="unreadCount" ></i>
       </button>
     </div>
 

@@ -47,6 +47,7 @@ export class AuthService {
     return {
       message:
         'Registration successful. Please check your email to verify your account.',
+        
     };
   }
 

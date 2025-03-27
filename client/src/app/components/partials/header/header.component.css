@@ -50,11 +50,13 @@
   right: 20px;
   z-index: 1000;
   width: auto;
+  background-color: #F4F4F4 !important;
+  color: #050505;
 }
 
 .p-menu {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
+  background-color: #F4F4F4 !important;
   border-radius: 5px;
 }
 

@@ -12,8 +12,7 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: { transp
 
 @NgModule({
   declarations: [
-    AppComponent,
-    NotificationComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -21,6 +20,6 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: { transp
     SocketIoModule.forRoot(config),
   ],
   providers: [NotificationService, NotificationSocketService],
-  bootstrap: [AppComponent],
+  bootstrap: [],
 })
 export class AppModule {}
