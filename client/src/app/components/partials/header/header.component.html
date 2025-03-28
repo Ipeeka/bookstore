@@ -21,7 +21,7 @@
         [matTooltip]="'notification'"
         (click)="openNotificationDialog()"
       >
-      <i class="pi pi-bell text-2xl" pBadge="unreadCount" ></i>
+      <i class="pi pi-bell text-2xl" pBadge severity="danger"   [value]="unreadCount" ></i>
       </button>
     </div>
 

@@ -85,6 +85,7 @@ export class LayoutComponent {
           RouterLink: '/component/report',
           icon: 'pi pi-chart-bar',
         },
+        { name: 'Settings', RouterLink: '/book/lists', icon: 'pi pi-cog' },
       ],
       collapsed: true,
     },

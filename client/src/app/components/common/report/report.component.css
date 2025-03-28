@@ -1,0 +1,147 @@
+/* Add padding and margin for the card */
+.card {
+    padding: 20px;
+    margin: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling the card container for meter group */
+.flex {
+    display: flex;
+    align-items: center;
+}
+
+/* Styling for the meter label area */
+.flex-wrap {
+    flex-wrap: wrap;
+}
+
+.gap-4 {
+    gap: 1rem;
+}
+
+/* Card individual styling */
+.p-card {
+    border-radius: 8px;
+    padding: 15px;
+    background-color: #fafafa;
+}
+
+/* Styling the flex layout inside the card */
+.p-card .flex {
+    justify-content: space-between;
+}
+
+.p-card .text-surface-500 {
+    color: #757575;
+}
+
+.p-card .dark .text-surface-400 {
+    color: #b0b0b0;
+}
+
+.text-sm {
+    font-size: 0.875rem;
+}
+
+.font-bold {
+    font-weight: bold;
+}
+
+.text-lg {
+    font-size: 1.125rem;
+}
+
+/* Circle icon styling */
+.w-8 {
+    width: 2rem;
+}
+
+.h-8 {
+    height: 2rem;
+}
+
+.rounded-full {
+    border-radius: 9999px;
+}
+
+.inline-flex {
+    display: inline-flex;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.items-center {
+    align-items: center;
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* Meter bar styling */
+.p-meterGroup {
+    width: 100%;
+}
+
+.p-meterGroup .meter-bar {
+    height: 1rem;
+    border-radius: 0.5rem;
+}
+
+/* Start and End template styles */
+.relative {
+    position: relative;
+}
+
+.mt-4 {
+    margin-top: 1rem;
+}
+
+.mb-2 {
+    margin-bottom: 0.5rem;
+}
+
+.font-medium {
+    font-weight: 500;
+}
+
+/* Button styling */
+.p-button {
+    margin-top: 0.5rem;
+}
+
+.p-button[size='small'] {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+}
+
+.p-button[outlined='true'] {
+    border: 1px solid #007bff;
+    color: #007bff;
+}
+
+.p-button[size='small'] {
+    border-radius: 4px;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+    .flex-wrap {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .p-card {
+        width: 100%;
+    }
+
+    .p-button {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+}
