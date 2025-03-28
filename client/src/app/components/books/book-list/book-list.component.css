@@ -188,6 +188,8 @@
 
 table {
   width: 100%;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 tr.example-detail-row {
@@ -199,7 +201,9 @@ tr.example-detail-row {
   border-top: 1px solid transparent;
   cursor: pointer;
   text-align: left;
+  background-color:#ffffff ;
 }
+
 
 .mat-mdc-row:hover .mat-mdc-cell {
   border-color: currentColor;
