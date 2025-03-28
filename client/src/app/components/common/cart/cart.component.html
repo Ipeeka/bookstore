@@ -3,36 +3,69 @@
   <div class="container h-100">
     <h2 class="mb-4 ml-2 text-primary">Shopping Bag</h2>
 
-    
-    <div class="cart-container" [ngClass]="{'no-scroll': cartBooks.length === 0}">
-      <div *ngIf="cartBooks.length === 0" class="col-sm-12 empty-cart-cls text-center">
-        <img src="https://i.imgur.com/dCdflKN.png" width="130" height="100" class="img-fluid mb-4 mr-3">
+    <div
+      class="cart-container"
+      [ngClass]="{ 'no-scroll': cartBooks.length === 0 }"
+    >
+      <div
+        *ngIf="cartBooks.length === 0"
+        class="col-sm-12 empty-cart-cls text-center"
+      >
+        <img
+          src="https://i.imgur.com/dCdflKN.png"
+          width="130"
+          height="100"
+          class="img-fluid mb-4 mr-3"
+        />
         <h3><strong>Your Cart is Empty</strong></h3>
         <h4>Add something to make me happy :)</h4>
-        <a routerLink="/book/list"
-        class="btn btn-primary cart-btn-transform m-3">Continue Shopping</a>
+        <a
+          routerLink="/book/list"
+          class="btn btn-primary cart-btn-transform m-3"
+          >Continue Shopping</a
+        >
       </div>
     </div>
 
-    <div *ngIf="cartBooks.length > 0" class="row ml-2 d-flex justify-content-center align-items-center h-100">
+    <div
+      *ngIf="cartBooks.length > 0"
+      class="row ml-2 d-flex justify-content-center align-items-center h-100"
+    >
       <div class="col-md-12">
         <div class="row">
           <div class="col-12 mb-4" *ngFor="let book of cartBooks">
             <p-card class="w-100">
               <div class="card-body">
                 <div class="d-flex align-items-center">
-                  <!-- Image Section -->
                   <div class="col-md-3 d-flex flex-column align-items-center">
-                    <img [src]="book.img" class="img-fluid rounded-3 shadow-sm mb-3" alt="Book">
-                    <!-- Quantity Selector -->
+                    <img
+                      [src]="book.img"
+                      class="img-fluid rounded-3 shadow-sm mb-3"
+                      alt="Book"
+                    />
                     <div class="d-flex align-items-center">
-                      <button class="btn btn-outline-secondary btn-sm" (click)="updateQuantity(book._id, -1)">-</button>
-                      <input type="text" class="form-control text-center mx-2" style="width: 50px" [value]="book.quantity" readonly>
-                      <button class="btn btn-outline-secondary btn-sm" (click)="updateQuantity(book._id, 1)">+</button>
+                      <button
+                        class="btn btn-outline-secondary btn-sm"
+                        (click)="updateQuantity(book._id, -1)"
+                      >
+                        -
+                      </button>
+                      <input
+                        type="text"
+                        class="form-control text-center mx-2"
+                        style="width: 50px"
+                        [value]="book.quantity"
+                        readonly
+                      />
+                      <button
+                        class="btn btn-outline-secondary btn-sm"
+                        (click)="updateQuantity(book._id, 1)"
+                      >
+                        +
+                      </button>
                     </div>
                   </div>
 
-                  <!-- Details Section -->
                   <div class="col-md-9">
                     <table>
                       <tr>
@@ -43,18 +76,34 @@
                         <th>Price</th>
                       </tr>
                       <tr>
-                        <td><p class="text-dark mr-5">{{ book.title }}</p></td>
-                        <td><p class="text-dark mr-5">{{ book.author }}</p></td>
-                        <td><p class="text-dark mr-5">{{ book.genre }}</p></td>
-                        <td><p class="text-uppercase mr-5">{{ book.availability }}</p></td>
-                        <td><p class="text-dark mr-5">{{ book.price * book.quantity | currency }}</p></td>
+                        <td>
+                          <p class="text-dark mr-5">{{ book.title }}</p>
+                        </td>
+                        <td>
+                          <p class="text-dark mr-5">{{ book.author }}</p>
+                        </td>
+                        <td>
+                          <p class="text-dark mr-5">{{ book.genre }}</p>
+                        </td>
+                        <td>
+                          <p class="text-uppercase mr-5">
+                            {{ book.availability }}
+                          </p>
+                        </td>
+                        <td>
+                          <p class="text-dark mr-5">
+                            {{ book.price * book.quantity | currency }}
+                          </p>
+                        </td>
                       </tr>
                     </table>
 
-                    <!-- Remove Item Button -->
                     <div class="row mt-3">
                       <div class="col-md-12">
-                        <button class="btn btn-outline-danger btn-sm w-100" (click)="removeFromCart(book._id)">
+                        <button
+                          class="btn btn-outline-danger btn-sm w-100"
+                          (click)="removeFromCart(book._id)"
+                        >
                           Remove Item
                         </button>
                       </div>
@@ -66,25 +115,29 @@
           </div>
         </div>
 
-        <!-- Order Summary Section -->
-        <div class="card shadow-2-strong mb-5 w-100" style="border-radius: 16px">
+        <div
+          class="card shadow-2-strong mb-5 w-100"
+          style="border-radius: 16px"
+        >
           <div class="card-body p-4">
             <h5 class="mb-3 text-primary">Order Summary</h5>
             <div class="d-flex justify-content-between mb-2">
               <p>Subtotal</p>
-              <p class="font-weight-bold">${{ subtotal | number: "1.2-2" }}</p>
+              <p class="font-weight-bold">${{ subtotal | number : "1.2-2" }}</p>
             </div>
             <div class="d-flex justify-content-between mb-2">
               <p>Shipping</p>
-              <p class="font-weight-bold">${{ shippingCost | number: "1.2-2" }}</p>
+              <p class="font-weight-bold">
+                ${{ shippingCost | number : "1.2-2" }}
+              </p>
             </div>
             <hr />
             <div class="d-flex justify-content-between fw-bold">
               <p>Total</p>
-              <p>${{ total | number: "1.2-2" }}</p>
+              <p>${{ total | number : "1.2-2" }}</p>
             </div>
             <button class="btn btn-primary btn-lg btn-block mt-3">
-              <span>Checkout</span> <span>${{ total | number: "1.2-2" }}</span>
+              <span>Checkout</span> <span>${{ total | number : "1.2-2" }}</span>
             </button>
           </div>
         </div>

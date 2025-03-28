@@ -8,7 +8,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-notification',
   standalone: true,
-  imports: [MatTooltipModule,CommonModule,FormsModule],
+  imports: [MatTooltipModule, CommonModule, FormsModule],
   templateUrl: './notification.component.html',
   styleUrls: ['./notification.component.css'],
 })
@@ -16,21 +16,19 @@ export class NotificationComponent implements OnInit, OnDestroy {
   notifications: any[] = [];
   showNotifications: boolean = false;
   private subscription!: Subscription;
-  
 
   constructor(private notificationService: NotificationService) {}
 
   ngOnInit() {
-    // Subscribe to notifications
-    this.subscription = this.notificationService.getNotifications().subscribe(
-      (notifications) => {
-        console.log(notifications);  // Debugging: Ensure the notifications are being emitted
-        this.notifications = notifications.map(notification => {
-          notification.date = new Date(notification.date);  // Format date properly
+    this.subscription = this.notificationService
+      .getNotifications()
+      .subscribe((notifications) => {
+        console.log(notifications);
+        this.notifications = notifications.map((notification) => {
+          notification.date = new Date(notification.date);
           return notification;
         });
-      }
-    );
+      });
   }
 
   toggleNotifications() {
@@ -39,7 +37,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
 
   markAllAsRead() {
     this.notificationService.markAllAsRead();
-    this.showNotifications = false;  // Hide the notifications after marking them as read
+    this.showNotifications = false;
   }
 
   get unreadCount(): number {
@@ -47,9 +45,8 @@ export class NotificationComponent implements OnInit, OnDestroy {
   }
 
   deleteNotification(notification: any) {
-    // Handle notification deletion (remove from UI or notify the backend if necessary)
     this.notifications = this.notifications.filter((n) => n !== notification);
-    this.notificationService.deleteNotification(notification);  // Optional: Call backend to delete the notification
+    this.notificationService.deleteNotification(notification);
   }
 
   ngOnDestroy() {

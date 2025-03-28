@@ -1,15 +1,12 @@
-/* General body styles */
 body {
   background-color: #eee;
-  font-family: 'Calibri', sans-serif !important;
+  font-family: "Calibri", sans-serif !important;
 }
-
 
 .no-scrollbar {
   overflow: hidden;
   height: 100vh;
 }
-
 
 .h-custom {
   height: 100vh !important;
@@ -38,12 +35,12 @@ body {
 
 .card-body .row .col-md-12 strong {
   font-size: 14px;
-  color: #343a40; /* Dark text for labels */
+  color: #343a40;
 }
 
 .card-body .row .col-md-12 p {
   font-size: 14px;
-  color: #6c757d; /* Muted text for item details */
+  color: #6c757d;
 }
 
 .card-body .d-flex {
@@ -60,35 +57,34 @@ body {
 }
 
 .card-body .col-md-3 {
-  flex: 0 0 25%; /* 25% width for the image section */
+  flex: 0 0 25%;
   padding-right: 15px;
 }
 
 .card-body .col-md-9 {
-  flex: 0 0 75%; /* 75% width for the details section */
+  flex: 0 0 75%;
   padding-left: 15px;
 }
 
 .card-body h6.text-muted {
   font-size: 12px;
   font-weight: 600;
-  color: #6c757d; /* Lighter color for the headers */
+  color: #6c757d;
 }
 
 .card-body .row .col-md-12 p.text-dark {
   font-size: 14px;
-  color: #343a40; /* Dark text for details */
+  color: #343a40;
 }
 
 .card-body .row .col-md-12 p.text-success {
-  color: #28a745; /* Green color for "In Stock" */
+  color: #28a745;
 }
 
 .card-body .row .col-md-12 p.text-danger {
-  color: #dc3545; /* Red color for "Out of Stock" */
+  color: #dc3545;
 }
 
-/* Button styles */
 .card-body .btn-outline-danger {
   border-radius: 8px;
   padding: 10px;
@@ -122,7 +118,6 @@ body {
   background-color: #0056b3;
 }
 
-/* Cart Empty State */
 .empty-cart-cls {
   text-align: center;
   margin-top: 100px;
@@ -157,7 +152,6 @@ body {
   color: white;
 }
 
-/* Order Summary Section */
 .card.shadow-2-strong {
   border-radius: 16px;
 }
@@ -188,7 +182,6 @@ body {
   background-color: #3653d0;
 }
 
-/* Miscellaneous Styles */
 .container {
   padding: 30px 0;
 }
