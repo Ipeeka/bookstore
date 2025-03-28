@@ -6,12 +6,14 @@
   <span class="right">
     <p-button *ngIf="!isLoggedIn" label="Login" icon="pi pi-user"></p-button>
 
-    <div class="nav-btn" style="margin-right: 10px" routerLinkActive="active">
+    <div class="nav-btn" style="margin-right: 10px">
       <button
         class="cart fa-btn"
         style="border: none"
         [matTooltip]="'cart'"
         routerLink="/component/cart"
+        routerLinkActive="active" 
+        [routerLinkActiveOptions]="{ exact: true }" 
       >
         <i class="pi pi-shopping-cart text-2xl"></i>
       </button>
@@ -21,7 +23,7 @@
         [matTooltip]="'notification'"
         (click)="openNotificationDialog()"
       >
-      <i class="pi pi-bell text-2xl" pBadge severity="danger"   [value]="unreadCount" ></i>
+        <i class="pi pi-bell text-2xl" pBadge severity="danger" [value]="unreadCount"></i>
       </button>
     </div>
 
@@ -42,7 +44,6 @@
     </div>
   </span>
 </p-toolbar>
-
 <div class="card flex justify-center">
   <p-toast></p-toast>
 

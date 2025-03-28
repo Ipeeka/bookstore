@@ -4,11 +4,12 @@ import { Subscription } from 'rxjs';
 import { NotificationService } from '../../../shared/services/notification.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { DialogModule } from 'primeng/dialog';
 
 @Component({
   selector: 'app-notification',
   standalone: true,
-  imports: [MatTooltipModule, CommonModule, FormsModule],
+  imports: [MatTooltipModule, CommonModule, FormsModule,DialogModule],
   templateUrl: './notification.component.html',
   styleUrls: ['./notification.component.css'],
 })
@@ -31,6 +32,8 @@ export class NotificationComponent implements OnInit, OnDestroy {
       });
   }
 
+
+  
   toggleNotifications() {
     this.showNotifications = !this.showNotifications;
   }
