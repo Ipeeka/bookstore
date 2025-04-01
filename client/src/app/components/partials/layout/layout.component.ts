@@ -67,7 +67,7 @@ export class LayoutComponent {
   constantMenuItems = [
     { name: 'Book List', RouterLink: '/book/list', icon: 'fas fa-book' },
     // { name: 'Messages', RouterLink: '/book/liset', icon: 'fas fa-message' },
-    { name: 'Settings', RouterLink: '/book/lists', icon: 'pi pi-cog' },
+ 
 
     {
       name: 'More..',
@@ -89,6 +89,7 @@ export class LayoutComponent {
       ],
       collapsed: true,
     },
+    { name: 'Settings', RouterLink: '/book/lists', icon: 'pi pi-cog' },
   ];
   userMenuItems = [];
   adminMenuItems = [

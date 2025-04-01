@@ -46,7 +46,6 @@ import { ChangeDetectorRef } from '@angular/core';
 import { DialogModule } from 'primeng/dialog';
 import { SelectButton, SelectButtonModule } from 'primeng/selectbutton';
 
-
 export interface Book {
   _id: string;
   img: string;
@@ -63,8 +62,6 @@ export interface Book {
   inventoryStatus: 'inStock' | 'lowStock' | 'preOrder' | 'outOfStock';
   publisher: string;
 }
-
-
 
 interface Comment {
   bookId: number;
@@ -112,7 +109,7 @@ interface Comment {
     MatButtonToggleModule,
     DialogModule,
     AddBookComponent,
-    EditBookComponent
+    EditBookComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [ConfirmationService, MessageService],
@@ -127,9 +124,7 @@ export class BookListComponent implements AfterViewInit, OnInit {
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
     private authService: AuthService,
-    private cdRef: ChangeDetectorRef,
-    
-  
+    private cdRef: ChangeDetectorRef
   ) {}
 
   books: Book[] = [];
@@ -287,41 +282,36 @@ export class BookListComponent implements AfterViewInit, OnInit {
       }
     });
 
- 
-
     this.getBooks();
     this.loadBooks();
   }
 
- // book-list.component.ts
-toggleCart(bookId: string, currentCartStatus: boolean): void {
-  this.bookService.toggleCart(bookId, currentCartStatus).subscribe(
-    (response) => {
-      // Update the local state of the book
-      const book = this.books.find((b) => b._id === bookId);
-      if (book) {
-        book.cartAdded = !book.cartAdded; // Toggle the cart status
-      }
+  toggleCart(bookId: string, currentCartStatus: boolean): void {
+    this.bookService.toggleCart(bookId, currentCartStatus).subscribe(
+      (response) => {
+        const book = this.books.find((b) => b._id === bookId);
+        if (book) {
+          book.cartAdded = !book.cartAdded;
+        }
 
-      this.messageService.add({
-        severity: 'success',
-        summary: response.message,
-        detail: `Cart status toggled`,
-        life: 3000,
-      });
-    },
-    (error) => {
-      console.error('Error toggling cart:', error);
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Error',
-        detail: 'Failed to toggle cart',
-        life: 3000,
-      });
-    }
-  );
-}
- 
+        this.messageService.add({
+          severity: 'success',
+          summary: response.message,
+          detail: `Cart status toggled`,
+          life: 3000,
+        });
+      },
+      (error) => {
+        console.error('Error toggling cart:', error);
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Failed to toggle cart',
+          life: 3000,
+        });
+      }
+    );
+  }
 
   toggleBookmark(bookId: string, toggleBookmarked: boolean): void {
     this.bookService.toggleBookmark(bookId, toggleBookmarked).subscribe(
@@ -347,7 +337,6 @@ toggleCart(bookId: string, currentCartStatus: boolean): void {
   }
 
   loadBooks(): void {
- 
     this.bookService.getAllBooks().subscribe((books) => {
       this.books = books;
       this.dataSource.data = books;
@@ -361,7 +350,6 @@ toggleCart(bookId: string, currentCartStatus: boolean): void {
   getBooks(): void {
     this.bookService.getAllBooks().subscribe(
       (books) => {
-    
         this.books = books;
         this.dataSource.data = books;
       },
@@ -378,7 +366,6 @@ toggleCart(bookId: string, currentCartStatus: boolean): void {
   }
 
   openEditDialog(book: Book): void {
-
     this.isEditMode = true;
     this.selectedBook = book;
     this.displayDialog = true;
@@ -395,12 +382,11 @@ toggleCart(bookId: string, currentCartStatus: boolean): void {
   }
 
   onBookUpdate(updatedBook: any): void {
-  
-    console.log('Updated Book:', updatedBook); 
-    this.getBooks(); 
-    this.displayDialog = false;  
+    console.log('Updated Book:', updatedBook);
+    this.getBooks();
+    this.displayDialog = false;
   }
-  
+
   toggleFilter(): void {
     this.isFilterVisible = !this.isFilterVisible;
   }

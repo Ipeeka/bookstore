@@ -77,15 +77,20 @@
           <button
             mat-button
             class="add-to-cart-btn"
-            matTooltip="Add to Cart"
+            matTooltip="{{
+              book.cartAdded ? 'Remove from Cart' : 'Add to Cart'
+            }}"
+            (click)="toggleCart(book._id, book.cartAdded)"
          
           >
-            <i class="pi pi-cart-plus"></i>
+          <i class="pi" [ngClass]="book.cartAdded ? 'pi-cart-minus' : 'pi-cart-plus'"></i>
           </button>
           <button
             mat-button
             class="delete-btn"
             matTooltip="Remove Bookmark"
+            (click)="toggleBookmark(book._id, book.bookmarked)"
+            
           >
             <i class="pi pi-bookmark-fill"></i>
           </button>
